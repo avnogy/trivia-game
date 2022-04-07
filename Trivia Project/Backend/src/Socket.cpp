@@ -59,8 +59,10 @@ void Socket::connect(ip ip, port port)
 
 std::string Socket::recv(const size_t expectedSize)
 {
-	char* buffer = new char[expectedSize];
+	char* buffer = new char[expectedSize + 1];
 	std::string message;
+
+	buffer[expectedSize] = NULL;
 
 	if (::recv(m_socket, buffer, expectedSize, 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - recv");

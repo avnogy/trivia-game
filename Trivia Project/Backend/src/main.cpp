@@ -17,7 +17,7 @@ int main()
 
 		Socket client = server.accept();
 
-		std::cout << client.recv(6) << std::endl;
+		std::cout << client.recv(5) << std::endl;
 	}
 	catch (std::exception& e)
 	{
