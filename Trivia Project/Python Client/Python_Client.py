@@ -1,6 +1,4 @@
-import socket
-
-MESSAGE = "hello"
+from server import Server
 
 def main():
     print(" ----- python client ----- ")
