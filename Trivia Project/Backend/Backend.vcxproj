@@ -143,15 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="src\SocketError.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Communicator.h" />
     <ClInclude Include="include\Socket.h" />
     <ClInclude Include="include\SocketError.h" />
     <ClInclude Include="include\WSAInitializer.h" />
+    <ClInclude Include="Server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
