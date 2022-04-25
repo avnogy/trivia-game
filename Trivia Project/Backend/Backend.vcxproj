@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)bin/dist/$(ProjectName)/$(Configuration)/</OutDir>
-    <IntDir>$(ProjectDir)bin/intermediate/$(ProjectName)/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/dist/$(ProjectName)/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/intermediate/$(ProjectName)/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,12 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\IRequestHandler.cpp" />
+    <ClCompile Include="src\Json.cpp" />
+    <ClCompile Include="src\LoginRequestHandler.cpp" />
     <ClCompile Include="src\SocketError.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\IRequestHandler.h" />
+    <ClInclude Include="include\Json.h" />
+    <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\LoginRequestHandler.h" />
     <ClInclude Include="include\Socket.h" />
     <ClInclude Include="include\SocketError.h" />
     <ClInclude Include="include\WSAInitializer.h" />
