@@ -156,6 +156,7 @@
     <ClInclude Include="include\Socket.h" />
     <ClInclude Include="include\SocketError.h" />
     <ClInclude Include="include\WSAInitializer.h" />
+    <ClInclude Include="Server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

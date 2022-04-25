@@ -1,7 +1,7 @@
 #pragma comment (lib, "ws2_32.lib")
 
 #include "WSAInitializer.h"
-#include "Socket.h"
+#include "Server.h"
 #include <iostream>
 
 int main()
@@ -10,14 +10,9 @@ int main()
 	try
 	{
 		WSAInitializer wsaInit;
-		Socket server;
+		Server server;
 
-		server.bind(9876);
-		server.listen();
-
-		Socket client = server.accept();
-
-		std::cout << client.recv(5) << std::endl;
+		server.run();
 	}
 	catch (std::exception& e)
 	{
