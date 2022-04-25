@@ -78,3 +78,8 @@ void Socket::send(const std::string& message)
 	if (::send(m_socket, message.c_str(), message.size(), 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - send");
 }
+
+bool Socket::operator<(const Socket& otherSocket) const
+{
+	return m_socket < otherSocket.m_socket;
+}
