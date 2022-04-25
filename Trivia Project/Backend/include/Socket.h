@@ -32,5 +32,6 @@ public:
 	std::string recv(const size_t expectedSize);
 	void send(const std::string& message);
 
-	bool operator < (const Socket& otherSocket) const;
+	bool operator<(const Socket& otherSocket) const;
+
 };
