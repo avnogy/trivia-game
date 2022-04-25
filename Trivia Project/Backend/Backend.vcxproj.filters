@@ -27,10 +27,10 @@
     <ClCompile Include="src\WSAInitializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
+    <ClCompile Include="src\LoginRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Communicator.cpp">
+    <ClCompile Include="src\SignupRequest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClInclude Include="include\WSAInitializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
+    <ClInclude Include="include\LoginRequest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Communicator.h">
+    <ClInclude Include="include\SignupRequest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
