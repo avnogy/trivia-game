@@ -3,3 +3,7 @@
 JsonRequestPacketDeserializer::JsonRequestPacketDeserializer() {}
 
 JsonRequestPacketDeserializer::~JsonRequestPacketDeserializer() {}
+
+JsonResponsePacketSerializer::JsonResponsePacketSerializer() {}
+
+JsonResponsePacketSerializer::~JsonResponsePacketSerializer() {}

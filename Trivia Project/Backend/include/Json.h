@@ -5,6 +5,9 @@
 //********   delete when classes are linked   ********
 typedef loginRequest;
 typedef signupRequest;
+typedef ErrorResponse;
+typedef LoginResponse;
+typedef SignupResponse;
 //********   delete when classes are linked   ********
 
 
@@ -18,3 +21,13 @@ public:
 	static signupRequest deserializeSignupRequest(std::string buffer);
 };
 
+class JsonResponsePacketSerializer
+{
+public:
+	JsonResponsePacketSerializer();
+	~JsonResponsePacketSerializer();
+
+	static std::string serializeResponse(ErrorResponse response);
+	static std::string serializeResponse(LoginResponse response);
+	static std::string serializeResponse(SignupResponse response);
+};
