@@ -7,7 +7,7 @@ def main():
 
     #conneting to server
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.connect(('127.0.0.1', 9876))
+    server.connect(('127.0.0.1', 4206))
 
     server.send(MESSAGE.encode())
 

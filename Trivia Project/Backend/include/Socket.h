@@ -23,7 +23,7 @@ public:
 	//Server methods
 	void bind(port port);
 	void listen();
-	Socket accept();
+	Socket* accept();
 
 	//Client methods
 	void connect(ip ip, port port);
