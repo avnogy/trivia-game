@@ -143,12 +143,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\LoginRequest.cpp" />
+    <ClCompile Include="src\SignupRequest.cpp" />
     <ClCompile Include="src\SocketError.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\LoginRequest.h" />
+    <ClInclude Include="include\SignupRequest.h" />
     <ClInclude Include="include\Socket.h" />
     <ClInclude Include="include\SocketError.h" />
     <ClInclude Include="include\WSAInitializer.h" />
