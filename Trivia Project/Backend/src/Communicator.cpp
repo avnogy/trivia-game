@@ -41,6 +41,6 @@ void Communicator::startHandleRequest()
 		t_handleNewClient.detach();
 
 		//saving new connection
-		m_clients.insert({ newClient, IRequestHandler() });
+		m_clients.insert({ newClient, nullptr });
 	}
 }
