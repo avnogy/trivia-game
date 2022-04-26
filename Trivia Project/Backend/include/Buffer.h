@@ -15,7 +15,6 @@ private:
 public:
 	Buffer() = default;
 	Buffer(Status status, const std::string& message);
-	Buffer(const nlohmann::json& json);
 
 	Status status() const;
 	std::string message() const;
