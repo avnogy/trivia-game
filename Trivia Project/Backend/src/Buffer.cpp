@@ -39,17 +39,17 @@ Status Buffer::status() const
 /// get the message from the buffer
 /// </summary>
 /// <returns>the message in the buffer</returns>
-std::string Buffer::message() const
+std::string Buffer::content() const
 {
-	std::string message;
+	std::string content;
 	auto it = m_buffer.begin() + 2; //skip status and size
 
 	for (it; it != m_buffer.end(); ++it)
 	{
-		message += *it;
+		content += *it;
 	}
 
-	return message;
+	return content;
 }
 
 /// <summary>

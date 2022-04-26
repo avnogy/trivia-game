@@ -17,7 +17,6 @@ public:
 	Buffer(Status status, const std::string& message);
 
 	Status status() const;
-	std::string message() const;
-
+	std::string content() const;
 	std::vector<Byte> buffer() const;
 };
