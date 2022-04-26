@@ -1,7 +1,6 @@
 #pragma once
 #include "json.hpp"
 #include <vector>
-#include "Buffer.h"
 #include "LoginResponse.h"
 #include "SignupResponse.h"
 #include "ErrorResponse.h"
@@ -13,7 +12,7 @@ public:
 	JsonRequestPacketSerializer() = default;
 	~JsonRequestPacketSerializer() = default;
 
-	static Buffer serializeResponse(ErrorResponse response);
-	static Buffer serializeResponse(LoginResponse response);
-	static Buffer serializeResponse(SignupResponse response);
+	static std::string serializeResponse(ErrorResponse response);
+	static std::string serializeResponse(LoginResponse response);
+	static std::string serializeResponse(SignupResponse response);
 };

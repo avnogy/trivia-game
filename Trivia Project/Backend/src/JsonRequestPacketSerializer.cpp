@@ -5,11 +5,11 @@
 /// </summary>
 /// <param name="response">error response</param>
 /// <returns>serialized response</returns>
-Buffer JsonRequestPacketSerializer::serializeResponse(ErrorResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(ErrorResponse response)
 {
 	nlohmann::json json;
 	json["message"] = response.message;
-	return Buffer(0, json.dump());
+	return json.dump();
 }
 
 /// <summary>
@@ -17,11 +17,11 @@ Buffer JsonRequestPacketSerializer::serializeResponse(ErrorResponse response)
 /// </summary>
 /// <param name="response">login response</param>
 /// <returns>serialized response</returns>
-Buffer JsonRequestPacketSerializer::serializeResponse(LoginResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(LoginResponse response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	return Buffer(1, json.dump());
+	return json.dump();
 }
 
 /// <summary>
@@ -29,9 +29,9 @@ Buffer JsonRequestPacketSerializer::serializeResponse(LoginResponse response)
 /// </summary>
 /// <param name="response">signup response</param>
 /// <returns>serialized response</returns>
-Buffer JsonRequestPacketSerializer::serializeResponse(SignupResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(SignupResponse response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	return Buffer(1, json.dump());
+	return json.dump();
 }

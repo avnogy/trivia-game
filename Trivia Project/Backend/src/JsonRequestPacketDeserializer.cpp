@@ -8,9 +8,9 @@
 ///		The message is json content
 /// </param>
 /// <returns>Login Request containing the json content</returns>
-LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer& buffer)
+LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const std::string& buffer)
 {
-	json bufferContent = json::parse(buffer.content());
+	json bufferContent = json::parse(buffer);
 
 	return LoginRequest{
 		bufferContent["username"],
@@ -26,9 +26,9 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer
 ///		The message is json content
 /// </param>
 /// <returns>Signup Request containing the json content</returns>
-SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(const Buffer& buffer)
+SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(const std::string& buffer)
 {
-	json bufferContent = json::parse(buffer.content());
+	json bufferContent = json::parse(buffer);
 
 	return SignupRequest{
 		bufferContent["username"],

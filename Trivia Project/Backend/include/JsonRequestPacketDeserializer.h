@@ -2,7 +2,6 @@
 #include "json.hpp"
 #include <vector>
 #include <string>
-#include "Buffer.h"
 #include "LoginRequest.h"
 #include "SignupRequest.h"
 
@@ -14,6 +13,6 @@ public:
 	JsonRequestPacketDeserializer() = default;
 	~JsonRequestPacketDeserializer() = default;
 
-	static LoginRequest deserializeLoginRequest(const Buffer& buffer);
-	static SignupRequest deserializeSignupRequest(const Buffer& buffer);
+	static LoginRequest deserializeLoginRequest(const std::string& buffer);
+	static SignupRequest deserializeSignupRequest(const std::string& buffer);
 };

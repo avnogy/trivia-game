@@ -18,7 +18,15 @@ void Communicator::bindAndListen()
 void Communicator::handleNewClient(Socket** socket)
 {
 	Socket& client = **socket;
-	std::cout << client.recv(5) << std::endl;
+
+	//receiving message
+	unsigned short status = stoi(client.recv(1));
+	unsigned int contentSize = stoi(client.recv(4));
+	std::string content = client.recv(contentSize);
+
+	LoginRequest loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(content);
+	std::cout << loginRequest.username << "\t" << loginRequest.password << std::endl;
+
 	*socket = nullptr;
 	delete* socket;
 }
