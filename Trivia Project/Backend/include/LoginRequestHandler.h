@@ -1,8 +1,8 @@
 #pragma once
 #include "IRequestHandler.h"
 
-class LoginRequestHandler : IRequestHandler
+class LoginRequestHandler : public IRequestHandler
 {
-	bool isRequestRelevant(RequestInfo requestInfo) override;
-	RequestResult handleRequest(RequestInfo requestInfo) override;
+	bool isRequestRelevant(const RequestInfo& requestInfo) const override;
+	RequestResult handleRequest(const RequestInfo& requestInfo) const override;
 };
