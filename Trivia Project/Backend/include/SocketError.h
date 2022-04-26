@@ -2,7 +2,7 @@
 #include <string>
 #include <exception>
 
-class SocketError : std::exception
+class SocketError : public std::exception
 {
 private:
 	const std::string m_errorMessage;
