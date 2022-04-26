@@ -1,19 +1,17 @@
 #include "Socket.h"
 #pragma warning(disable:4996)
 
-
 /// <summary>
-/// Encapsulating an existing winapi SOCKET
+/// Creating a new Socket object from a WINAPI's "SOCKET".
 /// </summary>
-/// <param name="socket">winapi socket to encapsulate</param>
+/// <param name="socket">WINAPI's "SOCKET" to create an object from</param>
 Socket::Socket(SOCKET socket) :
 	m_socket(socket)
 {
 }
 
-
 /// <summary>
-/// Creating a new Socket
+/// Creating a new socket
 /// </summary>
 Socket::Socket() :
 	m_socket(socket(AF_INET, SOCK_STREAM, IPPROTO_TCP))
@@ -22,9 +20,8 @@ Socket::Socket() :
 		throw SocketError("Unable to create socket");
 }
 
-
 /// <summary>
-/// Destroying an existing Socket
+/// Destroying this socket
 /// </summary>
 Socket::~Socket()
 {
@@ -33,7 +30,7 @@ Socket::~Socket()
 }
 
 /// <summary>
-/// Connecting Socket to a specific port
+/// Binding this socket with a certain port
 /// </summary>
 /// <param name="port">port to bind this socket to</param>
 void Socket::bind(port port)
@@ -47,9 +44,8 @@ void Socket::bind(port port)
 		throw std::exception(__FUNCTION__ " - bind");
 }
 
-
 /// <summary>
-/// Start to wait for new connections
+/// Start listenning to new connection
 /// </summary>
 void Socket::listen()
 {
@@ -58,24 +54,24 @@ void Socket::listen()
 }
 
 /// <summary>
-/// Accepting a standby client
+/// Accepting a new connection
 /// </summary>
-/// <returns>Socket representing the new client accepted</returns>
-Socket Socket::accept()
+/// <returns>Socket of new connection</returns>
+Socket* Socket::accept()
 {
 	SOCKET client = ::accept(m_socket, NULL, NULL);
 
 	if (client == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - accept");
 
-	return Socket(client);
+	return new Socket(client);
 }
 
 /// <summary>
-/// Connecting his socket to a server socket
+/// Making a connection between this socket and a server
 /// </summary>
-/// <param name="ip">ip of the server</param>
-/// <param name="port">port the server listenning to</param>
+/// <param name="ip">server's ip</param>
+/// <param name="port">server's port</param>
 void Socket::connect(ip ip, port port)
 {
 	sockaddr_in sa = { 0 };
@@ -88,10 +84,10 @@ void Socket::connect(ip ip, port port)
 }
 
 /// <summary>
-/// Receive messages from this socket.
+/// Receiving a message from this socket
 /// </summary>
-/// <param name="expectedSize">the expected size of the incomming message</param>
-/// <returns>a string representing the received message</returns>
+/// <param name="expectedSize">amount of bytes to receive</param>
+/// <returns>string representing the received message</returns>
 std::string Socket::recv(const size_t expectedSize)
 {
 	char* buffer = new char[expectedSize + 1];
@@ -108,24 +104,21 @@ std::string Socket::recv(const size_t expectedSize)
 	return message;
 }
 
-
 /// <summary>
-/// Sending a message to this socket.
+/// Sending a message to this socket
 /// </summary>
-/// <param name="message">string representing the message to send</param>
+/// <param name="message">Message to send</param>
 void Socket::send(const std::string& message)
 {
 	if (::send(m_socket, message.c_str(), message.size(), 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - send");
 }
 
-
-
 /// <summary>
-/// Overloading the < operator so this class can be used as a map key
+/// This method is being used so the Socket can be a map key
 /// </summary>
-/// <param name="otherSocket">another socket to compare to this socket</param>
-/// <returns>whether this socket should go before the other socket (in the map order)</returns>
+/// <param name="otherSocket">other socket to compare this socket to</param>
+/// <returns>how to order the sockets</returns>
 bool Socket::operator<(const Socket& otherSocket) const
 {
 	return m_socket < otherSocket.m_socket;

@@ -1,63 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\IRequestHandler.cpp" />
+    <ClCompile Include="src\LoginRequestHandler.cpp" />
+    <ClCompile Include="src\SocketError.cpp" />
+    <ClCompile Include="src\Socket.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\WSAInitializer.cpp" />
+    <ClCompile Include="src\Communicator.cpp" />
+    <ClCompile Include="src\Server.cpp" />
+    <ClCompile Include="src\JsonPackerDeserializer.cpp" />
+    <ClCompile Include="src\JsonPacketSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Socket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SocketError.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\WSAInitializer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LoginRequestHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IRequestHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Json.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Socket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SocketError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\WSAInitializer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LoginRequestHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Json.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IRequestHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="include\IRequestHandler.h" />
+    <ClInclude Include="include\JsonPackerDeserializer.h" />
+    <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\LoginRequestHandler.h" />
+    <ClInclude Include="include\Socket.h" />
+    <ClInclude Include="include\SocketError.h" />
+    <ClInclude Include="include\WSAInitializer.h" />
+    <ClInclude Include="include\Communicator.h" />
+    <ClInclude Include="include\LoginRequest.h" />
+    <ClInclude Include="include\RequestInfo.h" />
+    <ClInclude Include="include\RequestResult.h" />
+    <ClInclude Include="include\Server.h" />
+    <ClInclude Include="include\SignupRequest.h" />
+    <ClInclude Include="include\LoginResponse.h" />
+    <ClInclude Include="include\SignupResponse.h" />
+    <ClInclude Include="include\ErrorResponse.h" />
+    <ClInclude Include="include\JsonPacketSerializer.h" />
   </ItemGroup>
 </Project>

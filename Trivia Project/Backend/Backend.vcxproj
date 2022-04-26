@@ -143,19 +143,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\JsonPacketSerializer.cpp" />
+    <ClCompile Include="src\JsonPackerDeserializer.cpp" />
+    <ClCompile Include="src\Communicator.cpp" />
     <ClCompile Include="src\IRequestHandler.cpp" />
-    <ClCompile Include="src\Json.cpp" />
     <ClCompile Include="src\LoginRequestHandler.cpp" />
+    <ClCompile Include="src\Server.cpp" />
     <ClCompile Include="src\SocketError.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Communicator.h" />
+    <ClInclude Include="include\ErrorResponse.h" />
     <ClInclude Include="include\IRequestHandler.h" />
-    <ClInclude Include="include\Json.h" />
+    <ClInclude Include="include\JsonPackerDeserializer.h" />
     <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\JsonPacketSerializer.h" />
+    <ClInclude Include="include\LoginRequest.h" />
     <ClInclude Include="include\LoginRequestHandler.h" />
+    <ClInclude Include="include\LoginResponse.h" />
+    <ClInclude Include="include\RequestInfo.h" />
+    <ClInclude Include="include\RequestResult.h" />
+    <ClInclude Include="include\Server.h" />
+    <ClInclude Include="include\SignupRequest.h" />
+    <ClInclude Include="include\SignupResponse.h" />
     <ClInclude Include="include\Socket.h" />
     <ClInclude Include="include\SocketError.h" />
     <ClInclude Include="include\WSAInitializer.h" />
