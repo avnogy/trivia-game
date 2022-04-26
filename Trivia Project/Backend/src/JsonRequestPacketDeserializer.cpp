@@ -1,11 +1,38 @@
-#include "JsonPackerDeserializer.h"
+#include "JsonRequestPacketDeserializer.h"
 
-LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(Buffer buffer)
+/// <summary>
+/// deserialize a buffer (message from client)
+/// </summary>
+/// <param name="buffer">
+///		buffer looks like this: <status><message size><message>
+///		The message is json content
+/// </param>
+/// <returns>Login Request containing the json content</returns>
+LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest(const Buffer& buffer)
 {
-	return LoginRequest();
+	json bufferContent = json::parse(buffer.content());
+
+	return LoginRequest{
+		bufferContent["username"],
+		bufferContent["password"]
+	};
 }
 
-SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(Buffer buffer)
+/// <summary>
+/// deserialize a buffer (message from client)
+/// </summary>
+/// <param name="buffer">
+///		buffer looks like this: <status><message size><message>
+///		The message is json content
+/// </param>
+/// <returns>Signup Request containing the json content</returns>
+SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest(const Buffer& buffer)
 {
-	return SignupRequest();
+	json bufferContent = json::parse(buffer.content());
+
+	return SignupRequest{
+		bufferContent["username"],
+		bufferContent["password"],
+		bufferContent["email"]
+	};
 }
