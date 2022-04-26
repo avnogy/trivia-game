@@ -26,6 +26,12 @@ Buffer::Buffer(Status status, const std::string& message)
 	}
 }
 
+Buffer::Buffer(const nlohmann::json& json)
+{
+	Buffer buffer(json["status"], json.dump());
+	m_buffer = buffer.m_buffer;
+}
+
 /// <summary>
 /// get the status of the message from the buffer
 /// </summary>
