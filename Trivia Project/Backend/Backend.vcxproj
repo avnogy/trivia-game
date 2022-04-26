@@ -143,10 +143,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\JsonPacketSerializer.cpp" />
-    <ClCompile Include="src\JsonPackerDeserializer.cpp" />
     <ClCompile Include="src\Communicator.cpp" />
     <ClCompile Include="src\IRequestHandler.cpp" />
+    <ClCompile Include="src\JsonRequestPacketDeserializer.cpp" />
+    <ClCompile Include="src\JsonRequestPacketSerializer.cpp" />
     <ClCompile Include="src\LoginRequestHandler.cpp" />
     <ClCompile Include="src\Server.cpp" />
     <ClCompile Include="src\SocketError.cpp" />
@@ -161,6 +161,8 @@
     <ClInclude Include="include\JsonPackerDeserializer.h" />
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\JsonPacketSerializer.h" />
+    <ClInclude Include="include\JsonRequestPacketDeserializer.h" />
+    <ClInclude Include="include\JsonRequestPacketSerializer.h" />
     <ClInclude Include="include\LoginRequest.h" />
     <ClInclude Include="include\LoginRequestHandler.h" />
     <ClInclude Include="include\LoginResponse.h" />
