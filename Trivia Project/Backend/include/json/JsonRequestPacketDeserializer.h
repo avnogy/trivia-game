@@ -1,9 +1,9 @@
 #pragma once
-#include "json.hpp"
+#include "json/json.hpp"
 #include <vector>
 #include <string>
-#include "LoginRequest.h"
-#include "SignupRequest.h"
+#include "requests/LoginRequest.h"
+#include "requests/SignupRequest.h"
 
 using namespace nlohmann;
 

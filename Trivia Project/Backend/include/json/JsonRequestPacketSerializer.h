@@ -1,9 +1,9 @@
 #pragma once
-#include "json.hpp"
+#include "json/json.hpp"
 #include <vector>
-#include "LoginResponse.h"
-#include "SignupResponse.h"
-#include "ErrorResponse.h"
+#include "responses/LoginResponse.h"
+#include "responses/SignupResponse.h"
+#include "responses/ErrorResponse.h"
 
 class JsonRequestPacketSerializer
 {

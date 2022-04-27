@@ -1,5 +1,5 @@
 #pragma once
-#include "Communicator.h"
+#include "server/Communicator.h"
 
 class Server
 {

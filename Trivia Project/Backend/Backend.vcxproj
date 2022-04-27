@@ -143,37 +143,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Communicator.cpp" />
-    <ClCompile Include="src\IRequestHandler.cpp" />
-    <ClCompile Include="src\JsonRequestPacketDeserializer.cpp" />
-    <ClCompile Include="src\JsonRequestPacketSerializer.cpp" />
-    <ClCompile Include="src\LoginRequestHandler.cpp" />
-    <ClCompile Include="src\Server.cpp" />
-    <ClCompile Include="src\SocketError.cpp" />
-    <ClCompile Include="src\Socket.cpp" />
+    <ClCompile Include="src\handlers\IRequestHandler.cpp" />
+    <ClCompile Include="src\json\JsonRequestPacketDeserializer.cpp" />
+    <ClCompile Include="src\json\JsonRequestPacketSerializer.cpp" />
+    <ClCompile Include="src\handlers\LoginRequestHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\WSAInitializer.cpp" />
+    <ClCompile Include="src\server\Communicator.cpp" />
+    <ClCompile Include="src\server\Server.cpp" />
+    <ClCompile Include="src\server\Socket.cpp" />
+    <ClCompile Include="src\server\SocketError.cpp" />
+    <ClCompile Include="src\server\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Communicator.h" />
-    <ClInclude Include="include\ErrorResponse.h" />
-    <ClInclude Include="include\IRequestHandler.h" />
+    <ClInclude Include="include\server\Communicator.h" />
+    <ClInclude Include="include\responses\ErrorResponse.h" />
+    <ClInclude Include="include\handlers\IRequestHandler.h" />
     <ClInclude Include="include\JsonPackerDeserializer.h" />
-    <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\json\json.hpp" />
     <ClInclude Include="include\JsonPacketSerializer.h" />
-    <ClInclude Include="include\JsonRequestPacketDeserializer.h" />
-    <ClInclude Include="include\JsonRequestPacketSerializer.h" />
-    <ClInclude Include="include\LoginRequest.h" />
-    <ClInclude Include="include\LoginRequestHandler.h" />
-    <ClInclude Include="include\LoginResponse.h" />
-    <ClInclude Include="include\RequestInfo.h" />
-    <ClInclude Include="include\RequestResult.h" />
-    <ClInclude Include="include\Server.h" />
-    <ClInclude Include="include\SignupRequest.h" />
-    <ClInclude Include="include\SignupResponse.h" />
-    <ClInclude Include="include\Socket.h" />
-    <ClInclude Include="include\SocketError.h" />
-    <ClInclude Include="include\WSAInitializer.h" />
+    <ClInclude Include="include\json\JsonRequestPacketDeserializer.h" />
+    <ClInclude Include="include\json\JsonRequestPacketSerializer.h" />
+    <ClInclude Include="include\requests\LoginRequest.h" />
+    <ClInclude Include="include\handlers\LoginRequestHandler.h" />
+    <ClInclude Include="include\responses\LoginResponse.h" />
+    <ClInclude Include="include\requests\RequestInfo.h" />
+    <ClInclude Include="include\requests\RequestResult.h" />
+    <ClInclude Include="include\server\Server.h" />
+    <ClInclude Include="include\requests\SignupRequest.h" />
+    <ClInclude Include="include\responses\SignupResponse.h" />
+    <ClInclude Include="include\server\Socket.h" />
+    <ClInclude Include="include\server\SocketError.h" />
+    <ClInclude Include="include\server\WSAInitializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

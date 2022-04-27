@@ -1,12 +1,12 @@
 #pragma once
-#include "Socket.h"
-#include "IRequestHandler.h"
+#include "server/Socket.h"
+#include "handlers/IRequestHandler.h"
 #include <map>
-#include "LoginRequest.h"
-#include "JsonRequestPacketDeserializer.h"
+#include "requests/LoginRequest.h"
+#include "json/JsonRequestPacketDeserializer.h"
 
 //delete when we'll develop request handlers
-#include "LoginRequestHandler.h"
+#include "handlers/LoginRequestHandler.h"
 
 #define PORT 4206
 

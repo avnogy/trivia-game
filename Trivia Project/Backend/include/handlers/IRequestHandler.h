@@ -1,6 +1,6 @@
 #pragma once
-#include "RequestInfo.h"
-#include "RequestResult.h"
+#include "requests/RequestInfo.h"
+#include "requests/RequestResult.h"
 
 class IRequestHandler
 {
