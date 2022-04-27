@@ -12,7 +12,7 @@ public:
 	JsonRequestPacketSerializer() = default;
 	~JsonRequestPacketSerializer() = default;
 
-	static std::string serializeResponse(ErrorResponse response);
-	static std::string serializeResponse(LoginResponse response);
-	static std::string serializeResponse(SignupResponse response);
+	static std::string serializeResponse(const ErrorResponse& response);
+	static std::string serializeResponse(const LoginResponse& response);
+	static std::string serializeResponse(const SignupResponse& response);
 };

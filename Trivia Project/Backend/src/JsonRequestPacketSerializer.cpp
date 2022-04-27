@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="response">error response</param>
 /// <returns>serialized response</returns>
-std::string JsonRequestPacketSerializer::serializeResponse(ErrorResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(const ErrorResponse& response)
 {
 	nlohmann::json json;
 	json["message"] = response.message;
@@ -17,7 +17,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(ErrorResponse respons
 /// </summary>
 /// <param name="response">login response</param>
 /// <returns>serialized response</returns>
-std::string JsonRequestPacketSerializer::serializeResponse(LoginResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(const LoginResponse& response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
@@ -29,7 +29,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(LoginResponse respons
 /// </summary>
 /// <param name="response">signup response</param>
 /// <returns>serialized response</returns>
-std::string JsonRequestPacketSerializer::serializeResponse(SignupResponse response)
+std::string JsonRequestPacketSerializer::serializeResponse(const SignupResponse& response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
