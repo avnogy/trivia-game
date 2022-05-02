@@ -5,10 +5,12 @@
 #include <iostream>
 #include <io.h>
 
+#define ACCESS_CODE 6
+
 class SqliteDataBase : public IDatabase
 {
 public:
-	SqliteDataBase();
+	SqliteDataBase(std::string databasePath);
 	~SqliteDataBase();
 	
 	void sqlexec(std::string msg);
