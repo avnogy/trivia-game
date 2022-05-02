@@ -37,3 +37,29 @@ void SqliteDataBase::sqlexec(std::string msg)
 	std::cout << res;
 	//****************
 }
+
+
+bool SqliteDataBase::doesUserExist(std::string username)
+{
+	struct sqlite3_stmt* selectstmt;
+	int result = sqlite3_prepare_v2(db, ("SELECT * FROM USERS WHERE USERNAME = " + username + ";").c_str(), -1, &selectstmt, NULL);
+
+	if (result == SQLITE_OK)
+	{
+		bool found = sqlite3_step(selectstmt) == SQLITE_ROW; //if row was returned the user exists
+		sqlite3_finalize(selectstmt);
+		return found;
+	}
+}
+
+bool SqliteDataBase::doesPasswordMatch(std::string username, std::string password)
+{
+	struct sqlite3_stmt* selectstmt;
+	int result = sqlite3_prepare_v2(db, ("SELECT * FROM USERS WHERE USERNAME = " + username + " AND PASSWORD = "+ password +"; ").c_str(), -1, &selectstmt, NULL); 
+	if (result == SQLITE_OK)
+	{
+		bool match = sqlite3_step(selectstmt) == SQLITE_ROW;	//if row was returned the passwoed matches
+		sqlite3_finalize(selectstmt);
+		return match;
+	}
+}

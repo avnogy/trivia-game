@@ -15,7 +15,7 @@ public:
 	~SqliteDataBase();
 	
 	void sqlexec(std::string msg);
-
+	
 	bool doesUserExist(std::string username) override;
 	bool doesPasswordMatch(std::string username, std::string password) override;
 	void addNewUser(std::string username, std::string password, std::string email) override;
