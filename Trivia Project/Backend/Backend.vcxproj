@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\database\IDatabase.cpp" />
     <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\json\JsonRequestPacketDeserializer.cpp" />
     <ClCompile Include="src\json\JsonRequestPacketSerializer.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\server\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\database\IDatabase.h" />
     <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
