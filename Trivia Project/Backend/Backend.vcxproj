@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\database\DatabaseError.cpp" />
     <ClCompile Include="src\database\sqlite3.c" />
     <ClCompile Include="src\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\handlers\IRequestHandler.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="src\server\WSAInitializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\database\DatabaseError.h" />
     <ClInclude Include="include\database\IDatabase.h" />
     <ClInclude Include="include\database\sqlite3.h" />
     <ClInclude Include="include\database\SqliteDataBase.h" />
