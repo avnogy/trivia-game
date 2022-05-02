@@ -19,3 +19,9 @@ SqliteDataBase::SqliteDataBase(std::string databasePath) :filePath(databasePath)
 		//TODO: create table
 	}
 }
+
+SqliteDataBase::~SqliteDataBase()
+{
+	sqlite3_close(db);
+	db = nullptr;
+}
