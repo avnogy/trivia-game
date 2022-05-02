@@ -1,4 +1,5 @@
 #include "database/SqliteDataBase.h"
+#include "database/DatabaseError.h"
 
 SqliteDataBase::SqliteDataBase(std::string databasePath) :filePath(databasePath)
 {
@@ -11,10 +12,10 @@ SqliteDataBase::SqliteDataBase(std::string databasePath) :filePath(databasePath)
 	if (res != SQLITE_OK)
 	{
 		db = nullptr;
-		//TODO: throw exception
+		throw DatabaseError("Failed to open Sqlite database.");
 	}
 	if (!doesFileExist)
 	{
-		//create table
+		//TODO: create table
 	}
 }
