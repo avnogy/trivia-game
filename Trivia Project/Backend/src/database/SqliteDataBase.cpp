@@ -65,5 +65,5 @@ bool SqliteDataBase::doesPasswordMatch(std::string username, std::string passwor
 
 void SqliteDataBase::addNewUser(std::string username, std::string password, std::string email)
 {
-	sqlexec("INSERT INTO USERS (NAME,PASSWORD,EMAIL) VALUES (" + username + "," + password + "," + email + ");");
+	sqlexec("INSERT INTO USERS (USERNAME,PASSWORD,EMAIL) VALUES (" + username + "," + password + "," + email + ");");
 }
