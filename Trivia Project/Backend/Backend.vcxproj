@@ -143,7 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\database\IDatabase.cpp" />
+    <ClCompile Include="src\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\json\JsonRequestPacketDeserializer.cpp" />
     <ClCompile Include="src\json\JsonRequestPacketSerializer.cpp" />
@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\database\IDatabase.h" />
+    <ClInclude Include="include\database\SqliteDataBase.h" />
     <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
