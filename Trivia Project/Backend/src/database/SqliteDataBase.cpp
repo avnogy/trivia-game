@@ -16,7 +16,8 @@ SqliteDataBase::SqliteDataBase(std::string databasePath) :filePath(databasePath)
 	}
 	if (!doesFileExist)
 	{
-		//TODO: create table
+		sqlexec("CREATE TABLE USERS(PERSON_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, USERNAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, EMAIL TEXT NOT NULL);");
+
 	}
 }
 
