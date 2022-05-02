@@ -12,6 +12,7 @@
     <ClCompile Include="src\server\SocketError.cpp" />
     <ClCompile Include="src\server\WSAInitializer.cpp" />
     <ClCompile Include="src\database\SqliteDataBase.cpp" />
+    <ClCompile Include="src\database\sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -35,5 +36,6 @@
     <ClInclude Include="include\json\JsonRequestPacketSerializer.h" />
     <ClInclude Include="include\database\IDatabase.h" />
     <ClInclude Include="include\database\SqliteDataBase.h" />
+    <ClInclude Include="include\database\sqlite3.h" />
   </ItemGroup>
 </Project>
