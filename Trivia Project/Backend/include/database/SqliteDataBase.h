@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <io.h>
+#include <cassert>
 
 #define ACCESS_CODE 6
 

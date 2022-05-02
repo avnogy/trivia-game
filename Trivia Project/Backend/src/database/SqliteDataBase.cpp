@@ -25,3 +25,14 @@ SqliteDataBase::~SqliteDataBase()
 	sqlite3_close(db);
 	db = nullptr;
 }
+
+void SqliteDataBase::sqlexec(std::string msg)
+{
+	char* errMessage = nullptr;
+	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
+	assert(res == SQLITE_OK);
+
+	//only for testing
+	std::cout << res;
+	//****************
+}
