@@ -7,9 +7,9 @@ class Server:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         #connecting socket to server
-        self.socket.connect(('127.0.0.1', 9876))
+        self.socket.connect((server_ip, server_port))
 
-    def send(code, message):
+    def send(self, code, message):
         """
         Sending a message to the server.
         The message protocol is:
@@ -20,4 +20,4 @@ class Server:
 
         :return <bytes - encoded string>: encoded message according to protocol
         """
-        return f'{code}{message.zfill(4)}{message}'.encode()
+        self.socket.send(f'{code}{str(len(message)).zfill(4)}{message}'.encode())

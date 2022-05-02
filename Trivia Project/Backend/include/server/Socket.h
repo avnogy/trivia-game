@@ -3,7 +3,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <string>
-#include "SocketError.h"
+#include "server/SocketError.h"
 
 class Socket
 {
@@ -33,5 +33,4 @@ public:
 	void send(const std::string& message);
 
 	bool operator<(const Socket& otherSocket) const;
-
 };
