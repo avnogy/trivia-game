@@ -6,7 +6,7 @@
 /// </summary>
 /// <param name="databasePath"> </param>
 /// <returns></returns>
-SqliteDataBase::SqliteDataBase(std::string databasePath) :filePath(databasePath)
+SqliteDataBase::SqliteDataBase(const std::string databasePath) :filePath(databasePath)
 {
 	//checking if can access file
 	int doesFileExist = !_access(filePath.c_str(), ACCESS_CODE);
@@ -43,7 +43,7 @@ SqliteDataBase::~SqliteDataBase()
 ///		: contains the statement to be executed
 /// </param>
 /// <returns></returns>
-void SqliteDataBase::sqlexec(std::string msg)
+void SqliteDataBase::sqlexec(const std::string msg)
 {
 	char* errMessage = nullptr;
 	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
@@ -55,7 +55,7 @@ void SqliteDataBase::sqlexec(std::string msg)
 /// </summary>
 /// <param name="username"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesUserExist(std::string username)
+bool SqliteDataBase::doesUserExist(const std::string username)
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
@@ -63,7 +63,7 @@ bool SqliteDataBase::doesUserExist(std::string username)
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the user exists
-		bool found = sqlite3_step(selectstmt) == SQLITE_ROW; 		
+		bool found = sqlite3_step(selectstmt) == SQLITE_ROW;
 		sqlite3_finalize(selectstmt);
 		return found;
 	}
@@ -75,7 +75,7 @@ bool SqliteDataBase::doesUserExist(std::string username)
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesPasswordMatch(std::string username, std::string password)
+bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::string password)
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
@@ -95,7 +95,7 @@ bool SqliteDataBase::doesPasswordMatch(std::string username, std::string passwor
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <param name="email"></param>
-void SqliteDataBase::addNewUser(std::string username, std::string password, std::string email)
+void SqliteDataBase::addNewUser(const std::string username, const std::string password, const std::string email)
 {
 	sqlexec("INSERT INTO USERS (NAME,PASSWORD,EMAIL) VALUES (" + username + "," + password + "," + email + ");");
 }

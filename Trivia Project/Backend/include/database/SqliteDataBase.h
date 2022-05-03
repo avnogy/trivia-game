@@ -11,14 +11,14 @@
 class SqliteDataBase : public IDatabase
 {
 public:
-	SqliteDataBase(std::string databasePath);
+	SqliteDataBase(const std::string databasePath);
 	~SqliteDataBase();
-	
-	void sqlexec(std::string msg);
-	
-	bool doesUserExist(std::string username) override;
-	bool doesPasswordMatch(std::string username, std::string password) override;
-	void addNewUser(std::string username, std::string password, std::string email) override;
+
+	void sqlexec(const std::string msg);
+
+	bool doesUserExist(const std::string username) override;
+	bool doesPasswordMatch(const std::string username, const std::string password) override;
+	void addNewUser(const std::string username, const std::string password, const std::string email) override;
 private:
 	sqlite3* db;
 	std::string filePath;
