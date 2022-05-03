@@ -21,7 +21,7 @@ SqliteDataBase::SqliteDataBase(const std::string databasePath) :filePath(databas
 	}
 	if (!doesFileExist)
 	{
-		sqlexec("CREATE TABLE USERS(PERSON_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, EMAIL TEXT NOT NULL);");
+		sqlexec("CREATE TABLE users(person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL);");
 
 	}
 }
@@ -59,7 +59,7 @@ bool SqliteDataBase::doesUserExist(const std::string username) const
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(db, ("SELECT * FROM USERS WHERE NAME = " + username + ";").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + ";").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the user exists
@@ -79,7 +79,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::st
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(db, ("SELECT * FROM USERS WHERE NAME = " + username + " AND PASSWORD = " + password + "; ").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + " AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the password matches the user
@@ -97,5 +97,5 @@ bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::st
 /// <param name="email"></param>
 void SqliteDataBase::addNewUser(const std::string username, const std::string password, const std::string email)
 {
-	sqlexec("INSERT INTO USERS (NAME,PASSWORD,EMAIL) VALUES (" + username + "," + password + "," + email + ");");
+	sqlexec("INSERT INTO users (name,password,email) VALUES (" + username + "," + password + "," + email + ");");
 }
