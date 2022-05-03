@@ -55,7 +55,7 @@ void SqliteDataBase::sqlexec(const std::string msg)
 /// </summary>
 /// <param name="username"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesUserExist(const std::string username)
+bool SqliteDataBase::doesUserExist(const std::string username) const
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
@@ -75,7 +75,7 @@ bool SqliteDataBase::doesUserExist(const std::string username)
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::string password)
+bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::string password) const
 {
 	//preparing a statement so it can be checked 
 	struct sqlite3_stmt* selectstmt;
