@@ -6,12 +6,12 @@
 /// </summary>
 /// <param name="databasePath"> </param>
 /// <returns></returns>
-SqliteDataBase::SqliteDataBase(const std::string databasePath) :filePath(databasePath)
+SqliteDataBase::SqliteDataBase(const std::string& databasePath) :filePath(databasePath)
 {
 	//checking if can access file
 	int doesFileExist = !_access(filePath.c_str(), ACCESS_CODE);
 
-	//attempting database open 
+	//attempting database open
 	int res = sqlite3_open(filePath.c_str(), &db);
 
 	if (res != SQLITE_OK)
@@ -22,7 +22,6 @@ SqliteDataBase::SqliteDataBase(const std::string databasePath) :filePath(databas
 	if (!doesFileExist)
 	{
 		sqlexec("CREATE TABLE users(person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL);");
-
 	}
 }
 
@@ -43,7 +42,7 @@ SqliteDataBase::~SqliteDataBase()
 ///		: contains the statement to be executed
 /// </param>
 /// <returns></returns>
-void SqliteDataBase::sqlexec(const std::string msg)
+void SqliteDataBase::sqlexec(const std::string& msg)
 {
 	char* errMessage = nullptr;
 	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
@@ -55,9 +54,9 @@ void SqliteDataBase::sqlexec(const std::string msg)
 /// </summary>
 /// <param name="username"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesUserExist(const std::string username) const
+bool SqliteDataBase::doesUserExist(const std::string& username) const
 {
-	//preparing a statement so it can be checked 
+	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
 	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + ";").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
@@ -75,9 +74,9 @@ bool SqliteDataBase::doesUserExist(const std::string username) const
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <returns></returns>
-bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::string password) const
+bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::string& password) const
 {
-	//preparing a statement so it can be checked 
+	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
 	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + " AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
@@ -95,7 +94,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string username, const std::st
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <param name="email"></param>
-void SqliteDataBase::addNewUser(const std::string username, const std::string password, const std::string email)
+void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email)
 {
 	sqlexec("INSERT INTO users (name,password,email) VALUES (" + username + "," + password + "," + email + ");");
 }
