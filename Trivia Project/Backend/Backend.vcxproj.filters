@@ -11,6 +11,9 @@
     <ClCompile Include="src\server\Socket.cpp" />
     <ClCompile Include="src\server\SocketError.cpp" />
     <ClCompile Include="src\server\WSAInitializer.cpp" />
+    <ClCompile Include="src\database\SqliteDataBase.cpp" />
+    <ClCompile Include="src\database\sqlite3.c" />
+    <ClCompile Include="src\database\DatabaseError.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -32,5 +35,9 @@
     <ClInclude Include="include\JsonPacketSerializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketDeserializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketSerializer.h" />
+    <ClInclude Include="include\database\IDatabase.h" />
+    <ClInclude Include="include\database\SqliteDataBase.h" />
+    <ClInclude Include="include\database\sqlite3.h" />
+    <ClInclude Include="include\database\DatabaseError.h" />
   </ItemGroup>
 </Project>
