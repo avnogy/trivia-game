@@ -8,8 +8,12 @@
 void Server::run()
 {
 	//creating a thread for the main operation of the server
+#ifndef _DEBUG
 	std::thread t_connector(&Communicator::startHandleRequest, this->m_communicator);
 	t_connector.detach();
+#else
+	m_communicator.startHandleRequest();
+#endif
 
 	std::string input = "";
 	while (input != "EXIT")

@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include <vector>
+#include <string>
 
 struct RequestInfo
 {
 	using RequestId = int;
-	using ctime = char*;
-	using Byte = unsigned char;
+	using Ctime = char*;
+	using Buffer = std::string;
 
 	RequestId id;
-	ctime receivalTime;
-	std::vector<Byte> buffer;
+	Ctime receivalTime;
+	Buffer buffer;
 };

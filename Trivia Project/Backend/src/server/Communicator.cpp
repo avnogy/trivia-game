@@ -2,6 +2,31 @@
 #include <thread>
 #include <iostream>
 
+#pragma warning(disable : 4996)
+
+/// <summary>
+/// Receiving a request from a socket.
+/// </summary>
+/// <param name="socket">socket to receive request from</param>
+/// <returns>RequestInfo - struct to hold inforamtion about request</returns>
+RequestInfo Communicator::recvRequest(Socket& socket)
+{
+	RequestInfo requestInfo;
+
+	//get receival time
+	time_t currentTime = time(NULL);
+	requestInfo.receivalTime = ctime(&currentTime);
+
+	//get id
+	requestInfo.id = stoi(socket.recvString(1));
+
+	//get buffer
+	size_t contentSize = stoi(socket.recvString(4));
+	requestInfo.buffer = socket.recvString(contentSize);
+
+	return requestInfo;
+}
+
 /// <summary>
 /// Start listenning to new connections
 /// </summary>
@@ -19,16 +44,19 @@ void Communicator::handleNewClient(Socket** socket)
 {
 	Socket& client = **socket;
 
-	//receiving message
-	unsigned short status = stoi(client.recv(1));
-	unsigned int contentSize = stoi(client.recv(4));
-	std::string content = client.recv(contentSize);
+	RequestInfo request = recvRequest(client);
 
-	LoginRequest loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(content);
-	std::cout << loginRequest.username << "\t" << loginRequest.password << std::endl;
+	if (m_clients[*socket]->isRequestRelevant(request))
+	{
+		m_clients[*socket]->handleRequest(request);
+	}
+	else
+	{
+		client.send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
+	}
 
-	*socket = nullptr;
 	delete* socket;
+	*socket = nullptr;
 }
 
 /// <summary>
@@ -44,11 +72,15 @@ void Communicator::startHandleRequest()
 		//accepting new connections
 		Socket* newClient = m_serverSocket.accept();
 
+		//saving new connection
+		m_clients.insert({ newClient, new LoginRequestHandler() });
+
 		//handling new connection in a separate thread
+#ifndef _DEBUG
 		std::thread t_handleNewClient(&Communicator::handleNewClient, this, &newClient);
 		t_handleNewClient.detach();
-
-		//saving new connection
-		m_clients.insert({ newClient, nullptr });
+#else
+		handleNewClient(&newClient);
+#endif
 	}
 }

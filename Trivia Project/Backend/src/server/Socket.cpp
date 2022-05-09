@@ -88,30 +88,64 @@ void Socket::connect(ip ip, port port)
 /// </summary>
 /// <param name="expectedSize">amount of bytes to receive</param>
 /// <returns>string representing the received message</returns>
-std::string Socket::recv(const size_t expectedSize)
+std::string Socket::recvString(const size_t expectedSize)
 {
-	char* buffer = new char[expectedSize + 1];
-	std::string message;
+	std::string string;
 
-	buffer[expectedSize] = NULL;
+	for (int i = 0; i < expectedSize; i++)
+	{
+		char temp = NULL;
+		if (::recv(m_socket, &temp, 1, 0) == SOCKET_ERROR)
+			throw std::exception(__FUNCTION__ " - recv");
 
-	if (::recv(m_socket, buffer, expectedSize, 0) == SOCKET_ERROR)
-		throw std::exception(__FUNCTION__ " - recv");
+		string.push_back(temp);
+	}
 
-	message = buffer;
-
-	delete[] buffer;
-	return message;
+	return string;
 }
 
 /// <summary>
-/// Sending a message to this socket
+/// Receiving a buffer of bytes from this socket
+/// </summary>
+/// <param name="expectedSize">amount of bytes to receive</param>
+/// <returns>a Vector of bytes representing the buffer</returns>
+std::vector<unsigned char> Socket::recvBuffer(const size_t expectedSize)
+{
+	std::vector<unsigned char> buffer;
+
+	for (int i = 0; i < expectedSize; i++)
+	{
+		char temp = NULL;
+		if (::recv(m_socket, &temp, 1, 0) == SOCKET_ERROR)
+			throw std::exception(__FUNCTION__ " - recv");
+
+		buffer.push_back(temp);
+	}
+
+	return buffer;
+}
+
+/// <summary>
+/// Sending a string to socket
 /// </summary>
 /// <param name="message">Message to send</param>
 void Socket::send(const std::string& message)
 {
 	if (::send(m_socket, message.c_str(), message.size(), 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - send");
+}
+
+/// <summary>
+/// Sending a buffer of bytes to socket
+/// </summary>
+/// <param name="buffer">buffer to send</param>
+void Socket::send(const std::vector<unsigned char>& buffer)
+{
+	for (char ch : buffer)
+	{
+		if (::send(m_socket, &ch, 1, 0) == SOCKET_ERROR)
+			throw std::exception(__FUNCTION__ " - send");
+	}
 }
 
 /// <summary>

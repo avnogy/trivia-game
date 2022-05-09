@@ -3,5 +3,5 @@
 
 struct ErrorResponse
 {
-	std::string message;
+	const std::string message;
 };

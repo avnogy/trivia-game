@@ -3,6 +3,7 @@
 #include <WinSock2.h>
 #include <Windows.h>
 #include <string>
+#include <vector>
 #include "server/SocketError.h"
 
 class Socket
@@ -29,8 +30,10 @@ public:
 	void connect(ip ip, port port);
 
 	//General methods
-	std::string recv(const size_t expectedSize);
+	std::string recvString(const size_t expectedSize);
+	std::vector<unsigned char> recvBuffer(const size_t expectedSize);
 	void send(const std::string& message);
+	void send(const std::vector<unsigned char>& buffer);
 
 	bool operator<(const Socket& otherSocket) const;
 };

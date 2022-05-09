@@ -11,9 +11,12 @@
     <ClCompile Include="src\server\Socket.cpp" />
     <ClCompile Include="src\server\SocketError.cpp" />
     <ClCompile Include="src\server\WSAInitializer.cpp" />
+    <ClCompile Include="src\managers\LoginManager.cpp" />
     <ClCompile Include="src\database\SqliteDataBase.cpp" />
-    <ClCompile Include="src\database\sqlite3.c" />
     <ClCompile Include="src\database\DatabaseError.cpp" />
+    <ClCompile Include="src\database\sqlite3.c" />
+    <ClCompile Include="src\handlers\RequestHandlerFactory.cpp" />
+    <ClCompile Include="src\managers\LoggedUser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -35,9 +38,12 @@
     <ClInclude Include="include\JsonPacketSerializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketDeserializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketSerializer.h" />
-    <ClInclude Include="include\database\IDatabase.h" />
-    <ClInclude Include="include\database\SqliteDataBase.h" />
-    <ClInclude Include="include\database\sqlite3.h" />
+    <ClInclude Include="include\managers\LoginManager.h" />
     <ClInclude Include="include\database\DatabaseError.h" />
+    <ClInclude Include="include\database\IDatabase.h" />
+    <ClInclude Include="include\database\sqlite3.h" />
+    <ClInclude Include="include\database\SqliteDataBase.h" />
+    <ClInclude Include="include\managers\LoggedUser.h" />
+    <ClInclude Include="include\handlers\RequestHandlerFactory.h" />
   </ItemGroup>
 </Project>
