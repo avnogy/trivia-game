@@ -60,6 +60,15 @@ void Communicator::handleNewClient(Socket** socket)
 }
 
 /// <summary>
+/// Instantiating a new communicator.
+/// </summary>
+/// <param name="handlerFactory">reference to requestHandlerFactory</param>
+Communicator::Communicator(RequestHandlerFactory& handlerFactory) :
+	m_handlerFactory(handlerFactory)
+{
+}
+
+/// <summary>
 /// - Accepting new connections
 /// - Handling them in a new thread
 /// - inserting them to clients map
