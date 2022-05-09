@@ -5,8 +5,9 @@
 class LoggedUser
 {
 private:
-	std::string m_username;
+	const std::string m_username;
 
 public:
+	LoggedUser(const std::string& username);
 	std::string getUsername() const;
 };
