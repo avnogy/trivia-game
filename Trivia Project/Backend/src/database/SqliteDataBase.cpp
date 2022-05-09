@@ -52,7 +52,10 @@ void SqliteDataBase::sqlexec(const std::string& msg)
 {
 	char* errMessage = nullptr;
 	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
-	assert(res == SQLITE_OK);
+	if(res != SQLITE_OK)
+	{
+		throw DatabaseError("Sql request failed.");
+	}
 }
 
 /// <summary>
@@ -71,6 +74,10 @@ bool SqliteDataBase::doesUserExist(const std::string& username) const
 		bool found = sqlite3_step(selectstmt) == SQLITE_ROW;
 		sqlite3_finalize(selectstmt);
 		return found;
+	}
+	else
+	{
+		throw DatabaseError("Sql request failed.");
 	}
 }
 
@@ -92,6 +99,10 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 		sqlite3_finalize(selectstmt);
 		return match;
 	}
+	else
+	{
+		throw DatabaseError("Sql request failed.");
+	}	
 }
 
 /// <summary>
