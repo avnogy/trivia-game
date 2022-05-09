@@ -21,7 +21,13 @@ SqliteDataBase::SqliteDataBase(const std::string& databasePath) :filePath(databa
 	}
 	if (!doesFileExist)
 	{
-		sqlexec("CREATE TABLE users(person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL);");
+		sqlexec(
+			"CREATE TABLE users("
+			"person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+			"name TEXT NOT NULL,"
+			"password TEXT NOT NULL,"
+			"email TEXT NOT NULL);"
+		);
 	}
 }
 

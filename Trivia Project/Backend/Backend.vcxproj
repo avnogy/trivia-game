@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\handlers\RequestHandlerFactory.cpp" />
     <ClCompile Include="src\database\DatabaseError.cpp" />
     <ClCompile Include="src\database\sqlite3.c" />
     <ClCompile Include="src\database\SqliteDataBase.cpp" />
@@ -151,6 +152,8 @@
     <ClCompile Include="src\json\JsonRequestPacketSerializer.cpp" />
     <ClCompile Include="src\handlers\LoginRequestHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\managers\LoggedUser.cpp" />
+    <ClCompile Include="src\managers\LoginManager.cpp" />
     <ClCompile Include="src\server\Communicator.cpp" />
     <ClCompile Include="src\server\Server.cpp" />
     <ClCompile Include="src\server\Socket.cpp" />
@@ -162,6 +165,8 @@
     <ClInclude Include="include\database\IDatabase.h" />
     <ClInclude Include="include\database\sqlite3.h" />
     <ClInclude Include="include\database\SqliteDataBase.h" />
+    <ClInclude Include="include\managers\LoggedUser.h" />
+    <ClInclude Include="include\managers\LoginManager.h" />
     <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -181,6 +186,7 @@
     <ClInclude Include="include\server\Socket.h" />
     <ClInclude Include="include\server\SocketError.h" />
     <ClInclude Include="include\server\WSAInitializer.h" />
+    <ClInclude Include="include\handlers\RequestHandlerFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

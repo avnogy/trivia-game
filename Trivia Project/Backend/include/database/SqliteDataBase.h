@@ -14,12 +14,13 @@ public:
 	SqliteDataBase(const std::string& databasePath);
 	~SqliteDataBase();
 
-	void sqlexec(const std::string& msg);
-
 	bool doesUserExist(const std::string& username) const override;
 	bool doesPasswordMatch(const std::string& username, const std::string& password) const override;
 	void addNewUser(const std::string& username, const std::string& password, const std::string& email)  override;
+
 private:
+	void sqlexec(const std::string& msg);
+
 	sqlite3* db;
 	const std::string filePath;
 };
