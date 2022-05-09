@@ -48,14 +48,11 @@ SqliteDataBase::~SqliteDataBase()
 ///		: contains the statement to be executed
 /// </param>
 /// <returns></returns>
-void SqliteDataBase::sqlexec(const std::string& msg)
+bool SqliteDataBase::sqlexec(const std::string& msg)
 {
 	char* errMessage = nullptr;
 	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
-	if(res != SQLITE_OK)
-	{
-		throw DatabaseError("Sql request failed.");
-	}
+	return (res == SQLITE_OK);
 }
 
 /// <summary>
@@ -101,7 +98,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 	}
 	else
 	{
-		throw DatabaseError("Sql request failed.");
+		throw DatabaseError("Sql request failed, Couldn't check password.");
 	}	
 }
 
@@ -113,5 +110,8 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 /// <param name="email"></param>
 void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email)
 {
-	sqlexec("INSERT INTO users (name,password,email) VALUES (" + username + "," + password + "," + email + ");");
+	if(!sqlexec("INSERT INTO users (name,password,email) VALUES (" + username + "," + password + "," + email + ");"))
+	{
+		throw DatabaseError("Sql request failed, Couldn't add user");
+	}
 }
