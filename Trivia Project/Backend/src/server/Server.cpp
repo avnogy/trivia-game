@@ -22,3 +22,5 @@ void Server::run()
 	}
 	//TODO: release resources on close
 }
+
+Server::Server() : m_communicator(m_handlerFactory) {}
