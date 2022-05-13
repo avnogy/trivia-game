@@ -19,8 +19,8 @@ public:
 	void addNewUser(const std::string& username, const std::string& password, const std::string& email)  override;
 
 private:
-	void sqlexec(const std::string& msg);
+	bool sqlexec(const std::string& msg);
 
-	sqlite3* db;
-	const std::string filePath;
+	sqlite3* m_db;
+	const std::string m_filePath;
 };

@@ -6,27 +6,29 @@
 /// </summary>
 /// <param name="databasePath"> </param>
 /// <returns></returns>
-SqliteDataBase::SqliteDataBase(const std::string& databasePath) :filePath(databasePath)
+SqliteDataBase::SqliteDataBase(const std::string& databasePath) :
+	m_filePath(databasePath)
 {
 	//checking if can access file
-	int doesFileExist = !_access(filePath.c_str(), ACCESS_CODE);
+	int doesFileExist = _access(m_filePath.c_str(), 0);
 
 	//attempting database open
-	int res = sqlite3_open(filePath.c_str(), &db);
+	int res = sqlite3_open(m_filePath.c_str(), &m_db);
 
 	if (res != SQLITE_OK)
 	{
-		db = nullptr;
+		m_db = nullptr;
 		throw DatabaseError("Failed to open Sqlite database.");
 	}
-	if (!doesFileExist)
+	if (doesFileExist == -1)
 	{
 		sqlexec(
 			"CREATE TABLE users("
 			"person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
 			"name TEXT NOT NULL,"
 			"password TEXT NOT NULL,"
-			"email TEXT NOT NULL);"
+			"email TEXT NOT NULL"
+			");"
 		);
 	}
 }
@@ -37,8 +39,8 @@ SqliteDataBase::SqliteDataBase(const std::string& databasePath) :filePath(databa
 SqliteDataBase::~SqliteDataBase()
 {
 	//closing database
-	sqlite3_close(db);
-	db = nullptr;
+	sqlite3_close(m_db);
+	m_db = nullptr;
 }
 
 /// <summary>
@@ -51,7 +53,7 @@ SqliteDataBase::~SqliteDataBase()
 bool SqliteDataBase::sqlexec(const std::string& msg)
 {
 	char* errMessage = nullptr;
-	int res = sqlite3_exec(db, msg.c_str(), nullptr, nullptr, &errMessage);
+	int res = sqlite3_exec(m_db, msg.c_str(), nullptr, nullptr, &errMessage);
 	return (res == SQLITE_OK);
 }
 
@@ -64,7 +66,7 @@ bool SqliteDataBase::doesUserExist(const std::string& username) const
 {
 	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + ";").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\";").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the user exists
@@ -88,7 +90,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 {
 	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(db, ("SELECT * FROM users WHERE name = " + username + " AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\" AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the password matches the user
@@ -99,7 +101,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 	else
 	{
 		throw DatabaseError("Sql request failed, Couldn't check password.");
-	}	
+	}
 }
 
 /// <summary>
@@ -110,7 +112,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 /// <param name="email"></param>
 void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email)
 {
-	if(!sqlexec("INSERT INTO users (name,password,email) VALUES (" + username + "," + password + "," + email + ");"))
+	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\"," + password + ",\"" + email + "\");"))
 	{
 		throw DatabaseError("Sql request failed, Couldn't add user");
 	}

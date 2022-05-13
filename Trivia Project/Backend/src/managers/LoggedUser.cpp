@@ -17,3 +17,13 @@ std::string LoggedUser::getUsername() const
 {
 	return m_username;
 }
+
+/// <summary>
+/// Used to hash the class into the unordered_set
+/// </summary>
+/// <param name="other">other class to compare this one to</param>
+/// <returns>are the classes the same</returns>
+bool LoggedUser::operator==(const LoggedUser& other) const
+{
+	return m_username == other.m_username;
+}

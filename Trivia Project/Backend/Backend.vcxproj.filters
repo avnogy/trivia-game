@@ -17,6 +17,8 @@
     <ClCompile Include="src\database\sqlite3.c" />
     <ClCompile Include="src\handlers\RequestHandlerFactory.cpp" />
     <ClCompile Include="src\managers\LoggedUser.cpp" />
+    <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
+    <ClCompile Include="include\database\IDatabase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -45,5 +47,10 @@
     <ClInclude Include="include\database\SqliteDataBase.h" />
     <ClInclude Include="include\managers\LoggedUser.h" />
     <ClInclude Include="include\handlers\RequestHandlerFactory.h" />
+    <ClInclude Include="include\handlers\MenuRequestHandler.h" />
+    <ClInclude Include="include\utils\Singleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

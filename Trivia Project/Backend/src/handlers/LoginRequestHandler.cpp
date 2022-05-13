@@ -15,12 +15,20 @@ LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager, RequestHand
 /// </summary>
 /// <param name="requestInfo">information about login request</param>
 /// <returns>request result</returns>
-RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
+RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 {
 	LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
-	m_loginManager.login(request.username, request.password);
+	bool result = m_loginManager.login(request.username, request.password);
 
-	return RequestResult(); //update in future - not in this version
+	std::cout
+		<< "username: " << request.username << '\n'
+		<< "password: " << request.password << '\n';
+
+	switch (result)
+	{
+	case true: return RequestResult{ "Logged In Successfully", new MenuRequestHandler() };// m_handlerFactory.createMenuRequestHandler()
+	case false: return RequestResult{ "Failed to Log In", this };
+	}
 }
 
 /// <summary>
@@ -28,16 +36,21 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 /// </summary>
 /// <param name="requestInfo">information about signup request</param>
 /// <returns>request result</returns>
-RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo) const
+RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
 {
 	SignupRequest request = JsonRequestPacketDeserializer::deserializeSignupRequest(requestInfo.buffer);
-	m_loginManager.signup(request.username, request.password, request.email);
+	bool result = m_loginManager.signup(request.username, request.password, request.email);
 
-	return RequestResult(); //update in future - not in this version
-}
+	std::cout
+		<< "username: " << request.username << '\n'
+		<< "password: " << request.password << '\n'
+		<< "email: " << request.email << '\n';
 
-LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory* requestHandlerFactory)
-{
+	switch (result)
+	{
+	case true: return RequestResult{ "Signed Up Successfully", m_handlerFactory.createLoginRequestHandler() };
+	case false: return RequestResult{ "Failed to Sign Up", this };
+	}
 }
 
 /// <summary>
@@ -55,7 +68,7 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) cons
 /// </summary>
 /// <param name="requestInfo">inforamtion about the request</param>
 /// <returns>request result</returns>
-RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo) const
+RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo)
 {
 	RequestResult requestResult;
 
@@ -66,6 +79,8 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case SignupRequestId:
 		requestResult = signup(requestInfo); break;
+
+		//add logout
 	}
 
 	return requestResult;

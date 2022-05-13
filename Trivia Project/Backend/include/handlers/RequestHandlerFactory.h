@@ -3,16 +3,16 @@
 #include "managers/LoginManager.h"
 #include "database/SqliteDataBase.h"
 #include "handlers/LoginRequestHandler.h"
+#include "utils/Singleton.h"
+
+class LoginRequestHandler;
 
 class RequestHandlerFactory
 {
-private:
-	LoginManager m_loginManager;
-	IDatabase* m_database;
+	MAKE_SINGLETON(RequestHandlerFactory);
+	DELETE_CONSTRUCTOR(RequestHandlerFactory);
 
 public:
-	RequestHandlerFactory(IDatabase* database);
-
 	LoginRequestHandler* createLoginRequestHandler();
 	LoginManager& getLoginManager();
 };

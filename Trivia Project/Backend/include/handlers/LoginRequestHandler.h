@@ -2,9 +2,10 @@
 #include "handlers/IRequestHandler.h"
 #include "requests/LoginRequest.h"
 #include "managers/LoginManager.h"
+#include "handlers/MenuRequestHandler.h"
+#include "handlers/RequestHandlerFactory.h"
 
-//deleting when creating reqeust handler factory
-typedef RequestHandlerFactory;
+class RequestHandlerFactory;
 
 class LoginRequestHandler : public IRequestHandler
 {
@@ -13,12 +14,12 @@ private:
 	RequestHandlerFactory& m_handlerFactory;
 
 private:
-	RequestResult login(const RequestInfo& requestInfo) const;
-	RequestResult signup(const RequestInfo& requestInfo) const;
+	RequestResult login(const RequestInfo& requestInfo);
+	RequestResult signup(const RequestInfo& requestInfo);
 
 public:
 	LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory* requestHandlerFactory);
 
 	bool isRequestRelevant(const RequestInfo& requestInfo) const override;
-	RequestResult handleRequest(const RequestInfo& requestInfo) const override;
+	RequestResult handleRequest(const RequestInfo& requestInfo) override;
 };

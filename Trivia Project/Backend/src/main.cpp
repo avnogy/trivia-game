@@ -10,9 +10,8 @@ int main()
 	try
 	{
 		WSAInitializer wsaInit;
-		Server server;
 
-		server.run();
+		Server::instance().run();
 	}
 	catch (std::exception& e)
 	{
