@@ -1,15 +1,6 @@
 #include "managers/LoginManager.h"
 
 /// <summary>
-/// Instantiating a new LoginManager
-/// </summary>
-/// <param name="database">pointer to database</param>
-LoginManager::LoginManager(IDatabase* database) :
-	m_database(database)
-{
-}
-
-/// <summary>
 /// Adding a new user to database
 /// </summary>
 /// <param name="username">username of user</param>

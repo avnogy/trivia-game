@@ -14,7 +14,5 @@ class Server
 	DELETE_CONSTRUCTOR(Server);
 
 public:
-	Server();
-	~Server();
 	void run();
 };
