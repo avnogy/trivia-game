@@ -39,33 +39,37 @@ void Communicator::bindAndListen()
 /// <summary>
 /// Handling new connections
 /// </summary>
-/// <param name="socket"></param>
+/// <param name="socket">socket to handle</param>
 void Communicator::handleNewClient(Socket** socket)
 {
 	Socket& client = **socket;
 
-	RequestInfo request = recvRequest(client);
+	try
+	{
+		while (true)
+		{
+			RequestInfo request = recvRequest(client);
+			RequestResult result;
 
-	if (m_clients[*socket]->isRequestRelevant(request))
-	{
-		m_clients[*socket]->handleRequest(request);
+			if (m_clients[*socket]->isRequestRelevant(request))
+			{
+				result = m_clients[*socket]->handleRequest(request);
+				//send result
+			}
+			else
+			{
+				client.send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
+			}
+
+			std::cout << result.response << '\n' << std::endl;
+		}
 	}
-	else
+	catch (...)
 	{
-		client.send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
 	}
 
 	delete* socket;
 	*socket = nullptr;
-}
-
-/// <summary>
-/// Instantiating a new communicator.
-/// </summary>
-/// <param name="handlerFactory">reference to requestHandlerFactory</param>
-Communicator::Communicator(RequestHandlerFactory& handlerFactory) :
-	m_handlerFactory(handlerFactory)
-{
 }
 
 /// <summary>
@@ -82,7 +86,7 @@ void Communicator::startHandleRequest()
 		Socket* newClient = m_serverSocket.accept();
 
 		//saving new connection
-		m_clients.insert({ newClient, new LoginRequestHandler() });
+		m_clients.insert({ newClient, RequestHandlerFactory::instance().createLoginRequestHandler() });
 
 		//handling new connection in a separate thread
 #ifndef _DEBUG

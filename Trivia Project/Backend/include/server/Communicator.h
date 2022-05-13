@@ -8,22 +8,23 @@
 #include "json/JsonRequestPacketSerializer.h"
 #include "handlers/LoginRequestHandler.h"
 #include "handlers/RequestHandlerFactory.h"
+#include "utils/Singleton.h"
 
 #define PORT 4206
 
 class Communicator
 {
+	MAKE_SINGLETON(Communicator);
+	DELETE_CONSTRUCTOR(Communicator);
+
 private:
 	Socket m_serverSocket;
 	std::map<Socket*, IRequestHandler*> m_clients;
-	RequestHandlerFactory& m_handlerFactory;
 
 	RequestInfo recvRequest(Socket& socket);
-
 	void bindAndListen();
 	void handleNewClient(Socket** socket);
-public:
-	Communicator(RequestHandlerFactory& handlerFactory);
 
+public:
 	void startHandleRequest();
 };

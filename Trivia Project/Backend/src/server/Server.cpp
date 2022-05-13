@@ -12,7 +12,7 @@ void Server::run()
 	std::thread t_connector(&Communicator::startHandleRequest, this->m_communicator);
 	t_connector.detach();
 #else
-	m_communicator.startHandleRequest();
+	Communicator::instance().startHandleRequest();
 #endif
 
 	std::string input = "";
@@ -22,5 +22,3 @@ void Server::run()
 	}
 	//TODO: release resources on close
 }
-
-Server::Server() : m_communicator(m_handlerFactory) {}

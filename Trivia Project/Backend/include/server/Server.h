@@ -2,14 +2,15 @@
 #include "server/Communicator.h"
 #include "database/IDatabase.h"
 #include "handlers/RequestHandlerFactory.h"
+#include "utils/Singleton.h"
+
+#define DATABASE_FILE_PATH "D:/Coding/magshimim/Advanced-Programming/trivia-project/Trivia Project/database.sqlite"
 
 class Server
 {
-private:
-	Communicator m_communicator;
-	IDatabase* m_database;
-	RequestHandlerFactory m_handlerFactory;
+	MAKE_SINGLETON(Server);
+	DELETE_CONSTRUCTOR(Server);
+
 public:
-	Server();
 	void run();
 };
