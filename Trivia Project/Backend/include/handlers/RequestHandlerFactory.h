@@ -7,6 +7,8 @@
 
 class LoginRequestHandler;
 
+class LoginRequestHandler;
+
 class RequestHandlerFactory
 {
 	MAKE_SINGLETON(RequestHandlerFactory);
