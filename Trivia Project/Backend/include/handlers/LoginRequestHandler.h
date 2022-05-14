@@ -1,7 +1,7 @@
 #pragma once
 #include "handlers/IRequestHandler.h"
 #include "requests/LoginRequest.h"
-#include "managers/LoginManager.h"
+#include "managers/LoginManager/LoginManager.h"
 #include "handlers/MenuRequestHandler.h"
 #include "handlers/RequestHandlerFactory.h"
 

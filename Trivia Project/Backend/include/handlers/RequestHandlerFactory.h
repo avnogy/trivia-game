@@ -1,6 +1,6 @@
 #pragma once
 
-#include "managers/LoginManager.h"
+#include "managers/LoginManager/LoginManager.h"
 #include "database/SqliteDataBase.h"
 #include "handlers/LoginRequestHandler.h"
 #include "utils/Singleton.h"

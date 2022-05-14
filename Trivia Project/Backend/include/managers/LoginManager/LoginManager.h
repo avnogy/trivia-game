@@ -17,8 +17,6 @@ private:
 	std::unordered_set<LoggedUser> m_loggedUsers;
 
 public:
-	LoginManager(IDatabase* database);
-
 	bool signup(const std::string& username, const std::string& password, const std::string& email);
 	bool login(const std::string& username, const std::string& password);
 	bool logout(const std::string& username);

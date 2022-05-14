@@ -22,14 +22,23 @@ SqliteDataBase::SqliteDataBase(const std::string& databasePath) :
 	}
 	if (doesFileExist == -1)
 	{
-		sqlexec(
-			"CREATE TABLE users("
-			"person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			"name TEXT NOT NULL,"
-			"password TEXT NOT NULL,"
-			"email TEXT NOT NULL"
-			");"
-		);
+		sqlexec(R"(
+				CREATE TABLE users(
+				person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+				name TEXT NOT NULL,
+				password TEXT NOT NULL,
+				email TEXT NOT NULL);
+			)");
+
+		sqlexec(R"(
+				CREATE TABLE rooms(
+				room_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+				name TEXT NOT NULL,
+				maxPlayers INTEGER NOT NULL,
+				numOfQuestionsInGame INTEGER NOT NULL,
+				timePerQuestion INTEGER NOT NULL,
+				isActive INTEGER NOT NULL);
+			)");
 	}
 }
 

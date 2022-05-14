@@ -1,4 +1,4 @@
-#include "managers/LoginManager.h"
+#include "managers/LoginManager/LoginManager.h"
 
 /// <summary>
 /// Adding a new user to database
@@ -46,6 +46,10 @@ bool LoginManager::login(const std::string& username, const std::string& passwor
 /// <returns>whether the logout succeeded or not</returns>
 bool LoginManager::logout(const std::string& username)
 {
+	//if the user is already logged out
+	if (m_loggedUsers.find(username) == m_loggedUsers.end())
+		return false;
+
 	m_loggedUsers.erase(username);
-	return true; //change in future
+	return true;
 }
