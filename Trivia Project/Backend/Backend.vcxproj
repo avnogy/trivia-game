@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\database\IDatabase.cpp" />
+    <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
     <ClCompile Include="src\handlers\RequestHandlerFactory.cpp" />
     <ClCompile Include="src\database\DatabaseError.cpp" />
@@ -155,7 +156,7 @@
     <ClCompile Include="src\handlers\LoginRequestHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\LoggedUser.cpp" />
-    <ClCompile Include="src\managers\LoginManager.cpp" />
+    <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
     <ClCompile Include="src\server\Communicator.cpp" />
     <ClCompile Include="src\server\Server.cpp" />
     <ClCompile Include="src\server\Socket.cpp" />
@@ -168,7 +169,7 @@
     <ClInclude Include="include\database\sqlite3.h" />
     <ClInclude Include="include\database\SqliteDataBase.h" />
     <ClInclude Include="include\managers\LoggedUser.h" />
-    <ClInclude Include="include\managers\LoginManager.h" />
+    <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
     <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -191,6 +192,8 @@
     <ClInclude Include="include\handlers\RequestHandlerFactory.h" />
     <ClInclude Include="include\handlers\MenuRequestHandler.h" />
     <ClInclude Include="include\utils\Singleton.h" />
+    <ClInclude Include="include\managers\RoomManager\Room.h" />
+    <ClInclude Include="include\managers\RoomManager\RoomData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

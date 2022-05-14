@@ -11,7 +11,7 @@
     <ClCompile Include="src\server\Socket.cpp" />
     <ClCompile Include="src\server\SocketError.cpp" />
     <ClCompile Include="src\server\WSAInitializer.cpp" />
-    <ClCompile Include="src\managers\LoginManager.cpp" />
+    <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
     <ClCompile Include="src\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\database\DatabaseError.cpp" />
     <ClCompile Include="src\database\sqlite3.c" />
@@ -19,6 +19,7 @@
     <ClCompile Include="src\managers\LoggedUser.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
     <ClCompile Include="include\database\IDatabase.cpp" />
+    <ClCompile Include="src\managers\RoomManager\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -40,7 +41,7 @@
     <ClInclude Include="include\JsonPacketSerializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketDeserializer.h" />
     <ClInclude Include="include\json\JsonRequestPacketSerializer.h" />
-    <ClInclude Include="include\managers\LoginManager.h" />
+    <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
     <ClInclude Include="include\database\DatabaseError.h" />
     <ClInclude Include="include\database\IDatabase.h" />
     <ClInclude Include="include\database\sqlite3.h" />
@@ -49,6 +50,8 @@
     <ClInclude Include="include\handlers\RequestHandlerFactory.h" />
     <ClInclude Include="include\handlers\MenuRequestHandler.h" />
     <ClInclude Include="include\utils\Singleton.h" />
+    <ClInclude Include="include\managers\RoomManager\Room.h" />
+    <ClInclude Include="include\managers\RoomManager\RoomData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
