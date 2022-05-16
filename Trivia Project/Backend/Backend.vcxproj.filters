@@ -20,6 +20,7 @@
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
     <ClCompile Include="include\database\IDatabase.cpp" />
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
+    <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="include\utils\Singleton.h" />
     <ClInclude Include="include\managers\RoomManager\Room.h" />
     <ClInclude Include="include\managers\RoomManager\RoomData.h" />
+    <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
