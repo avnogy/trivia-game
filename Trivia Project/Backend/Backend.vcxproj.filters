@@ -22,6 +22,7 @@
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
     <ClCompile Include="src\database\IDatabase.cpp" />
     <ClCompile Include="src\database\Question.cpp" />
+    <ClCompile Include="include\responses\CreateRoomResponse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -56,6 +57,12 @@
     <ClInclude Include="include\managers\RoomManager\RoomData.h" />
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
     <ClInclude Include="include\database\Question.h" />
+    <ClInclude Include="include\responses\LogoutResponse.h" />
+    <ClInclude Include="include\responses\GetRoomsResponse.h" />
+    <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
+    <ClInclude Include="include\responses\GetHighScoreResponse.h" />
+    <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
+    <ClInclude Include="include\responses\JoinRoomResponse.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
