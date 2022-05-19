@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\responses\CreateRoomResponse.h" />
     <ClCompile Include="src\database\IDatabase.cpp" />
     <ClCompile Include="src\database\Question.cpp" />
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
@@ -174,6 +175,12 @@
     <ClInclude Include="include\managers\LoggedUser.h" />
     <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
+    <ClInclude Include="include\responses\GetHighScoreResponse.h" />
+    <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
+    <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
+    <ClInclude Include="include\responses\GetRoomsResponse.h" />
+    <ClInclude Include="include\responses\JoinRoomResponse.h" />
+    <ClInclude Include="include\responses\LogoutResponse.h" />
     <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
