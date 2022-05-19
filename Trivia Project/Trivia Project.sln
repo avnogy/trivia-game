@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Backend", "Backend\Backend.
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python Client", "Python Client\Python Client.pyproj", "{58A258B5-104A-40E6-8972-CD7596B8F76A}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "opentdb api", "opentdb api\opentdb api.pyproj", "{CADAA01E-293A-41BC-8337-66E44C4FE344}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,12 @@ Global
 		{58A258B5-104A-40E6-8972-CD7596B8F76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58A258B5-104A-40E6-8972-CD7596B8F76A}.Release|x64.ActiveCfg = Release|Any CPU
 		{58A258B5-104A-40E6-8972-CD7596B8F76A}.Release|x86.ActiveCfg = Release|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|x64.ActiveCfg = Release|Any CPU
+		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

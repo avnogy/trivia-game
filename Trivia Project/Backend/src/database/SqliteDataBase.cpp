@@ -1,5 +1,4 @@
 #include "database/SqliteDataBase.h"
-#include "database/DatabaseError.h"
 
 /// <summary>
 /// creates a database instence
@@ -22,22 +21,36 @@ SqliteDataBase::SqliteDataBase(const std::string& databasePath) :
 	}
 	if (doesFileExist == -1)
 	{
+		//users table
 		sqlexec(R"(
 				CREATE TABLE users(
-				person_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-				name TEXT NOT NULL,
-				password TEXT NOT NULL,
-				email TEXT NOT NULL);
+				user_id		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+				name		TEXT NOT NULL,
+				password	TEXT NOT NULL,
+				email		TEXT NOT NULL);
 			)");
 
+		//statistics table
 		sqlexec(R"(
-				CREATE TABLE rooms(
-				room_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-				name TEXT NOT NULL,
-				maxPlayers INTEGER NOT NULL,
-				numOfQuestionsInGame INTEGER NOT NULL,
-				timePerQuestion INTEGER NOT NULL,
-				isActive INTEGER NOT NULL);
+				CREATE TABLE statistics(
+				statistics_id		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+				user_id				INTEGER NOT NULL,
+				averageAnswerTime	FLOAT	NOT NULL,
+				numOfCorrectAnswers INTEGER NOT NULL,
+				numOfTotalAnswers	INTEGER NOT NULL,
+				numOfPlayerGames	INTEGER NOT NULL,
+				FOREIGN KEY (user_id) REFERENCES users(user_id));
+			)");
+
+		//questions table
+		sqlexec(R"(
+				CREATE TABLE questions(
+				question_id			INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+				question			TEXT NOT NULL,
+				correctAnswer		TEXT NOT NULL,
+				possibleAnswer1		TEXT NOT NULL,
+				possibleAnswer2		TEXT NOT NULL,
+				possibleAnswer3		TEXT NOT NULL);
 			)");
 	}
 }
@@ -53,16 +66,17 @@ SqliteDataBase::~SqliteDataBase()
 }
 
 /// <summary>
-/// executes a statement on the database
+/// Excecute a query to database
 /// </summary>
-/// <param name="msg">
-///		: contains the statement to be executed
-/// </param>
-/// <returns></returns>
-bool SqliteDataBase::sqlexec(const std::string& msg)
+/// <param name="msg">query</param>
+/// <param name="callback">callback function to query</param>
+/// <param name="callbackArg">argument to callback</param>
+/// <returns>whether the query succeeded</returns>
+bool SqliteDataBase::sqlexec(const std::string& msg, int(*callback)(void* data, int argc, char** argv, char** azColName), void* callbackArg) const
 {
 	char* errMessage = nullptr;
-	int res = sqlite3_exec(m_db, msg.c_str(), nullptr, nullptr, &errMessage);
+	int res = sqlite3_exec(m_db, msg.c_str(), callback, callbackArg, &errMessage);
+
 	return (res == SQLITE_OK);
 }
 
@@ -85,7 +99,7 @@ bool SqliteDataBase::doesUserExist(const std::string& username) const
 	}
 	else
 	{
-		throw DatabaseError("Sql request failed.");
+		throw SQLITE_DATABASE_ERROR;
 	}
 }
 
@@ -109,7 +123,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 	}
 	else
 	{
-		throw DatabaseError("Sql request failed, Couldn't check password.");
+		throw SQLITE_DATABASE_ERROR;
 	}
 }
 
@@ -119,10 +133,163 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 /// <param name="username"></param>
 /// <param name="password"></param>
 /// <param name="email"></param>
-void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email)
+void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email) const
 {
 	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\"," + password + ",\"" + email + "\");"))
 	{
 		throw DatabaseError("Sql request failed, Couldn't add user");
 	}
+}
+
+/// <summary>
+/// getting from the database the average answer time of a player
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>average answer time</returns>
+float SqliteDataBase::getPlayerAverageAnswerTime(const std::string& username) const
+{
+	float averageAnswerTime = 0;
+
+	//callback function will assign query result to averageAnswerTime
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		*(float*)data = atof(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT statistics.averageAnswerTime FROM statistics INNER JOIN users ON users.user_id = statistics.user_id WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&averageAnswerTime
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return averageAnswerTime;
+}
+
+/// <summary>
+/// getting from the database the num of correct answers of a player
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>number of correct answers of a player</returns>
+int SqliteDataBase::getNumOfCorrectAnswers(const std::string& username) const
+{
+	int numOfCorrectAnswers = 0;
+
+	//callback function will assign query result to numOfCorrectAnswers
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		*(int*)data = atoi(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT statistics.numOfCorrectAnswers FROM statistics INNER JOIN users ON users.user_id = statistics.user_id WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&numOfCorrectAnswers
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return numOfCorrectAnswers;
+}
+
+/// <summary>
+/// getting from the database the num of total answers of a player
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>number of total of a player</returns>
+int SqliteDataBase::getNumOfTotalAnswers(const std::string& username) const
+{
+	int numOfTotalAnswers = 0;
+
+	//callback function will assign query result to numOfTotalAnswers
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		*(int*)data = atoi(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT statistics.numOfTotalAnswers FROM statistics INNER JOIN users ON users.user_id = statistics.user_id WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&numOfTotalAnswers
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return numOfTotalAnswers;
+}
+
+/// <summary>
+/// getting from the database the num of player games
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>number of player games</returns>
+int SqliteDataBase::getNumOfPlayerGames(const std::string& username) const
+{
+	int numOfPlayerGames = 0;
+
+	//callback function will assign query result to numOfPlayerGames
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		*(int*)data = atoi(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT statistics.numOfPlayerGames FROM statistics INNER JOIN users ON users.user_id = statistics.user_id WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&numOfPlayerGames
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return numOfPlayerGames;
+}
+
+/// <summary>
+/// Getting a vector of all questions in database
+/// </summary>
+/// <returns>all questions in database</returns>
+std::vector<Question> SqliteDataBase::getQuestions() const
+{
+	std::vector<Question> questions;
+
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		std::vector<Question>& questions = *(std::vector<Question>*)data;
+
+		questions.push_back(
+			Question(argv[0], { argv[1], argv[2], argv[3], argv[4] })
+		);
+
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;",
+		callback,
+		&questions
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return questions;
 }
