@@ -18,9 +18,10 @@
     <ClCompile Include="src\handlers\RequestHandlerFactory.cpp" />
     <ClCompile Include="src\managers\LoggedUser.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
-    <ClCompile Include="include\database\IDatabase.cpp" />
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
+    <ClCompile Include="src\database\IDatabase.cpp" />
+    <ClCompile Include="src\database\Question.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="include\managers\RoomManager\Room.h" />
     <ClInclude Include="include\managers\RoomManager\RoomData.h" />
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
+    <ClInclude Include="include\database\Question.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
