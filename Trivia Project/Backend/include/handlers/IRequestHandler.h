@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "json/JsonRequestPacketDeserializer.h"
+#include "json/JsonRequestPacketSerializer.h"
 
 class RequestResult;
 

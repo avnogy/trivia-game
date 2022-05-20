@@ -26,8 +26,17 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 
 	switch (result)
 	{
-	case true: return RequestResult{ "Logged In Successfully", new MenuRequestHandler() };// m_handlerFactory.createMenuRequestHandler()
-	case false: return RequestResult{ "Failed to Log In", this };
+	case true:
+		return RequestResult{
+		JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::SUCCESS}),
+		new MenuRequestHandler()
+		};// m_handlerFactory.createMenuRequestHandler()
+
+	case false:
+		return RequestResult{
+			JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::FAILURE}),
+			this
+		};
 	}
 }
 
@@ -48,8 +57,16 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
 
 	switch (result)
 	{
-	case true: return RequestResult{ "Signed Up Successfully", m_handlerFactory.createLoginRequestHandler() };
-	case false: return RequestResult{ "Failed to Sign Up", this };
+	case true:
+		return RequestResult{
+			JsonRequestPacketSerializer::serializeResponse(SignupResponse{SignupResponse::SUCCESS}),
+			RequestHandlerFactory::instance().createLoginRequestHandler()
+		};
+	case false:
+		return RequestResult{
+			JsonRequestPacketSerializer::serializeResponse(SignupResponse{SignupResponse::FAILURE}),
+			this
+		};
 	}
 }
 
@@ -79,8 +96,6 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case SignupRequestId:
 		requestResult = signup(requestInfo); break;
-
-		//add logout
 	}
 
 	return requestResult;
