@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-struct GetPlayersINRoomResponse
+struct GetPlayersInRoomResponse
 {
 	std::vector<std::string> players;
 };
