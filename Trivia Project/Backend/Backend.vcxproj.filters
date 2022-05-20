@@ -23,6 +23,7 @@
     <ClCompile Include="src\database\IDatabase.cpp" />
     <ClCompile Include="src\database\Question.cpp" />
     <ClCompile Include="include\responses\CreateRoomResponse.h" />
+    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -67,6 +68,7 @@
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
     <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\responses\JoinRoomResponse.h" />
+    <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

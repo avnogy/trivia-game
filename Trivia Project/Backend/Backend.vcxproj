@@ -160,6 +160,7 @@
     <ClCompile Include="src\managers\LoggedUser.cpp" />
     <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
+    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
     <ClCompile Include="src\server\Communicator.cpp" />
     <ClCompile Include="src\server\Server.cpp" />
     <ClCompile Include="src\server\Socket.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="include\managers\LoggedUser.h" />
     <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
+    <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h" />
     <ClInclude Include="include\requests\CreateRoomRequest.h" />
     <ClInclude Include="include\requests\GetPlayersInRoomRequest.h" />
     <ClInclude Include="include\requests\JoinRoomRequest.h" />
