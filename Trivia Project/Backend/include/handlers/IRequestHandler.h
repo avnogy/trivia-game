@@ -11,9 +11,17 @@ class RequestResult;
 class IRequestHandler
 {
 protected:
-	enum {
-		LoginRequestId,
-		SignupRequestId,
+	struct IDS {
+		enum {
+			LoginRequest,
+			SignupRequest,
+			CreateRoomRequest,
+			GetRoomsRequest,
+			GetPlayersInRoomRequest,
+			JoinRoomRequest,
+			GetStatisticsRequest,
+			LogoutRequest
+		};
 	};
 
 public:

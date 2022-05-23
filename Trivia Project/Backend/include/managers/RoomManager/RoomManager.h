@@ -11,11 +11,15 @@ class RoomManager
 	DELETE_CONSTRUCTOR(RoomManager);
 
 private:
+	std::map<unsigned int, Room> m_rooms;
+
+public:
 	bool createRoom(const LoggedUser& user, const RoomData& data);
 	bool deleteRoom(const int& ID);
-	unsigned int getRoomState(const int& ID);
-	std::vector<RoomData> getRooms() const;
+	bool joinRoom(const LoggedUser& user, unsigned int roomID);
 
-private:
-	std::map<unsigned int, Room> m_rooms;
+	unsigned int getNextRoomId() const;
+	unsigned int getRoomState(const int& ID) const;
+	std::vector<RoomData> getRooms() const;
+	std::vector<std::string> getPlayersInRoom(const int& ID) const;
 };

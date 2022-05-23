@@ -1,16 +1,6 @@
 #include "handlers/LoginRequestHandler.h"
 
 /// <summary>
-/// Instantiating a new LoginRequestHandler
-/// </summary>
-/// <param name="loginManager"></param>
-/// <param name="requestHandlerFactory"></param>
-LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory* requestHandlerFactory) :
-	m_loginManager(loginManager), m_handlerFactory(*requestHandlerFactory)
-{
-}
-
-/// <summary>
 /// The function will call the loginManager's login method.
 /// </summary>
 /// <param name="requestInfo">information about login request</param>
@@ -18,11 +8,7 @@ LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager, RequestHand
 RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 {
 	LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
-	bool result = m_loginManager.login(request.username, request.password);
-
-	std::cout
-		<< "username: " << request.username << '\n'
-		<< "password: " << request.password << '\n';
+	bool result = LoginManager::instance().login(request.username, request.password);
 
 	switch (result)
 	{
@@ -48,12 +34,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
 {
 	SignupRequest request = JsonRequestPacketDeserializer::deserializeSignupRequest(requestInfo.buffer);
-	bool result = m_loginManager.signup(request.username, request.password, request.email);
-
-	std::cout
-		<< "username: " << request.username << '\n'
-		<< "password: " << request.password << '\n'
-		<< "email: " << request.email << '\n';
+	bool result = LoginManager::instance().signup(request.username, request.password, request.email);
 
 	switch (result)
 	{
@@ -77,7 +58,13 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
 /// <returns>whether the reqeust is login or signup</returns>
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
-	return (requestInfo.id == LoginRequestId) || (requestInfo.id == SignupRequestId);
+	switch (requestInfo.id)
+	{
+	case IDS::LoginRequest: case IDS::SignupRequest:
+		return true;
+	default:
+		return false;
+	}
 }
 
 /// <summary>
@@ -91,10 +78,10 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	switch (requestInfo.id)
 	{
-	case LoginRequestId:
+	case IDS::LoginRequest:
 		requestResult = login(requestInfo); break;
 
-	case SignupRequestId:
+	case IDS::SignupRequest:
 		requestResult = signup(requestInfo); break;
 	}
 

@@ -4,6 +4,12 @@
 
 struct GetHighScoreResponse
 {
+	enum
+	{
+		SUCCESS,
+		FAILURE
+	};
+
 	unsigned int status;
-	std::vector<std::string> statistics;
+	std::vector<std::string> highScore;
 };
