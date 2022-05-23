@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <string>
 #include <vector>
-#include "server/SocketError.h"
+#include "infrastructure/SocketError.h"
 
 class Socket
 {

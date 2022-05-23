@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "database/IDatabase.h"
+#include "infrastructure/database/IDatabase.h"
 #include "utils/Singleton.h"
 
 class StatisticsManager

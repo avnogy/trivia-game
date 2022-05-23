@@ -1,4 +1,4 @@
-#include "server/SocketError.h"
+#include "infrastructure/SocketError.h"
 
 SocketError::SocketError(const std::string& errorMessage) noexcept :
 	m_errorMessage("Socket Error: " + errorMessage)

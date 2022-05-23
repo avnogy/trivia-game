@@ -1,5 +1,5 @@
 #pragma once
-#include "json/json.hpp"
+#include "infrastructure/json/json.hpp"
 #include <vector>
 #include <string>
 #include "requests/LoginRequest.h"

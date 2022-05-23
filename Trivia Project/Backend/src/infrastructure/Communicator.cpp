@@ -1,4 +1,4 @@
-#include "server/Communicator.h"
+#include "infrastructure/Communicator.h"
 #include <thread>
 #include <iostream>
 

@@ -3,8 +3,8 @@
 #include "requests/RequestResult.h"
 
 #include <iostream>
-#include "json/JsonRequestPacketDeserializer.h"
-#include "json/JsonRequestPacketSerializer.h"
+#include "infrastructure/json/JsonRequestPacketDeserializer.h"
+#include "infrastructure/json/JsonRequestPacketSerializer.h"
 
 class RequestResult;
 

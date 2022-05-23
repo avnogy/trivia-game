@@ -1,13 +1,13 @@
 #pragma once
-#include "server/Socket.h"
+#include "infrastructure/Socket.h"
 #include "handlers/IRequestHandler.h"
 #include <map>
 #include <ctime>
 #include "requests/LoginRequest.h"
-#include "json/JsonRequestPacketDeserializer.h"
-#include "json/JsonRequestPacketSerializer.h"
+#include "infrastructure/json/JsonRequestPacketDeserializer.h"
+#include "infrastructure/json/JsonRequestPacketSerializer.h"
 #include "handlers/LoginRequestHandler.h"
-#include "handlers/RequestHandlerFactory.h"
+#include "infrastructure/RequestHandlerFactory.h"
 #include "utils/Singleton.h"
 
 #define PORT 4206

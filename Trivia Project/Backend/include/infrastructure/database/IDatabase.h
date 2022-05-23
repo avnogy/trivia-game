@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "database/Question.h"
+#include "infrastructure/database/Question.h"
 
 #define DATABASE_FILE_PATH "D:/Coding/magshimim/Advanced-Programming/trivia-project/Trivia Project/database.sqlite"
 

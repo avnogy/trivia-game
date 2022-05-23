@@ -1,6 +1,6 @@
 #pragma once
-#include "database/DatabaseError.h"
-#include "database/IDatabase.h"
+#include "infrastructure/database/DatabaseError.h"
+#include "infrastructure/database/IDatabase.h"
 #include "sqlite3.h"
 #include <string>
 #include <iostream>

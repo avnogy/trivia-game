@@ -1,4 +1,4 @@
-#include "json/JsonRequestPacketSerializer.h"
+#include "infrastructure/json/JsonRequestPacketSerializer.h"
 
 /// <summary>
 /// serialize error response

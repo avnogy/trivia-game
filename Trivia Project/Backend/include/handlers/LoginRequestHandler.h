@@ -3,7 +3,7 @@
 #include "requests/LoginRequest.h"
 #include "managers/LoginManager/LoginManager.h"
 #include "handlers/MenuRequestHandler.h"
-#include "handlers/RequestHandlerFactory.h"
+#include "infrastructure/RequestHandlerFactory.h"
 
 class RequestHandlerFactory;
 
