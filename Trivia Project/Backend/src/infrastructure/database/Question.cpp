@@ -1,4 +1,4 @@
-#include "database/Question.h"
+#include "infrastructure/database/Question.h"
 
 /// <summary>
 /// Creating a new quest class

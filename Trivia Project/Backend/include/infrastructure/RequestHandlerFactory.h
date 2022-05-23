@@ -4,7 +4,7 @@
 #include "managers/RoomManager/RoomManager.h"
 #include "managers/StatisticsManager/StatisticsManager.h"
 
-#include "database/SqliteDataBase.h"
+#include "infrastructure/database/SqliteDataBase.h"
 
 #include "handlers/LoginRequestHandler.h"
 #include "handlers/MenuRequestHandler.h"

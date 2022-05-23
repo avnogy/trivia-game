@@ -1,4 +1,4 @@
-#include "server/WSAInitializer.h"
+#include "infrastructure/WSAInitializer.h"
 #include <exception>
 
 WSAInitializer::WSAInitializer()

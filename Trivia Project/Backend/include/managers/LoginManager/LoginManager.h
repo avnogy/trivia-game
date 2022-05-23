@@ -1,11 +1,11 @@
 #pragma once
 
 #include <unordered_set> //hash table - constant search, diables duplicates.
-#include "database/IDatabase.h"
+#include "infrastructure/database/IDatabase.h"
 #include "managers/LoggedUser.h"
-#include "database/SqliteDataBase.h"
+#include "infrastructure/database/SqliteDataBase.h"
 #include "requests/RequestResult.h"
-#include "database/DatabaseError.h"
+#include "infrastructure/database/DatabaseError.h"
 #include "utils/Singleton.h"
 
 class LoginManager

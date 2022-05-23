@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "json/json.hpp"
+#include "infrastructure/json/json.hpp"
 struct RoomData
 {
 	unsigned int id;
@@ -9,5 +9,5 @@ struct RoomData
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
 	unsigned int isActive;
-	NLOHMANN_DEFINE_TYPE_INTRUSIVE(RoomData,id,name,maxPlayers,numOfQuestionsInGame,timePerQuestion,isActive);
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(RoomData, id, name, maxPlayers, numOfQuestionsInGame, timePerQuestion, isActive);
 };

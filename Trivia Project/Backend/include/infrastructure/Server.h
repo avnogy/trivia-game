@@ -1,7 +1,7 @@
 #pragma once
-#include "server/Communicator.h"
-#include "database/IDatabase.h"
-#include "handlers/RequestHandlerFactory.h"
+#include "infrastructure/Communicator.h"
+#include "infrastructure/database/IDatabase.h"
+#include "infrastructure/RequestHandlerFactory.h"
 #include "utils/Singleton.h"
 
 #define DATABASE_FILE_PATH "D:/Coding/magshimim/Advanced-Programming/trivia-project/Trivia Project/database.sqlite"

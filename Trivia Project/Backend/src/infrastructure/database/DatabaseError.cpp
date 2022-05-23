@@ -1,4 +1,4 @@
-#include "database/DatabaseError.h"
+#include "infrastructure/database/DatabaseError.h"
 
 DatabaseError::DatabaseError(const std::string& errorMessage) noexcept :
 	m_errorMessage("Database Error: " + errorMessage)
