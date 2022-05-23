@@ -1,6 +1,17 @@
 #include "managers/RoomManager/RoomManager.h"
 
 /// <summary>
+///	Getting the next room id.
+/// </summary>
+/// <returns>biggest room id + 1</returns>
+unsigned int RoomManager::getNextRoomId() const
+{
+	if (m_rooms.size() == 0)
+		return 0;
+	return m_rooms.rbegin()->first + 1;
+}
+
+/// <summary>
 /// creates a room and adds it to the vector
 /// </summary>
 /// <param name="user"></param>
@@ -24,13 +35,24 @@ bool RoomManager::deleteRoom(const int& ID)
 }
 
 /// <summary>
+/// Adding a new user to a room
+/// </summary>
+/// <param name="user">user to add to room</param>
+/// <param name="roomID">room to add the user to</param>
+/// <returns>whether succeessfully added user</returns>
+bool RoomManager::joinRoom(const LoggedUser& user, unsigned int roomID)
+{
+	return m_rooms[roomID].addUser(user);
+}
+
+/// <summary>
 /// returns the state of a room
 /// </summary>
 /// <param name="ID"></param>
 /// <returns></returns>
-unsigned int RoomManager::getRoomState(const int& ID)
+unsigned int RoomManager::getRoomState(const int& ID) const
 {
-	return (m_rooms[ID].getRoomData().isActive) ? GAME_ACTIVE : WAITING_TO_START_GAME;
+	return (m_rooms.at(ID).getRoomData().isActive) ? GAME_ACTIVE : WAITING_TO_START_GAME;
 }
 
 /// <summary>
@@ -44,4 +66,14 @@ std::vector<RoomData> RoomManager::getRooms() const
 	for (const auto& pair : m_rooms)
 		rooms_vec.push_back(pair.second.getRoomData());
 	return rooms_vec;
+}
+
+/// <summary>
+/// Getting all players in a room
+/// </summary>
+/// <param name="ID">id of the room</param>
+/// <returns>all usernames of all players in a room</returns>
+std::vector<std::string> RoomManager::getPlayersInRoom(const int& ID) const
+{
+	return m_rooms.at(ID).getAllUsers();
 }

@@ -178,8 +178,12 @@
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
     <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h" />
     <ClInclude Include="include\requests\CreateRoomRequest.h" />
+    <ClInclude Include="include\requests\GetHighScoreRequest.h" />
     <ClInclude Include="include\requests\GetPlayersInRoomRequest.h" />
+    <ClInclude Include="include\requests\GetRoomsRequest.h" />
+    <ClInclude Include="include\requests\GetStatisticsRequest.h" />
     <ClInclude Include="include\requests\JoinRoomRequest.h" />
+    <ClInclude Include="include\requests\LogoutRequest.h" />
     <ClInclude Include="include\responses\StatisticsResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
     <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />

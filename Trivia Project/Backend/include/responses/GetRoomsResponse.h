@@ -2,8 +2,13 @@
 #include <vector>
 #include "managers/RoomManager/RoomData.h"
 
-struct getRoomResponse
+struct GetRoomsResponse
 {
+	enum
+	{
+		SUCCESS,
+		FAILURE
+	};
 	unsigned int status;
 	std::vector<RoomData> rooms;
 };

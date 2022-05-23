@@ -109,3 +109,16 @@ std::string JsonRequestPacketSerializer::serializeResponse(const StatisticsRespo
 	json["statistics"] = response.statistics;
 	return json.dump();
 }
+
+/// <summary>
+/// serialize high score response
+/// </summary>
+/// <param name="response">get high score response</param>
+/// <returns>buffer</returns>
+std::string JsonRequestPacketSerializer::serializeResponse(const GetHighScoreResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["highScore"] = response.highScore;
+	return json.dump();
+}
