@@ -16,6 +16,8 @@
 
 #include "responses/GetHighScoreResponse.h"
 
+class RequestHandlerFactory;
+
 class MenuRequestHandler : public IRequestHandler
 {
 private:
@@ -30,6 +32,8 @@ private:
 	RequestResult createRoom(const RequestInfo& requestInfo);
 
 public:
+	MenuRequestHandler(const LoggedUser& user);
+
 	bool isRequestRelevant(const RequestInfo& requestInfo) const override;
 	RequestResult handleRequest(const RequestInfo& requestInfo) override;
 };

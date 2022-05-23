@@ -13,7 +13,7 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo)
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		this
-	}; //return game handker
+	}; //return game handler
 }
 
 /// <summary>
@@ -29,7 +29,7 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo)
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetRoomsResponse{ GetRoomsResponse::SUCCESS, result }),
 		this
-	}; //return game handker
+	}; //return game handler
 }
 
 /// <summary>
@@ -45,7 +45,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInf
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
 		this
-	}; //return game handker
+	}; //return game handler
 }
 
 /// <summary>
@@ -61,7 +61,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInf
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(StatisticsResponse{ StatisticsResponse::SUCCESS, result }),
 		this
-	}; //return game handker
+	}; //return game handler
 }
 
 /// <summary>
@@ -77,7 +77,7 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo)
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetHighScoreResponse{ GetHighScoreResponse::SUCCESS, result }),
 		this
-	}; //return game handker
+	}; //return game handler
 }
 
 /// <summary>
@@ -131,6 +131,15 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo)
 			this
 		};
 	}
+}
+
+/// <summary>
+/// Creating an new MenuRequestHandler
+/// </summary>
+/// <param name="user">user to give the handler to</param>
+MenuRequestHandler::MenuRequestHandler(const LoggedUser& user) :
+	m_user(user)
+{
 }
 
 /// <summary>
