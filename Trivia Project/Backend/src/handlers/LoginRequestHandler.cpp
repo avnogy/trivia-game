@@ -15,8 +15,8 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 	case true:
 		return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::SUCCESS}),
-		new MenuRequestHandler()
-		};// m_handlerFactory.createMenuRequestHandler()
+		RequestHandlerFactory::instance().createMenuRequestHandler({ request.username })
+		};
 
 	case false:
 		return RequestResult{

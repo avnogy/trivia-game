@@ -53,7 +53,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LogoutResponse&
 /// </summary>
 /// <param name="response">get room response</param>
 /// <returns></returns>
-std::string JsonRequestPacketSerializer::serializeResponse(const getRoomResponse& response)
+std::string JsonRequestPacketSerializer::serializeResponse(const GetRoomsResponse& response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
