@@ -20,7 +20,11 @@ protected:
 			GetPlayersInRoomRequest,
 			JoinRoomRequest,
 			GetStatisticsRequest,
-			LogoutRequest
+			LogoutRequest,
+			CloseRoomRequest,
+			StartGameRequest,
+			GetRoomStateRequest,
+			LeaveRoomRequest
 		};
 	};
 
