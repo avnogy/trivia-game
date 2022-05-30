@@ -193,6 +193,10 @@
     <ClInclude Include="include\requests\GetStatisticsRequest.h" />
     <ClInclude Include="include\requests\JoinRoomRequest.h" />
     <ClInclude Include="include\requests\LogoutRequest.h" />
+    <ClInclude Include="include\responses\CloseRoomResponse.h" />
+    <ClInclude Include="include\responses\GetRoomStateResponse.h" />
+    <ClInclude Include="include\responses\LeaveRoomResponse.h" />
+    <ClInclude Include="include\responses\StartGameResponse.h" />
     <ClInclude Include="include\responses\StatisticsResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
     <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
