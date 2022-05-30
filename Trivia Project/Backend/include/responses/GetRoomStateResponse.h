@@ -5,7 +5,7 @@
 struct GetRoomStateResponse
 {
 	unsigned int status;
-	bool hasGameBegub;
+	bool hasGameBegun;
 	std::vector<std::string> players;
 	unsigned int questionCount;
 	unsigned int answerTimeout;

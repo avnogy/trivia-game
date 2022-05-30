@@ -7,8 +7,7 @@
 /// <returns>response and next handler</returns>
 RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo)
 {
-	LogoutRequest request = JsonRequestPacketDeserializer::deserializeLogoutRequest(requestInfo.buffer);
-	bool result = LoginManager::instance().logout(request.username);
+	bool result = LoginManager::instance().logout(m_user.getUsername());
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
@@ -23,7 +22,6 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo)
 /// <returns>response and next handler</returns>
 RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo)
 {
-	GetRoomsRequest request = JsonRequestPacketDeserializer::deserializeGetRoomsRequest(requestInfo.buffer);
 	auto result = RoomManager::instance().getRooms();
 
 	return RequestResult{
@@ -55,8 +53,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInf
 /// <returns>response and next handler</returns>
 RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInfo)
 {
-	GetStatisticsRequest request = JsonRequestPacketDeserializer::deserializeGetStatisticsRequest(requestInfo.buffer);
-	auto result = StatisticsManager::instance().getUserStatistics(request.username);
+	auto result = StatisticsManager::instance().getUserStatistics(m_user.getUsername());
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(StatisticsResponse{ StatisticsResponse::SUCCESS, result }),
@@ -71,7 +68,6 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInf
 /// <returns>response and next handler</returns>
 RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo)
 {
-	GetHighScoreRequest request = JsonRequestPacketDeserializer::deserializeGetHighScoreRequest(requestInfo.buffer);
 	auto result = StatisticsManager::instance().getHighScore();
 
 	return RequestResult{

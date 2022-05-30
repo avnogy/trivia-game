@@ -28,8 +28,4 @@ public:
 	static GetPlayersInRoomRequest deserializeGetPlayersInRoomRequest(const std::string& buffer);
 	static JoinRoomRequest deserializeJoinRoomRequest(const std::string& buffer);
 	static CreateRoomRequest deserializeCreateRoomRequest(const std::string& buffer);
-	static LogoutRequest deserializeLogoutRequest(const std::string& buffer);
-	static GetStatisticsRequest deserializeGetStatisticsRequest(const std::string& buffer);
-	static GetRoomsRequest deserializeGetRoomsRequest(const std::string& buffer);
-	static GetHighScoreRequest deserializeGetHighScoreRequest(const std::string& buffer);
 };

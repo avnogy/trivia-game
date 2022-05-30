@@ -12,6 +12,10 @@
 #include "responses/StatisticsResponse.h"
 #include "responses/GetHighScoreResponse.h"
 #include "utils/Singleton.h"
+#include "responses/CloseRoomResponse.h"
+#include "responses/StartGameResponse.h"
+#include "responses/GetRoomStateResponse.h"
+#include "responses/LeaveRoomResponse.h"
 
 class JsonRequestPacketSerializer
 {
@@ -23,6 +27,7 @@ public:
 	static std::string serializeResponse(const ErrorResponse& response);
 	static std::string serializeResponse(const LoginResponse& response);
 	static std::string serializeResponse(const SignupResponse& response);
+
 	static std::string serializeResponse(const LogoutResponse& response);
 	static std::string serializeResponse(const GetRoomsResponse& response);
 	static std::string serializeResponse(const GetPlayersInRoomResponse& response);
@@ -30,4 +35,9 @@ public:
 	static std::string serializeResponse(const CreateRoomResponse& response);
 	static std::string serializeResponse(const StatisticsResponse& response);
 	static std::string serializeResponse(const GetHighScoreResponse& response);
+
+	static std::string serializeResponse(const CloseRoomResponse& response);
+	static std::string serializeResponse(const StartGameResponse& response);
+	static std::string serializeResponse(const GetRoomStateResponse& response);
+	static std::string serializeResponse(const LeaveRoomResponse& response);
 };
