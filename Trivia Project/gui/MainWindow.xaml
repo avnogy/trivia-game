@@ -1,0 +1,23 @@
+﻿<Window x:Class="gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <Label>
+            <StackPanel Orientation="Horizontal"> 
+                <Image Width="32" Source="https://cdn-icons.flaticon.com/png/512/3261/premium/3261308.png?token=exp=1653928600~hmac=33378aac7ca3cd0d43dc4981510d1693"></Image>
+                <AccessText Text = "Hello world" ></AccessText>
+            </StackPanel> 
+        </Label>
+        <TextBox></TextBox>
+        <Button
+            x:Name="b" 
+            Content ="1"
+            Click="b_Click"
+            ></Button>
+    </StackPanel>
+</Window>
