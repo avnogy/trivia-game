@@ -24,5 +24,10 @@ namespace gui
         {
             InitializeComponent();
         }
+
+        private void signupBTN_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }

@@ -9,6 +9,7 @@
       Title="LoginPage">
 
     <Grid>
-        <Label>login</Label>
+        <Label>login page:</Label>
+        <Button x:Name="signupBTN" Content="signup page" Click="signupBTN_Click" Width="100" Height="100"/>
     </Grid>
 </Page>
