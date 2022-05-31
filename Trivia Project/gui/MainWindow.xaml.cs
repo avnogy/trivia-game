@@ -20,16 +20,10 @@ namespace gui
     /// </summary>
     public partial class MainWindow : Window
     {
-        int i = 0;
         public MainWindow()
         {
             InitializeComponent();
-            b.Content = i;
         }
 
-        private void b_Click(object sender, RoutedEventArgs e)
-        {
-            b.Content = i++;
-        }
     }
 }

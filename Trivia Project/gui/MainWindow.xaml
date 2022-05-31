@@ -5,19 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gui"
         mc:Ignorable="d"
+        Name="mainWin"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Label>
-            <StackPanel Orientation="Horizontal"> 
-                <Image Width="32" Source="https://cdn-icons.flaticon.com/png/512/3261/premium/3261308.png?token=exp=1653928600~hmac=33378aac7ca3cd0d43dc4981510d1693"></Image>
-                <AccessText Text = "Hello world" ></AccessText>
-            </StackPanel> 
-        </Label>
-        <TextBox></TextBox>
-        <Button
-            x:Name="b" 
-            Content ="1"
-            Click="b_Click"
-            ></Button>
-    </StackPanel>
 </Window>
