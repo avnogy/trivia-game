@@ -8,9 +8,7 @@
         Name="mainWin"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
-        <Frame x:Name="frame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden">
-
-        </Frame>
+        <Frame x:Name="frame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden"/>
     </StackPanel>
    
 </Window>

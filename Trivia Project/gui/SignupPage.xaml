@@ -9,6 +9,6 @@
       Title="SignupPage">
 
     <Grid>
-        
+        <Label>signup page:</Label>
     </Grid>
 </Page>

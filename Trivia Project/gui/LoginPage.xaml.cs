@@ -27,7 +27,7 @@ namespace gui
 
         private void signupBTN_Click(object sender, RoutedEventArgs e)
         {
-           
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new SignupPage();
         }
     }
 }
