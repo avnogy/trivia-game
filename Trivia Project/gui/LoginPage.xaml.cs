@@ -29,5 +29,11 @@ namespace gui
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new SignupPage();
         }
+
+        private void loginBTN_Click(object sender, RoutedEventArgs e)
+        {
+            //TO:DO: actually log in the user
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new MainMenuPage();
+        }
     }
 }

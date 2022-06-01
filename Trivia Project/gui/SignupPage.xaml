@@ -45,7 +45,7 @@
             <TextBlock  x:Name="loginBTN" Text=" login" MouseLeftButtonUp="loginBTN_Click" Foreground="#FFFF7272" FontSize="14" FontFamily="Ink Free" FontWeight="Bold" />
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="9" x:Name="signupBTN" Content="sign up" HorizontalAlignment="Center" FontSize="20" Width="120" Background="#FFABD3EF" FontFamily="Ink Free" FontWeight="Bold"/>
+        <Button Click="signupBTN_Click" Grid.Column="1" Grid.Row="9" x:Name="signupBTN" Content="sign up" HorizontalAlignment="Center" FontSize="20" Width="120" Background="#FFABD3EF" FontFamily="Ink Free" FontWeight="Bold"/>
 
     </Grid>
 </Page>
