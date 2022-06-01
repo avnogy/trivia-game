@@ -24,5 +24,10 @@ namespace gui
         {
             InitializeComponent();
         }
+
+        private void loginBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
+        }
     }
 }
