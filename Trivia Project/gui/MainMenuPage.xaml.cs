@@ -24,5 +24,13 @@ namespace gui
         {
             InitializeComponent();
         }
+
+        private void exitBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to close the application?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
+        }
     }
 }
