@@ -8,8 +8,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage">
 
-    <Grid>
-        <Label>login page:</Label>
+    <StackPanel>
+        <Label HorizontalAlignment="Center" FontSize="24">login</Label>
         <Button x:Name="signupBTN" Content="signup page" Click="signupBTN_Click" Width="100" Height="100"/>
-    </Grid>
+    </StackPanel>
 </Page>

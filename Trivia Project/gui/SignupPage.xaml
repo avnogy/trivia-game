@@ -9,7 +9,28 @@
       Title="SignupPage">
 
     <Grid>
-        <Label>signup page:</Label>
-        <Button x:Name="loginBTN" Content="login page" Click="loginBTN_Click" Width="100" Height="100"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Height="166" HorizontalAlignment="Center" FontSize="24">sign up</Label>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Already have an accout?"/>
+            <TextBlock  x:Name="loginBTN" Text=" login" MouseLeftButtonUp="loginBTN_Click" Foreground="#FFFF7272" />
+        </StackPanel>
+
     </Grid>
 </Page>
