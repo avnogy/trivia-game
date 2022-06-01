@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:gui"
         mc:Ignorable="d"
         Name="mainWin"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="650">
     <StackPanel>
         <Frame x:Name="frame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden"/>
     </StackPanel>
