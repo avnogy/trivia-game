@@ -40,25 +40,24 @@ void Communicator::bindAndListen()
 /// Handling new connections
 /// </summary>
 /// <param name="socket">socket to handle</param>
-void Communicator::handleNewClient(Socket** socket)
+void Communicator::handleNewClient(Socket* socket)
 {
-	Socket& client = **socket;
-
 	try
 	{
 		while (true)
 		{
-			RequestInfo request = recvRequest(client);
+			RequestInfo request = recvRequest(*socket);
 			RequestResult result;
 
-			if (m_clients[*socket]->isRequestRelevant(request))
+			if (m_clients[socket]->isRequestRelevant(request))
 			{
-				result = m_clients[*socket]->handleRequest(request);
-				//send result
+				result = m_clients[socket]->handleRequest(request);  //handling client
+				socket->send(result.response);						 //sending client response
+				m_clients[socket] = result.newHandler;			     //updating client handler
 			}
 			else
 			{
-				client.send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
+				socket->send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
 			}
 
 			std::cout << result.response << '\n' << std::endl;
@@ -68,8 +67,25 @@ void Communicator::handleNewClient(Socket** socket)
 	{
 	}
 
-	delete* socket;
-	*socket = nullptr;
+	m_clients.erase(socket);
+	delete socket;
+}
+
+/// <summary>
+/// Binding the username to the socket/
+/// </summary>
+/// <param name="username">username of a client</param>
+/// <param name="socket">socket of the client</param>
+void Communicator::bindUsernameToSocket(const std::string& username, IRequestHandler* requestHandler)
+{
+	for (auto& it : m_clients)
+	{
+		if (it.second == requestHandler)
+		{
+			usernameToSocket[username] = it.first;
+			break;
+		}
+	}
 }
 
 /// <summary>
@@ -90,10 +106,10 @@ void Communicator::startHandleRequest()
 
 		//handling new connection in a separate thread
 #ifndef _DEBUG
-		std::thread t_handleNewClient(&Communicator::handleNewClient, this, &newClient);
+		std::thread t_handleNewClient(&Communicator::handleNewClient, this, newClient);
 		t_handleNewClient.detach();
 #else
-		handleNewClient(&newClient);
+		handleNewClient(newClient);
 #endif
 	}
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 struct LoginResponse
 {
@@ -8,4 +9,5 @@ struct LoginResponse
 		FAILURE
 	};
 	unsigned int status;
+	std::string username;
 };

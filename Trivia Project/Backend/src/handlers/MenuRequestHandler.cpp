@@ -5,13 +5,13 @@
 /// </summary>
 /// <param name="requestInfo">imformation about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo) const
 {
 	bool result = LoginManager::instance().logout(m_user.getUsername());
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
-		this
+		(IRequestHandler*)this
 	}; //return game handler
 }
 
@@ -20,13 +20,13 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="requestInfo">imformation about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo) const
 {
 	auto result = RoomManager::instance().getRooms();
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetRoomsResponse{ GetRoomsResponse::SUCCESS, result }),
-		this
+		(IRequestHandler*)this
 	}; //return game handler
 }
 
@@ -35,14 +35,14 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="requestInfo">imformation about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo) const
 {
 	GetPlayersInRoomRequest request = JsonRequestPacketDeserializer::deserializeGetPlayersInRoomRequest(requestInfo.buffer);
 	auto result = RoomManager::instance().getPlayersInRoom(request.roomId);
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
-		this
+		(IRequestHandler*)this
 	}; //return game handler
 }
 
@@ -51,13 +51,13 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInf
 /// </summary>
 /// <param name="requestInfo">information about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInfo) const
 {
 	auto result = StatisticsManager::instance().getUserStatistics(m_user.getUsername());
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(StatisticsResponse{ StatisticsResponse::SUCCESS, result }),
-		this
+		(IRequestHandler*)this
 	}; //return game handler
 }
 
@@ -66,13 +66,13 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInf
 /// </summary>
 /// <param name="requestInfo">information about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo) const
 {
 	auto result = StatisticsManager::instance().getHighScore();
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetHighScoreResponse{ GetHighScoreResponse::SUCCESS, result }),
-		this
+		(IRequestHandler*)this
 	}; //return game handler
 }
 
@@ -81,7 +81,7 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="requestInfo">information about request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo) const
 {
 	JoinRoomRequest request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(requestInfo.buffer);
 	bool result = RoomManager::instance().joinRoom(m_user, request.roomId);
@@ -91,13 +91,13 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo)
 	case true:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(JoinRoomResponse{JoinRoomResponse::SUCCESS}),
-			this
+			(IRequestHandler*)this
 		}; //change this to game request handler
 
 	case false:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(JoinRoomResponse{JoinRoomResponse::FAILURE}),
-			this
+			(IRequestHandler*)this
 		};
 	}
 }
@@ -107,7 +107,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="requestInfo">information about the request</param>
 /// <returns>response and next handler</returns>
-RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo)
+RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) const
 {
 	CreateRoomRequest request = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(requestInfo.buffer);
 	RoomData roomData = { RoomManager::instance().getNextRoomId(), request.roomName, request.maxUsers, request.questionCount, request.answerTimeout, true };
@@ -118,13 +118,13 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo)
 	case true:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(CreateRoomResponse{CreateRoomResponse::SUCCESS}),
-			this
+			(IRequestHandler*)this
 		}; //change this to game request handler
 
 	case false:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(CreateRoomResponse{CreateRoomResponse::FAILURE}),
-			this
+			(IRequestHandler*)this
 		};
 	}
 }

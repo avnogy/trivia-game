@@ -21,6 +21,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LoginResponse& 
 {
 	nlohmann::json json;
 	json["status"] = response.status;
+	json["username"] = response.username;
 	return json.dump();
 }
 
@@ -160,6 +161,8 @@ std::string JsonRequestPacketSerializer::serializeResponse(const GetRoomStateRes
 	json["players"] = response.players;
 	json["questionCount"] = response.questionCount;
 	json["answerTimeout"] = response.answerTimeout;
+
+	return json;
 }
 
 /// <summary>

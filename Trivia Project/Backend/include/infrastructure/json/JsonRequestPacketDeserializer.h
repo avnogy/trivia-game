@@ -7,10 +7,6 @@
 #include "requests/GetPlayersInRoomRequest.h"
 #include "requests/CreateRoomRequest.h"
 #include "requests/JoinRoomRequest.h"
-#include "requests/GetRoomsRequest.h"
-#include "requests/GetStatisticsRequest.h"
-#include "requests/LogoutRequest.h"
-#include "requests/GetHighScoreRequest.h"
 #include "utils/Singleton.h"
 
 using namespace nlohmann;

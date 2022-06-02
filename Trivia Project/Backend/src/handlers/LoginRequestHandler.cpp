@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="requestInfo">information about login request</param>
 /// <returns>request result</returns>
-RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
+RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 {
 	LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
 	bool result = LoginManager::instance().login(request.username, request.password);
@@ -13,6 +13,8 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 	switch (result)
 	{
 	case true:
+		Communicator::instance().bindUsernameToSocket(request.username, (IRequestHandler*)this); //updating communicator with username
+
 		return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::SUCCESS}),
 		RequestHandlerFactory::instance().createMenuRequestHandler({ request.username })
@@ -21,7 +23,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 	case false:
 		return RequestResult{
 			JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::FAILURE}),
-			this
+			(IRequestHandler*)this
 		};
 	}
 }
@@ -31,7 +33,7 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="requestInfo">information about signup request</param>
 /// <returns>request result</returns>
-RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
+RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo) const
 {
 	SignupRequest request = JsonRequestPacketDeserializer::deserializeSignupRequest(requestInfo.buffer);
 	bool result = LoginManager::instance().signup(request.username, request.password, request.email);
@@ -46,7 +48,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo)
 	case false:
 		return RequestResult{
 			JsonRequestPacketSerializer::serializeResponse(SignupResponse{SignupResponse::FAILURE}),
-			this
+			(IRequestHandler*)this
 		};
 	}
 }
@@ -74,16 +76,12 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) cons
 /// <returns>request result</returns>
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& requestInfo)
 {
-	RequestResult requestResult;
-
 	switch (requestInfo.id)
 	{
 	case IDS::LoginRequest:
-		requestResult = login(requestInfo); break;
+		return login(requestInfo);
 
 	case IDS::SignupRequest:
-		requestResult = signup(requestInfo); break;
+		return signup(requestInfo); break;
 	}
-
-	return requestResult;
 }

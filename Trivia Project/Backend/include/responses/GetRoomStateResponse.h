@@ -4,6 +4,10 @@
 
 struct GetRoomStateResponse
 {
+	enum
+	{
+		SUCCESS
+	};
 	unsigned int status;
 	bool hasGameBegun;
 	std::vector<std::string> players;

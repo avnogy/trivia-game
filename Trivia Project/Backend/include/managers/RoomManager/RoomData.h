@@ -8,6 +8,6 @@ struct RoomData
 	unsigned int maxPlayers;
 	unsigned int numOfQuestionsInGame;
 	unsigned int timePerQuestion;
-	unsigned int isActive;
+	bool isActive;
 	NLOHMANN_DEFINE_TYPE_INTRUSIVE(RoomData, id, name, maxPlayers, numOfQuestionsInGame, timePerQuestion, isActive);
 };
