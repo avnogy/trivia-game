@@ -32,5 +32,10 @@ namespace gui
                 System.Windows.Application.Current.Shutdown();
             }
         }
+
+        private void createBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new createRoomPage();
+        }
     }
 }
