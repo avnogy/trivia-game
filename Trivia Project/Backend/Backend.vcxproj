@@ -143,11 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\responses\CreateRoomResponse.h" />
-    <ClCompile Include="src\infrastructure\database\IDatabase.cpp" />
-    <ClCompile Include="src\infrastructure\database\Question.cpp" />
+    <ClCompile Include="src\handlers\RoomMemberRequestHandler.cpp" />
+    <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
+    <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp" />
+    <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
+    <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\infrastructure\Communicator.cpp" />
     <ClCompile Include="src\infrastructure\database\DatabaseError.cpp" />
+    <ClCompile Include="src\infrastructure\database\IDatabase.cpp" />
+    <ClCompile Include="src\infrastructure\database\Question.cpp" />
     <ClCompile Include="src\infrastructure\database\sqlite3.c" />
     <ClCompile Include="src\infrastructure\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\infrastructure\json\JsonRequestPacketDeserializer.cpp" />
@@ -157,23 +161,16 @@
     <ClCompile Include="src\infrastructure\Socket.cpp" />
     <ClCompile Include="src\infrastructure\SocketError.cpp" />
     <ClCompile Include="src\infrastructure\WSAInitializer.cpp" />
-    <ClCompile Include="src\managers\RoomManager\Room.cpp" />
-    <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\handlers\LoginRequestHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\LoggedUser.cpp" />
     <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
+    <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
-    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\handlers\IRoomMemberRequestHandler.h" />
     <ClInclude Include="include\infrastructure\Communicator.h" />
-    <ClInclude Include="include\infrastructure\database\DatabaseError.h" />
-    <ClInclude Include="include\infrastructure\database\IDatabase.h" />
-    <ClInclude Include="include\infrastructure\database\Question.h" />
-    <ClInclude Include="include\infrastructure\database\sqlite3.h" />
-    <ClInclude Include="include\infrastructure\database\SqliteDataBase.h" />
     <ClInclude Include="include\infrastructure\json\json.hpp" />
     <ClInclude Include="include\infrastructure\json\JsonRequestPacketDeserializer.h" />
     <ClInclude Include="include\infrastructure\json\JsonRequestPacketSerializer.h" />
@@ -183,30 +180,28 @@
     <ClInclude Include="include\infrastructure\SocketError.h" />
     <ClInclude Include="include\infrastructure\WSAInitializer.h" />
     <ClInclude Include="include\managers\LoggedUser.h" />
+    <ClInclude Include="include\managers\LoginManager.h" />
     <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
+    <ClInclude Include="include\managers\RoomManager\Room.h" />
+    <ClInclude Include="include\managers\RoomManager\RoomData.h" />
     <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
-    <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h" />
     <ClInclude Include="include\requests\CreateRoomRequest.h" />
-    <ClInclude Include="include\requests\GetHighScoreRequest.h" />
     <ClInclude Include="include\requests\GetPlayersInRoomRequest.h" />
-    <ClInclude Include="include\requests\GetRoomsRequest.h" />
-    <ClInclude Include="include\requests\GetStatisticsRequest.h" />
     <ClInclude Include="include\requests\JoinRoomRequest.h" />
-    <ClInclude Include="include\requests\LogoutRequest.h" />
     <ClInclude Include="include\responses\CloseRoomResponse.h" />
-    <ClInclude Include="include\responses\GetRoomStateResponse.h" />
-    <ClInclude Include="include\responses\LeaveRoomResponse.h" />
-    <ClInclude Include="include\responses\StartGameResponse.h" />
-    <ClInclude Include="include\responses\StatisticsResponse.h" />
+    <ClInclude Include="include\responses\CreateRoomResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
     <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
     <ClInclude Include="include\responses\GetRoomsResponse.h" />
+    <ClInclude Include="include\responses\GetRoomStateResponse.h" />
     <ClInclude Include="include\responses\JoinRoomResponse.h" />
+    <ClInclude Include="include\responses\LeaveRoomResponse.h" />
     <ClInclude Include="include\responses\LogoutResponse.h" />
+    <ClInclude Include="include\responses\StartGameResponse.h" />
+    <ClInclude Include="include\responses\StatisticsResponse.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
-    <ClInclude Include="include\JsonPackerDeserializer.h" />
     <ClInclude Include="include\requests\LoginRequest.h" />
     <ClInclude Include="include\handlers\LoginRequestHandler.h" />
     <ClInclude Include="include\responses\LoginResponse.h" />
@@ -216,8 +211,8 @@
     <ClInclude Include="include\responses\SignupResponse.h" />
     <ClInclude Include="include\handlers\MenuRequestHandler.h" />
     <ClInclude Include="include\utils\Singleton.h" />
-    <ClInclude Include="include\managers\RoomManager\Room.h" />
-    <ClInclude Include="include\managers\RoomManager\RoomData.h" />
+    <ClInclude Include="include\handlers\RoomAdminRequestHandler.h" />
+    <ClInclude Include="include\handlers\RoomMemberRequestHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

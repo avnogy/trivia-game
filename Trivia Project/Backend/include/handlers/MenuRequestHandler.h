@@ -10,9 +10,6 @@
 #include "requests/CreateRoomRequest.h"
 #include "requests/GetPlayersInRoomRequest.h"
 #include "requests/JoinRoomRequest.h"
-#include "requests/GetRoomsRequest.h"
-#include "requests/GetStatisticsRequest.h"
-#include "requests/GetHighScoreRequest.h"
 
 #include "responses/GetHighScoreResponse.h"
 
@@ -23,13 +20,13 @@ class MenuRequestHandler : public IRequestHandler
 private:
 	const LoggedUser m_user;
 
-	RequestResult logout(const RequestInfo& requestInfo);
-	RequestResult getRooms(const RequestInfo& requestInfo);
-	RequestResult getPlayersInRoom(const RequestInfo& requestInfo);
-	RequestResult getPersonalStats(const RequestInfo& requestInfo);
-	RequestResult getHighScore(const RequestInfo& requestInfo);
-	RequestResult joinRoom(const RequestInfo& requestInfo);
-	RequestResult createRoom(const RequestInfo& requestInfo);
+	RequestResult logout(const RequestInfo& requestInfo) const;
+	RequestResult getRooms(const RequestInfo& requestInfo) const;
+	RequestResult getPlayersInRoom(const RequestInfo& requestInfo) const;
+	RequestResult getPersonalStats(const RequestInfo& requestInfo) const;
+	RequestResult getHighScore(const RequestInfo& requestInfo) const;
+	RequestResult joinRoom(const RequestInfo& requestInfo) const;
+	RequestResult createRoom(const RequestInfo& requestInfo) const;
 
 public:
 	MenuRequestHandler(const LoggedUser& user);
