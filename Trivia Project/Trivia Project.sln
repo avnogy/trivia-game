@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python Client", "Python Cli
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "opentdb api", "opentdb api\opentdb api.pyproj", "{CADAA01E-293A-41BC-8337-66E44C4FE344}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{1BB4A438-C816-4A81-85DF-817C84FB296C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,18 @@ Global
 		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|x64.ActiveCfg = Release|Any CPU
 		{CADAA01E-293A-41BC-8337-66E44C4FE344}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|x64.Build.0 = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|x64.ActiveCfg = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|x64.Build.0 = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BB4A438-C816-4A81-85DF-817C84FB296C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,20 @@
+﻿<Window x:Class="Frontend.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Frontend"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Label x:Name="labelLoginTitle" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Bell MT" FontSize="48" FontWeight="Bold" />
+        <Label x:Name="labelSignupTitle" Content="Signup" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Bell MT" FontSize="48" FontWeight="Bold" />
+        <Label x:Name="labelSignupUsername" Content="username" HorizontalAlignment="Center" Margin="0,135,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" />
+        <Label x:Name="labelSignupPassword" Content="password&#xA;" HorizontalAlignment="Center" Margin="0,253,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" Height="63" />
+        <TextBox x:Name="textboxSignupUsername" HorizontalAlignment="Center" Margin="0,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" />
+        <TextBox x:Name="textboxSignupPassword" HorizontalAlignment="Center" Margin="0,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" />
+        <Button x:Name="buttonSignupLogin" Content="already have an account?" HorizontalAlignment="Center" Margin="0,316,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Bell MT" />
+        <Label x:Name="labelSignupEmail" Content="email&#xD;&#xA;" HorizontalAlignment="Center" Margin="0,196,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" />
+        <TextBox x:Name="textboxSignupEmail" HorizontalAlignment="Center" Margin="0,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" />
+    </Grid>
+</Window>
