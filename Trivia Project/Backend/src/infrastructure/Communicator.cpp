@@ -18,7 +18,7 @@ RequestInfo Communicator::recvRequest(Socket& socket)
 	requestInfo.receivalTime = ctime(&currentTime);
 
 	//get id
-	requestInfo.id = stoi(socket.recvString(1));
+	requestInfo.id = stoi(socket.recvString(2));
 
 	//get buffer
 	size_t contentSize = stoi(socket.recvString(4));

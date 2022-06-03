@@ -15,13 +15,27 @@ using System.Windows.Shapes;
 namespace Frontend
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for SignupWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class SignupWindow : Window
     {
-        public Window1()
+        public SignupWindow()
         {
             InitializeComponent();
+        }
+
+        private void buttonLoginSignup_Click()
+        {
+        }
+
+        private void buttonSignupLogin_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+
+            Window loginWindow = new LoginWindow();
+            loginWindow.ShowDialog();
+
+            this.Close();
         }
     }
 }
