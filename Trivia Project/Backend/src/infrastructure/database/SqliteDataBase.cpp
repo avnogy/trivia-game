@@ -135,7 +135,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 /// <param name="email"></param>
 void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email) const
 {
-	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\"," + password + ",\"" + email + "\");"))
+	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\",\"" + password + "\",\"" + email + "\");"))
 	{
 		throw DatabaseError("Sql request failed, Couldn't add user");
 	}

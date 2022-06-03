@@ -13,11 +13,9 @@ namespace Frontend
     /// </summary>
     public partial class App : Application
     {
-        private Communicator communicator;
-
         private App()
         {
-            this.communicator = new Communicator("127.0.0.1", 4206);
+            Communicator.Init("127.0.0.1", 4206);
         }
     }
 }

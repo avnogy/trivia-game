@@ -8,13 +8,13 @@ using System.Net.Sockets;
 
 namespace Frontend
 {
-    internal class Communicator
+    internal static class Communicator
     {
-        private TcpClient socket;
-        private IPEndPoint endPoint;
-        private NetworkStream stream;
+        private static TcpClient socket;
+        private static IPEndPoint endPoint;
+        private static NetworkStream stream;
 
-        public enum RequestHandlerID
+        public enum RequestType
         {
             LoginRequest,
             SignupRequest,
@@ -30,25 +30,55 @@ namespace Frontend
             LeaveRoomRequest
         };
 
-        public Communicator(String ip, int port)
+
+        /// <summary>
+        /// Initializing socket, endpoint and stream
+        /// </summary>
+        /// <param name="ip">server ip</param>
+        /// <param name="port">server port</param>
+        public static void Init(String ip, int port)
         {
-            this.socket = new TcpClient();
-            this.endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            socket = new TcpClient();
+            endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             socket.Connect(endPoint);
 
-            this.stream = socket.GetStream();
+            stream = socket.GetStream();
         }
 
-        public void Send(RequestHandlerID requestHandlerID, string content)
+        /// <summary>
+        /// Sending a request to the server
+        /// </summary>
+        /// <param name="requestHandlerID">request id - type of request</param>
+        /// <param name="content">request content</param>
+        public static void Send(RequestType requestHandlerID, string content)
         {
             String message = "";
-            message += requestHandlerID.ToString("00"); //adding the id to the message(2 bytes)
+            message += ((int)requestHandlerID).ToString("00"); //adding the id to the message(2 bytes)
             message += content.Length.ToString("0000"); //adding the content size (4 bytes)
             message += content;
 
             byte[] buffer = new ASCIIEncoding().GetBytes(message);
 
-            this.stream.Write(buffer, 0, buffer.Length);
+            stream.Write(buffer, 0, buffer.Length);
+            stream.Flush();
+        }
+
+        /// <summary>
+        /// Receiving a message from server
+        /// </summary>
+        /// <returns>the message</returns>
+        public static String Receive()
+        {
+            int messageSize;
+            byte[] buffer = new byte[4];
+
+            stream.Read(buffer, 0, 4);
+            messageSize = int.Parse(Encoding.Default.GetString(buffer));
+
+            buffer = new byte[messageSize];
+            stream.Read(buffer, 0, messageSize);
+
+            return Encoding.Default.GetString(buffer);
         }
     }
 }

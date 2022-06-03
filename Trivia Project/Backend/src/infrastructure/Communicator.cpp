@@ -47,6 +47,7 @@ void Communicator::handleNewClient(Socket* socket)
 		while (true)
 		{
 			RequestInfo request = recvRequest(*socket);
+			std::cout << "request received: " << request.id << ' ' << request.buffer << std::endl;
 			RequestResult result;
 
 			if (m_clients[socket]->isRequestRelevant(request))
@@ -59,8 +60,6 @@ void Communicator::handleNewClient(Socket* socket)
 			{
 				socket->send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
 			}
-
-			std::cout << result.response << '\n' << std::endl;
 		}
 	}
 	catch (...)

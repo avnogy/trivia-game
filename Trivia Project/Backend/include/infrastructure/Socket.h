@@ -31,9 +31,7 @@ public:
 
 	//General methods
 	std::string recvString(const size_t expectedSize);
-	std::vector<unsigned char> recvBuffer(const size_t expectedSize);
-	void send(const std::string& message);
-	void send(const std::vector<unsigned char>& buffer);
+	void send(std::string message);
 
 	bool operator<(const Socket& otherSocket) const;
 };

@@ -9,7 +9,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python Client", "Python Cli
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "opentdb api", "opentdb api\opentdb api.pyproj", "{CADAA01E-293A-41BC-8337-66E44C4FE344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{1BB4A438-C816-4A81-85DF-817C84FB296C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "Frontend\Frontend.csproj", "{1BB4A438-C816-4A81-85DF-817C84FB296C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
