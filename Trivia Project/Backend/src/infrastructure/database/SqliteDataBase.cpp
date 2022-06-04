@@ -113,7 +113,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 {
 	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\" AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\" AND password = \"" + password + "\"; ").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the password matches the user
