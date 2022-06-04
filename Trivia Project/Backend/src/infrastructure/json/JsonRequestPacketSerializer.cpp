@@ -21,7 +21,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LoginResponse& 
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	json["username"] = response.username;
 	return json.dump();
 }
 

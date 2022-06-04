@@ -9,5 +9,4 @@ struct LoginResponse
 		FAILURE
 	};
 	unsigned int status;
-	std::string username;
 };
