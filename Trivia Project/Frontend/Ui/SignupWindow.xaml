@@ -5,37 +5,103 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend"
         mc:Ignorable="d"
-        Title="SignupWindow" Height="450" Width="800">
+        Title="SignupWindow" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Grid x:Name="Grid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="109*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="54*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="41.5*"/>
-            <RowDefinition Height="0*"/>
-            <RowDefinition Height="41.5*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="61*"/>
-            <ColumnDefinition Width="19*"/>
-            <ColumnDefinition Width="19*"/>
-            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="labelSignupTitle" Content="Signup" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Center" Background="{x:Null}" FontFamily="Bell MT" FontSize="48" FontWeight="Bold" Height="63" Width="156" Grid.ColumnSpan="2" Grid.Column="1" />
-        <Label x:Name="labelSignupUsername" Content="username" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" Height="36" Width="110" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" RenderTransformOrigin="0.5,0.551" Grid.Column="1" />
-        <Label x:Name="labelLSignupPassword" Content="password&#xA;" HorizontalAlignment="Center" Margin="0,7,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" Height="41" Width="108" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="1" />
-        <TextBox x:Name="textboxSignupUsername" HorizontalAlignment="Left" Margin="304,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" Height="20" Grid.ColumnSpan="4" Grid.RowSpan="2" Grid.Row="2" />
-        <TextBox x:Name="textboxSignupPassword" HorizontalAlignment="Left" Margin="304,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" Height="20" Grid.Row="4" Grid.ColumnSpan="4" Grid.RowSpan="2" />
-        <Button x:Name="buttonSignupLogin" Content="already have an account?" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Bell MT" Click="buttonSignupLogin_Click" Height="17" Width="126" Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Margin="0,18.5,0,0" />
-        <Label x:Name="labelSignupEmail" Content="email&#xD;&#xA;&#xA;" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" Height="37" Width="68" Grid.RowSpan="2" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
-        <TextBox x:Name="textboxSignupEmail" HorizontalAlignment="Left" Margin="304,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" Height="20" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="2" />
-        <Button x:Name="buttonSignupSubmit" Content="submit" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontWeight="Bold" FontSize="20" Background="{x:Null}" BorderBrush="{x:Null}" Click="buttonSignupSubmit_Click" Height="26" Width="64" Grid.Row="7" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="LabelTitle"
+               Grid.Column="1"
+               Grid.Row="0"
+               VerticalAlignment="Center"
+               HorizontalContentAlignment="Center"
+               Content="Signup"
+               FontFamily="Bell MT"
+               FontSize="40"/>
+
+        <Label x:Name="labelUsername"
+               Grid.Column="1"
+               Grid.Row="1"
+               Content="Username"
+               HorizontalContentAlignment="Center"
+               FontFamily="Bell MT"
+               Width="100"
+               Height="30"
+               FontSize="20"/>
+
+        <TextBox x:Name="textboxUsername"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   Grid.Row="1"
+                   VerticalAlignment="Bottom"
+                   Background="#FF5C89D2"/>
+
+        <Label x:Name="labelPassword"
+               Grid.Column="1"
+               Grid.Row="2"
+               Content="Password"
+               HorizontalContentAlignment="Center"
+               FontFamily="Bell MT"
+               Width="100"
+               Height="30"
+               FontSize="20"/>
+
+        <TextBox x:Name="textboxPassword"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   Grid.Row="2"
+                   VerticalAlignment="Bottom"
+                   Background="#FF5C89D2"/>
+
+        <Label x:Name="labelEmail"
+               Grid.Column="1"
+               Grid.Row="3"
+               Content="Email"
+               HorizontalContentAlignment="Center"
+               FontFamily="Bell MT"
+               Width="100"
+               Height="30"
+               FontSize="20" Background="#00000000"/>
+
+        <TextBox x:Name="textboxEmail"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   Grid.Row="3"
+                   VerticalAlignment="Bottom"
+                   Background="#FF5C89D2"/>
+
+        <Button x:Name="buttonSubmit" 
+                Grid.Column="1"
+                Grid.Row="4"
+                Content="Submit"
+                HorizontalContentAlignment="Center"
+                FontFamily="Bell MT"
+                Width="100"
+                Height="30"
+                FontSize="20" Click="buttonSubmit_Click"/>
+
+        <Button x:Name="buttonLogin" 
+                Grid.Column="1"
+                Grid.Row="4"
+                Margin="0 50 0 0"
+                Content="already have an account?"
+                HorizontalContentAlignment="Center"
+                FontFamily="Bell MT"
+                FontSize="12.5"
+                Height="20"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}" Click="buttonLogin_Click"/>
 
     </Grid>
 </Window>

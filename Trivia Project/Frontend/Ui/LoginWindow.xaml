@@ -6,13 +6,86 @@
         xmlns:local="clr-namespace:Frontend"
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800">
-    <Grid>
-        <Label x:Name="labelLoginTitle" Content="Login" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" FontFamily="Bell MT" FontSize="48" FontWeight="Bold" />
-        <Label x:Name="labelLoginUsername" Content="username" HorizontalAlignment="Center" Margin="0,135,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" />
-        <Label x:Name="labelLoginPassword" Content="password&#xA;" HorizontalAlignment="Center" Margin="0,253,0,0" VerticalAlignment="Top" FontFamily="Bell MT" FontSize="24" FontWeight="Bold" />
-        <TextBox x:Name="textboxLoginUsername" HorizontalAlignment="Center" Margin="0,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" />
-        <TextBox x:Name="textboxLoginPassword" HorizontalAlignment="Center" Margin="0,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" Background="#FF6FB3F1" BorderBrush="Black" BorderThickness="2,2,2,2" />
-        <Button x:Name="buttonLoginSignup" Content="don't have an account yet?" HorizontalAlignment="Center" Margin="0,316,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Bell MT" Click="buttonLoginSignup_Click" />
+    <Grid x:Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="LabelTitle"
+               Grid.Column="1"
+               Grid.Row="0"
+               VerticalAlignment="Center"
+               HorizontalContentAlignment="Center"
+               Content="Login"
+               FontFamily="Bell MT"
+               FontSize="40"/>
+
+        <Label x:Name="labelUsername"
+               Grid.Column="1"
+               Grid.Row="1"
+               Content="Username"
+               VerticalAlignment="Bottom"
+               HorizontalContentAlignment="Center"
+               FontFamily="Bell MT"
+               Width="100"
+               Height="30"
+               FontSize="20"/>
+
+        <TextBox x:Name="textboxUsername"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   Grid.Row="2"
+                   VerticalAlignment="Top"
+                   Background="#FF5C89D2"/>
+
+        <Label x:Name="labelPassword"
+               Grid.Column="1"
+               Grid.Row="2"
+               Content="Password"
+               VerticalAlignment="Bottom"
+               HorizontalContentAlignment="Center"
+               FontFamily="Bell MT"
+               Width="100"
+               Height="30"
+               FontSize="20"/>
+
+        <TextBox x:Name="textboxPassword"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   Grid.Row="3"
+                   VerticalAlignment="Top"
+                   Background="#FF5C89D2"/>
+
+        <Button x:Name="buttonSubmit" 
+                Grid.Column="1"
+                Grid.Row="4"
+                Content="Submit"
+                HorizontalContentAlignment="Center"
+                FontFamily="Bell MT"
+                Width="100"
+                Height="30"
+                FontSize="20" Click="buttonSubmit_Click"/>
+
+        <Button x:Name="buttonSignup" 
+                Grid.Column="1"
+                Grid.Row="4"
+                Margin="0 50 0 0"
+                Content="don't have an account yet?"
+                HorizontalContentAlignment="Center"
+                FontFamily="Bell MT"
+                FontSize="12.5"
+                Height="20"
+                Background="{x:Null}"
+                BorderBrush="{x:Null}" Click="buttonSignup_Click"/>
 
     </Grid>
 </Window>

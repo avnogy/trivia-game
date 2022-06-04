@@ -37,18 +37,18 @@ namespace Frontend
             this.Close();
         }
 
-        private void buttonSignupLogin_Click(object sender, RoutedEventArgs e)
+        private void buttonLogin_Click(object sender, RoutedEventArgs e)
         {
             this.switchToLogin();
         }
 
-        private void buttonSignupSubmit_Click(object sender, RoutedEventArgs e)
+        private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
-            signupRequest.username = textboxSignupUsername.Text;
-            signupRequest.password = textboxSignupPassword.Text;
-            signupRequest.email    = textboxSignupEmail.Text;
+            signupRequest.username = textboxUsername.Text;
+            signupRequest.password = textboxPassword.Text;
+            signupRequest.email    = textboxEmail.Text;
             String jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
             //sending signup request
@@ -63,19 +63,18 @@ namespace Frontend
             else
             {
                 Label errorLabel = new Label();
-                errorLabel.Name = "labelSignupError";
-                errorLabel.Content = "Couldn't Signup!";
-                errorLabel.Foreground = new SolidColorBrush(Color.FromRgb(204, 73, 73));
+                errorLabel.Name = "LabelError";
+                errorLabel.Content = "You've already signed up.";
+                errorLabel.Margin = new Thickness(30, 0, 30, 0);
+                errorLabel.VerticalAlignment = VerticalAlignment.Bottom;
+                errorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
+                errorLabel.Foreground = Brushes.Black;
+                errorLabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xCF, 0xCF));
                 errorLabel.FontFamily = new FontFamily("Bell MT");
-                errorLabel.FontSize = 12;
-                errorLabel.Width = 126;
-                errorLabel.HorizontalAlignment = HorizontalAlignment.Center;
-                errorLabel.VerticalAlignment = VerticalAlignment.Top;
+                errorLabel.FontSize = 12.5;
 
-                Grid.SetRow(errorLabel, 9);
-                Grid.SetRowSpan(errorLabel, 2);
-                Grid.SetColumn(errorLabel, 1);
-                Grid.SetColumnSpan(errorLabel, 2);
+                Grid.SetRow(errorLabel, 0);
+                Grid.SetColumnSpan(errorLabel, 3);
                 Grid.Children.Add(errorLabel); 
             }
         }
