@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <Label
-            x:Name="labelTitle" 
+            x:Name="titleLBL" 
             Content="login"
             Grid.Column="1"
             Grid.Row="0" 
@@ -38,7 +38,7 @@
             FontWeight="Bold"/>
 
         <Label 
-            x:Name="labelUsername" 
+            x:Name="usernameLBL" 
             Grid.Column="1" 
             Grid.Row="2" 
             HorizontalAlignment="Left"
@@ -48,7 +48,7 @@
             FontFamily="Ink Free" 
             FontWeight="Bold"/>
         <Label 
-            x:Name="labelPassword"
+            x:Name="passwordLBL"
             Grid.Column="1" 
             Grid.Row="4" 
             HorizontalAlignment="Left"
@@ -59,7 +59,7 @@
             FontWeight="Bold"/>
 
         <TextBox
-            x:Name="textboxUsername"
+            x:Name="usernameTXB"
             Grid.Column="1"
             Grid.Row="3"
             FontSize="20" 
@@ -67,7 +67,7 @@
             FontFamily="Ink Free"
             FontWeight="Bold"/>
         <PasswordBox
-            x:Name="textboxPassword"
+            x:Name="passwordTXB"
             Grid.Column="1" 
             Grid.Row="5"
             FontSize="20"
@@ -87,7 +87,7 @@
                 FontFamily="Ink Free"
                 FontWeight="Bold"/>
             <TextBlock  
-                x:Name="buttonSignup"           
+                x:Name="signupBTN"           
                 Margin="2" 
                 Text="sign up" 
                 MouseLeftButtonUp="buttonSignup_Click"

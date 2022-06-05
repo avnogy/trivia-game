@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <Label
-            x:Name="labelTitle" 
+            x:Name="titleLBL" 
             Content="sign up"
             Grid.Column="1" 
             Grid.Row="0" 
@@ -42,7 +42,7 @@
             FontWeight="Bold"/>
 
         <Label 
-            x:Name="labelUsername"
+            x:Name="usernameLBL"
             Grid.Column="1"
             Grid.Row="2" 
             HorizontalAlignment="Left"
@@ -52,7 +52,7 @@
             FontFamily="Ink Free" 
             FontWeight="Bold"/>
         <Label 
-            x:Name="labelEmail" 
+            x:Name="emailLBL" 
             Grid.Column="1"
             Grid.Row="4" 
             HorizontalAlignment="Left"
@@ -62,7 +62,7 @@
             FontFamily="Ink Free"
             FontWeight="Bold"/>
         <Label 
-            x:Name="labelPassword" 
+            x:Name="passwordLBL" 
             Grid.Column="1"
             Grid.Row="6" 
             HorizontalAlignment="Left" 
@@ -73,7 +73,7 @@
             FontWeight="Bold"/>
 
         <TextBox 
-            x:Name="textboxUsername" 
+            x:Name="usernameTXB" 
             Grid.Column="1" 
             Grid.Row="3" 
             FontSize="20" 
@@ -81,7 +81,7 @@
             FontFamily="Ink Free"
             FontWeight="Bold"/>
         <TextBox 
-            x:Name="textboxEmail"
+            x:Name="emailTBX"
             Grid.Column="1" 
             Grid.Row="5" 
             FontSize="20" 
@@ -89,7 +89,7 @@
             FontFamily="Ink Free" 
             FontWeight="Bold"/>
         <PasswordBox
-            x:Name="textboxPassword"
+            x:Name="passwordTXB"
             Grid.Column="1" 
             Grid.Row="7"
             FontSize="20"
@@ -110,7 +110,7 @@
                 FontFamily="Ink Free"
                 FontWeight="Bold"/>
             <TextBlock  
-                x:Name="buttonLogin" 
+                x:Name="loginBTN" 
                 Margin="2" 
                 Text=" login"
                 MouseLeftButtonUp="buttonLogin_Click"
@@ -121,7 +121,7 @@
         </StackPanel>
 
         <Button 
-            x:Name="buttonSignup"
+            x:Name="signupBTN"
             Click="buttonSubmit_Click" 
             Grid.Column="1" 
             Grid.Row="9" 
