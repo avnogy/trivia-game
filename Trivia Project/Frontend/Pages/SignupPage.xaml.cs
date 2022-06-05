@@ -41,9 +41,9 @@ namespace Frontend.Pages
         {
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
-            signupRequest.username = textboxUsername.Text;
-            signupRequest.password = textboxPassword.Password.ToString();
-            signupRequest.email    = textboxEmail.Text;
+            signupRequest.username = usernameTXB.Text;
+            signupRequest.password = passwordTXB.Password.ToString();
+            signupRequest.email    = emailTBX.Text;
             String jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
             //sending signup request
