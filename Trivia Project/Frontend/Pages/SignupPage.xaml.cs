@@ -15,26 +15,21 @@ using Newtonsoft.Json;
 using Frontend.Requests;
 using Frontend.Responses;
 
-namespace Frontend
+namespace Frontend.Pages
 {
     /// <summary>
     /// Interaction logic for SignupWindow.xaml
     /// </summary>
-    public partial class SignupWindow : Window
+    public partial class SignupPage : Page
     {
-        public SignupWindow()
+        public SignupPage()
         {
             InitializeComponent();
         }
 
         private void switchToLogin()
         {
-            this.Hide();
-
-            Window loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
-
-            this.Close();
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
         }
 
         private void buttonLogin_Click(object sender, RoutedEventArgs e)
@@ -47,7 +42,7 @@ namespace Frontend
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
             signupRequest.username = textboxUsername.Text;
-            signupRequest.password = textboxPassword.Text;
+            signupRequest.password = textboxPassword.Password.ToString();
             signupRequest.email    = textboxEmail.Text;
             String jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
@@ -62,7 +57,8 @@ namespace Frontend
             }
             else
             {
-                Label errorLabel = new Label();
+                MessageBox.Show("You've already signed up.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                /*Label errorLabel = new Label();
                 errorLabel.Name = "LabelError";
                 errorLabel.Content = "You've already signed up.";
                 errorLabel.Margin = new Thickness(30, 0, 30, 0);
@@ -75,7 +71,7 @@ namespace Frontend
 
                 Grid.SetRow(errorLabel, 0);
                 Grid.SetColumnSpan(errorLabel, 3);
-                Grid.Children.Add(errorLabel); 
+                Grid.Children.Add(errorLabel); */
             }
         }
     }

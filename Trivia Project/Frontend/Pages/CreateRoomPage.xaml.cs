@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Frontend.UI
+namespace Frontend.Pages
 {
     /// <summary>
-    /// Interaction logic for MenuWindow.xaml
+    /// Interaction logic for createRoomPage.xaml
     /// </summary>
-    public partial class MenuWindow : Window
+    public partial class CreateRoomPage : Page
     {
-        public MenuWindow()
+        public CreateRoomPage()
         {
             InitializeComponent();
         }

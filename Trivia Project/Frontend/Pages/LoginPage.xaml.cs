@@ -14,38 +14,27 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Frontend.Requests;
 using Frontend.Responses;
-using Frontend.UI;
 
-namespace Frontend
+namespace Frontend.Pages
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginPage : Page
     {
-        public LoginWindow()
+        public LoginPage()
         {
             InitializeComponent();
         }
 
         private void switchToSignup()
         {
-            this.Hide();
-
-            Window signupWindow = new SignupWindow();
-            signupWindow.ShowDialog();
-
-            this.Close();
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new SignupPage();
         }
 
         private void switchToMenu()
         {
-            this.Hide();
-
-            Window menuWindow = new MenuWindow();
-            menuWindow.ShowDialog();
-
-            this.Close();
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
         }
 
         private void buttonSignup_Click(object sender, RoutedEventArgs e)
@@ -58,7 +47,7 @@ namespace Frontend
             //creating a json string representation of signup request
             LoginRequest loginRequest = new LoginRequest();
             loginRequest.username = textboxUsername.Text;
-            loginRequest.password = textboxPassword.Text;
+            loginRequest.password = textboxPassword.Password.ToString();
             String jsonRepr = JsonConvert.SerializeObject(loginRequest);
 
             //sending signup request
@@ -72,7 +61,8 @@ namespace Frontend
             }
             else
             {
-                Label errorLabel = new Label();
+                MessageBox.Show("You're not signed up yet.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                /*Label errorLabel = new Label();
                 errorLabel.Name = "LabelError";
                 errorLabel.Content = "You're not signed up yet.";
                 errorLabel.Margin = new Thickness(30, 0, 30, 0);
@@ -85,7 +75,7 @@ namespace Frontend
 
                 Grid.SetRow(errorLabel, 0);
                 Grid.SetColumnSpan(errorLabel, 3);
-                Grid.Children.Add(errorLabel);
+                Grid.Children.Add(errorLabel);*/
             }
         }
     }
