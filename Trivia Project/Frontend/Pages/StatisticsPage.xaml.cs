@@ -37,7 +37,7 @@ namespace Frontend.Pages
 
         private void leaderboardBTN_Click(object sender, RoutedEventArgs e)
         {
-            //((MainWindow)Application.Current.MainWindow).frame.Content = new LeaderboardPage();
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new LeaderboardPage();
         }
     }
 }
