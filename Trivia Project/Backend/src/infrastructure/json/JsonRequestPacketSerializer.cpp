@@ -103,7 +103,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(const CreateRoomRespo
 /// </summary>
 /// <param name="response">statistics response</param>
 /// <returns></returns>
-std::string JsonRequestPacketSerializer::serializeResponse(const StatisticsResponse& response)
+std::string JsonRequestPacketSerializer::serializeResponse(const GetStatisticsResponse& response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;
@@ -171,6 +171,64 @@ std::string JsonRequestPacketSerializer::serializeResponse(const GetRoomStateRes
 /// <param name="response">LeaveRoomResponse</param>
 /// <returns>json</returns>
 std::string JsonRequestPacketSerializer::serializeResponse(const LeaveRoomResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	return json.dump();
+}
+
+/// <summary>
+/// Serialize GetGameResultResponse struct
+/// </summary>
+/// <param name="response">response to serialize</param>
+/// <returns>json like string</returns>
+std::string JsonRequestPacketSerializer::serializeResponse(const GetGameResultsResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["results"] = response.results;
+	return json.dump();
+}
+
+/// <summary>
+/// Serialize SubmitAnswerResponse struct
+/// </summary>
+/// <param name="response">response to serialize</param>
+/// <returns>json like string</returns>
+std::string JsonRequestPacketSerializer::serializeResponse(const SubmitAnswerResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["correctAnswerId"] = response.correctAnswerId;
+	return json.dump();
+}
+
+/// <summary>
+/// Serialize GetQuestionResponse struct
+/// </summary>
+/// <param name="response">response to serialize</param>
+/// <returns>json like string</returns>
+std::string JsonRequestPacketSerializer::serializeResponse(const GetQuestionResponse& response)
+{
+	nlohmann::json question;
+
+	question["question"] = response.question.getQuestion();
+	question["possibleAnswers"] = response.question.getPossibleAnswers();
+	question["correctAnswer"] = response.question.getCorrectAnswer();
+
+
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["question"] = question;
+	return json.dump();
+}
+
+/// <summary>
+/// Serialize LeaveGameResponse struct
+/// </summary>
+/// <param name="response">response to serialize</param>
+/// <returns>json like string</returns>
+std::string JsonRequestPacketSerializer::serializeResponse(const LeaveGameResponse& response)
 {
 	nlohmann::json json;
 	json["status"] = response.status;

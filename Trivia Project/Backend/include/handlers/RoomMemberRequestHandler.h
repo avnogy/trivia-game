@@ -1,5 +1,9 @@
 #pragma once
 #include "handlers/IRoomMemberRequestHandler.h"
+#include "infrastructure/RequestHandlerFactory.h"
+#include "infrastructure/Communicator.h"
+
+class RequestHandlerFactory;
 
 class RoomMemberRequestHandler : public IRoomMemberRequestHandler
 {

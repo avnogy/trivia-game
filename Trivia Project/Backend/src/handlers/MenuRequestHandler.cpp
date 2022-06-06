@@ -56,7 +56,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInf
 	auto result = StatisticsManager::instance().getUserStatistics(m_user.getUsername());
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(StatisticsResponse{ StatisticsResponse::SUCCESS, result }),
+		JsonRequestPacketSerializer::serializeResponse(GetStatisticsResponse{ GetStatisticsResponse::SUCCESS, result }),
 		(IRequestHandler*)this
 	}; //return game handler
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "infrastructure/json/json.hpp"
 
 class Question
 {
