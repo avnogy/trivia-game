@@ -29,5 +29,13 @@ namespace Frontend.Pages
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
         }
+
+        private void createBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (nameTBX.Text != ""&&int.TryParse(timeTBX.Text, out int timePerQuestion)&&int.TryParse(amountTBX.Text, out int amountOfPlayers))
+            {
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomAdminPage(nameTBX.Text, timePerQuestion, amountOfPlayers);
+            }
+        }
     }
 }

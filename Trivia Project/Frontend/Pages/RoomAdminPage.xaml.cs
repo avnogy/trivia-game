@@ -20,9 +20,22 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomAdminPage : Page
     {
-        public RoomAdminPage()
+        public RoomAdminPage(string roomName,int timePerQuestion, int maxPlayers)
         {
             InitializeComponent();
+            nameTBX.Text += roomName;
+            timeTBX.Text += timePerQuestion;
+            amountTBX.Text += maxPlayers;
+        }
+
+        private void startBTN_Click(object sender, RoutedEventArgs e)
+        {
+            //TO:DO: start a game here
+        }
+
+        private void backBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
     }
 }

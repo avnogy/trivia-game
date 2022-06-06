@@ -83,7 +83,7 @@
             Grid.Row="6"
             HorizontalAlignment="Left"
             FontSize="22"
-            Content="amount of players:"
+            Content="max amount of players:"
             VerticalAlignment="Bottom"
             FontFamily="Ink Free"
             FontWeight="Bold"/>
@@ -117,6 +117,8 @@
             Grid.Column="1" 
             Grid.Row="9" 
             x:Name="createBTN" 
+            Click="createBTN_Click"
+            IsDefault="True"
             Content="create"
             HorizontalAlignment="Center"
             FontSize="20"
