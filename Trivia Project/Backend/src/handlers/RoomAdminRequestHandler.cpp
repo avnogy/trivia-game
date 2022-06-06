@@ -71,3 +71,11 @@ RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& requestI
 		return getRoomState(requestInfo);
 	}
 }
+
+/// <summary>
+/// Create a new RoomAdmin Handler
+/// </summary>
+RoomAdminRequestHandler::RoomAdminRequestHandler(const Room& room, const LoggedUser& user) :
+	IRoomMemberRequestHandler(room, user)
+{
+}

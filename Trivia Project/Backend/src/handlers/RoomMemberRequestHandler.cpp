@@ -47,3 +47,11 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& request
 		return getRoomState(requestInfo);
 	}
 }
+
+/// <summary>
+/// Create a new RoomMember handler
+/// </summary>
+RoomMemberRequestHandler::RoomMemberRequestHandler(const Room& room, const LoggedUser& user) :
+	IRoomMemberRequestHandler(room, user)
+{
+}
