@@ -28,7 +28,16 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="32" Height="32" BorderBrush="{x:Null}" IsCancel="True" Focusable="False">
+        <Button 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            x:Name="backBTN"
+            Click="backBTN_Click"
+            Width="32" 
+            Height="32" 
+            BorderBrush="{x:Null}" 
+            IsCancel="True" 
+            Focusable="False">
             <Button.Background>
                 <ImageBrush Stretch="Uniform">
                     <ImageBrush.ImageSource>
