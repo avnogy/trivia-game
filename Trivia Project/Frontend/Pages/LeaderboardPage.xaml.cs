@@ -24,5 +24,10 @@ namespace Frontend.Pages
         {
             InitializeComponent();
         }
+
+        private void backBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new StatisticsPage();
+        }
     }
 }

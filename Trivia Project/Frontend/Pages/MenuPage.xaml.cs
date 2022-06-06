@@ -37,5 +37,9 @@ namespace Frontend.Pages
             ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
 
+        private void statisticsBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new StatisticsPage();
+        }
     }
 }
