@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Frontend.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="650"
       Title="RoomAdminPage">
 
     <Grid Background="#FFEAEAEA">
@@ -47,7 +47,7 @@
             x:Name="nameTBX"
             Text="room name: "
             FontSize="22"
-            Background="#FFABD3EF"
+            Background="#FFC7D3DC"
             FontFamily="Ink Free"
             FontWeight="Bold"/>
         
@@ -59,7 +59,7 @@
             x:Name="timeTBX" 
             Text="time per question: "
             FontSize="22" 
-            Background="#FFABD3EF" 
+            Background="#FFC7D3DC" 
             FontFamily="Ink Free"
             FontWeight="Bold" />
 
@@ -71,7 +71,7 @@
             x:Name="amountTBX" 
             Text="max amount of players: "
             FontSize="22" 
-            Background="#FFABD3EF" 
+            Background="#FFC7D3DC" 
             FontFamily="Ink Free"
             FontWeight="Bold"/>
 

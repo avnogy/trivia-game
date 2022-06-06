@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Frontend.Pages"
         mc:Ignorable="d"
-        Title="LoginPage" Height="450" Width="800">
+        Title="LoginPage" Height="800" Width="650">
     <Grid x:Name="Grid" Background="#FFEAEAEA">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
