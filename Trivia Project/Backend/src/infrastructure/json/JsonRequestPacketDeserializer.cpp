@@ -87,3 +87,19 @@ CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(co
 		bufferContent["answerTimeout"]
 	};
 }
+
+/// <summary>
+/// deserialize a buffer (message from client)
+/// </summary>
+/// <param name="buffer">
+/// 		The message is json content
+/// </param>
+/// <returns></returns>
+SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerRequest(const std::string& buffer)
+{
+	json bufferContent = json::parse(buffer);
+
+	return SubmitAnswerRequest{
+		bufferContent["answerId"]
+	};
+}
