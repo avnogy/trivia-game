@@ -81,6 +81,8 @@
     <ClInclude Include="include\handlers\RoomAdminRequestHandler.h" />
     <ClInclude Include="include\handlers\RoomMemberRequestHandler.h" />
     <ClInclude Include="include\managers\LoggedUser.h" />
+    <ClInclude Include="include\requests\SubmitAnswerRequest.h" />
+    <ClInclude Include="include\requests\LoginRequest.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
