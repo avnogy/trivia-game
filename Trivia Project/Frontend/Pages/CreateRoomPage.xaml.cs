@@ -35,31 +35,16 @@ namespace Frontend.Pages
 
         private void createBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (nameTBX.Text == "")
-            {
-                MessageBox.Show("Room name can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (!int.TryParse(timeTBX.Text, out int timePerQuestion))
-            {
-                MessageBox.Show("Time per question must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (timePerQuestion > 10 || timePerQuestion < 1)
-            {
-                MessageBox.Show("Time per question must be between 1 and 10 minutes", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (!int.TryParse(amountTBX.Text, out int amountOfPlayers))
-            {
-                MessageBox.Show("Amount of players must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (amountOfPlayers > 10 || amountOfPlayers < 1)
-            {
-                MessageBox.Show("Amount of players must be between 1 and 10", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //checking validity of fields
+            if (nameTBX.Text == "") { MessageBox.Show("Room name can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (!int.TryParse(timeTBX.Text, out int timePerQuestion)) { MessageBox.Show("Time per question must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (timePerQuestion > 10 || timePerQuestion < 1) { MessageBox.Show("Time per question must be between 1 and 10 minutes", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (!int.TryParse(amountTBX.Text, out int amountOfPlayers)) { MessageBox.Show("Amount of players must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (amountOfPlayers > 10 || amountOfPlayers < 1) { MessageBox.Show("Amount of players must be between 1 and 10", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
             //creating a json string representation of create room request
             CreateRoomRequest createRequest = new CreateRoomRequest();
