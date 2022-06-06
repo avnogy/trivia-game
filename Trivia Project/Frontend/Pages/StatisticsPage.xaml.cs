@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -23,6 +26,8 @@ namespace Frontend.Pages
         public StatisticsPage()
         {
             InitializeComponent();
+            //Communicator.Send(Communicator.RequestType.GetStatisticsRequest, "");
+            //StatisticsResponse statisticsReponse = JsonConvert.DeserializeObject<StatisticsResponse>(Communicator.Receive());
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
