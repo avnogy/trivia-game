@@ -123,6 +123,7 @@
         <Button 
             x:Name="signupBTN"
             Click="buttonSubmit_Click" 
+            IsDefault="True" 
             Grid.Column="1" 
             Grid.Row="9" 
             Content="sign up" 

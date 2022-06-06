@@ -99,6 +99,7 @@
 
         <Button 
             Click="buttonSubmit_Click"
+            IsDefault="True" 
             Grid.Column="1" 
             Grid.Row="7"
             x:Name="loginBTN" 
