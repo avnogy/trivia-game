@@ -73,7 +73,7 @@
             Grid.Row="4"
             HorizontalAlignment="Left"
             FontSize="22"
-            Content="time per question:"
+            Content="time per question (minutes):"
             VerticalAlignment="Bottom"
             FontFamily="Ink Free"
             FontWeight="Bold"/>
