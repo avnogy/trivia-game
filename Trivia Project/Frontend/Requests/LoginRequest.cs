@@ -8,7 +8,7 @@ namespace Frontend.Requests
 {
     internal class LoginRequest
     {
-        public String username;
-        public String password;
+        public string username;
+        public string password;
     }
 }

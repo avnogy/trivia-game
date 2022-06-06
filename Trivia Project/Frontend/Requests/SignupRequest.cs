@@ -8,8 +8,8 @@ namespace Frontend.Requests
 {
     internal struct SignupRequest
     {
-        public String username;
-        public String password;
-        public String email;
+        public string username;
+        public string password;
+        public string email;
     }
 }
