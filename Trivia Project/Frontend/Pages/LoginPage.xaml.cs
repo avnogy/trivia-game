@@ -41,8 +41,6 @@ namespace Frontend.Pages
         {
             this.switchToSignup();
         }
-
-#pragma warning disable CS8600
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             //creating a json string representation of signup request
@@ -81,4 +79,3 @@ namespace Frontend.Pages
         }
     }
 }
-#pragma warning restore CS8600 
