@@ -61,7 +61,7 @@ namespace Frontend.Pages
             }
             else
             {
-                MessageBox.Show("You're not signed up yet.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Your username or password are incorrect, Please try again.", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 /*Label errorLabel = new Label();
                 errorLabel.Name = "LabelError";
                 errorLabel.Content = "You're not signed up yet.";
