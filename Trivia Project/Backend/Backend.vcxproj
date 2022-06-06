@@ -167,6 +167,7 @@
     <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
+    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRoomMemberRequestHandler.h" />

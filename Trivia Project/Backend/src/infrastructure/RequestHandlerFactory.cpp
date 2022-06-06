@@ -18,3 +18,25 @@ MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(const Logged
 {
 	return new MenuRequestHandler(user);
 }
+
+/// <summary>
+/// Create a new RoomAdminRequestHandler
+/// </summary>
+/// <param name="room">the room the admin created</param>
+/// <param name="user">the admin</param>
+/// <returns>new handler</returns>
+RoomAdminRequestHandler* RequestHandlerFactory::createRoomAdminRequestHandler(const Room& room, const LoggedUser& user) const
+{
+	return new RoomAdminRequestHandler(room, user);
+}
+
+/// <summary>
+/// Create a new RoomMemberRequestHandler
+/// </summary>
+/// <param name="room">the room the member joined</param>
+/// <param name="user">the member</param>
+/// <returns>new handler</returns>
+RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(const Room& room, const LoggedUser& user) const
+{
+	return new RoomMemberRequestHandler(room, user);
+}

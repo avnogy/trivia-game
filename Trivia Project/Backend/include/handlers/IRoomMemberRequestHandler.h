@@ -14,4 +14,5 @@ protected:
 	LoggedUser m_user;
 
 	RequestResult getRoomState(const RequestInfo& requestInfo) const;
+	IRoomMemberRequestHandler(const Room& room, const LoggedUser& user);
 };
