@@ -41,5 +41,10 @@ namespace Frontend.Pages
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new StatisticsPage();
         }
+
+        private void joinBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
+        }
     }
 }
