@@ -27,9 +27,7 @@ namespace Frontend.Pages
         {
             InitializeComponent();
             Communicator.Send(Communicator.RequestType.GetLeaderboardRequest, "");
-            string leaderboard = Communicator.Receive();
-
-            LeaderboardResponse statisticsReponse = JsonConvert.DeserializeObject<LeaderboardResponse>(leaderboard);
+            LeaderboardResponse statisticsReponse = JsonConvert.DeserializeObject<LeaderboardResponse>(Communicator.Receive());
 
             //putting stats in the label
             for(int i = 0;i < statisticsReponse.highScore.Count;i+=4)
