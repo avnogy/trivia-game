@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -23,6 +26,20 @@ namespace Frontend.Pages
         public LeaderboardPage()
         {
             InitializeComponent();
+            Communicator.Send(Communicator.RequestType.GetLeaderboardRequest, "");
+            string leaderboard = Communicator.Receive();
+
+            LeaderboardResponse statisticsReponse = JsonConvert.DeserializeObject<LeaderboardResponse>(leaderboard);
+
+            //putting stats in the label
+            for(int i = 0;i < statisticsReponse.highScore.Count;i+=4)
+            {
+                statisticsLBL.Content += 
+                    statisticsReponse.highScore[i] +
+                    "\navrage answer time: " + Math.Round(float.Parse(statisticsReponse.highScore[i+1]),2) +
+                    "\ncorrect answers: " + statisticsReponse.highScore[i+2] +
+                    "\nplayed games: " + statisticsReponse.highScore[i+3] + "\n";
+            }
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)

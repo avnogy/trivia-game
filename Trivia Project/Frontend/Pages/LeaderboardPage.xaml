@@ -59,12 +59,12 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="13*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="13*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
@@ -72,7 +72,7 @@
             Grid.Column="1" Grid.Row="1" 
             x:Name="statisticsLBL" 
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            FontSize="36" FontFamily="Ink Free" FontWeight="Bold"/>
+            FontSize="20" FontFamily="Ink Free" FontWeight="Bold"/>
 
         </Grid>
     </Grid>
