@@ -55,6 +55,7 @@
         </Button>
 
         <Grid
+            x:Name="statsGRD"
             Grid.Column="1" 
             Grid.Row="2" 
             Background="#FFABD3EF">
@@ -74,7 +75,7 @@
             Grid.Column="1" Grid.Row="1" 
             x:Name="statisticsLBL" 
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            FontSize="36" FontFamily="Ink Free" FontWeight="Bold"/>
+            FontSize="30" FontFamily="Ink Free" FontWeight="Bold"/>
 
         </Grid>
         

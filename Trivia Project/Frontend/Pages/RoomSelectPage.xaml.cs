@@ -23,6 +23,7 @@ namespace Frontend.Pages
         public RoomSelectPage()
         {
             InitializeComponent();
+            //TO:DO: initialize rooms
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)

@@ -50,7 +50,6 @@
     <ClInclude Include="include\responses\CloseRoomResponse.h" />
     <ClInclude Include="include\responses\CreateRoomResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
-    <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
     <ClInclude Include="include\responses\GetRoomsResponse.h" />
     <ClInclude Include="include\responses\GetRoomStateResponse.h" />
