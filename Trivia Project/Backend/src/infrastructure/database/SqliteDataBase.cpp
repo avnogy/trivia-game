@@ -293,3 +293,35 @@ std::vector<Question> SqliteDataBase::getQuestions() const
 	}
 	return questions;
 }
+
+std::vector<std::string> SqliteDataBase::getLeaderboard() const
+{
+	std::vector<std::string> players;
+
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		std::vector<std::string>& players = *(std::vector<std::string>*)data;
+		
+		//entering the amount of fields returned to the vector
+		int count = 0;
+		while (argv[count] != NULL && count <= (5 * 4)) //5 players where each one has 4 fields
+		{
+			players.push_back(argv[count++]);
+		}
+		return 0;
+	};
+
+
+
+	if (!sqlexec(
+		"SELECT users.name, statistics.averageAnswerTime,statistics.numOfCorrectAnswers,statistics.numOfPlayerGames FROM statistics INNER JOIN users ON users.user_id = statistics.user_id LIMIT 5;",
+		callback,&players))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+
+	return players;
+}

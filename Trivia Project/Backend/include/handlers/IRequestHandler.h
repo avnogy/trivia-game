@@ -20,6 +20,7 @@ public:
 			GetPlayersInRoomRequest,
 			JoinRoomRequest,
 			GetStatisticsRequest,
+			GetLeaderboardRequest,
 			LogoutRequest,
 			CloseRoomRequest,
 			StartGameRequest,

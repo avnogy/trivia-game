@@ -27,7 +27,7 @@ public:
 	int getNumOfCorrectAnswers(const std::string& username) const override;
 	int getNumOfTotalAnswers(const std::string& username) const override;
 	int getNumOfPlayerGames(const std::string& username) const override;
-
+	std::vector<std::string> getLeaderboard() const override;
 	//questions
 	std::vector<Question> getQuestions() const override;
 
