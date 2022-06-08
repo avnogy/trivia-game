@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -23,7 +26,17 @@ namespace Frontend.Pages
         public RoomSelectPage()
         {
             InitializeComponent();
-            //TO:DO: initialize rooms
+            Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
+            GetRoomsResponse roomsResponse = JsonConvert.DeserializeObject<GetRoomsResponse>(Communicator.Receive());
+            foreach (RoomData room in roomsResponse.rooms)
+            {
+                Label r = new Label();
+                r.Content = room.name +" "+ room.maxPlayers;
+                r.FontSize = 18;
+                r.FontFamily = new FontFamily("Ink Free");
+                r.FontWeight = FontWeights.Bold;
+                roomsSP.Children.Add(r);
+            }
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
