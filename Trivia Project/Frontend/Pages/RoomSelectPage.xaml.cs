@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Frontend.Requests;
 using Frontend.Responses;
+using System.Windows.Threading;
 
 namespace Frontend.Pages
 {
@@ -23,9 +24,20 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomSelectPage : Page
     {
+        const int refreshTime = 5; //seconds
         public RoomSelectPage()
         {
             InitializeComponent();
+            PopulateRoom(null,null);
+
+            //timer refreshes rooms
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(refreshTime);
+            timer.Tick += new EventHandler(PopulateRoom);
+            timer.Start();
+        }
+        private void PopulateRoom(object? sender, EventArgs? e)
+        {
             Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
             GetRoomsResponse roomsResponse = JsonConvert.DeserializeObject<GetRoomsResponse>(Communicator.Receive());
             roomsSP.Children.Clear();
@@ -52,7 +64,6 @@ namespace Frontend.Pages
                 roomsSP.Children.Add(r);
             }
         }
-
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
