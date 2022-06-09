@@ -1,6 +1,6 @@
 #pragma once
 #include "infrastructure/json/json.hpp"
-#include "infrastructure/database/Question.h"
+#include "managers/GameManager/Question.h"
 #include <vector>
 #include "responses/LoginResponse.h"
 #include "responses/SignupResponse.h"

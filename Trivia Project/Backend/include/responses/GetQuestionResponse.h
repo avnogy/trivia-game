@@ -1,5 +1,5 @@
 #pragma once
-#include "infrastructure/database/Question.h"
+#include "managers/GameManager/Question.h"
 
 struct GetQuestionResponse
 {
