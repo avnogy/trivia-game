@@ -84,8 +84,8 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo) c
 RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo) const
 {
 	JoinRoomRequest request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(requestInfo.buffer);
-	bool result = RoomManager::instance().joinRoom(m_user, request.roomId);
-
+	bool result = ((RoomManager::instance().getPlayersInRoom(request.roomId).size() < RoomManager::instance().getRooms()[request.roomId].maxPlayers) &&
+		RoomManager::instance().joinRoom(m_user, request.roomId));
 	switch (result)
 	{
 	case true:
