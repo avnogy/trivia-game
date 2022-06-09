@@ -45,8 +45,15 @@ namespace Frontend.Pages
             {
                 if (room.isActive == true)
                 {
+                    GetPlayersInRoomRequest getPlayersInRoomRequest = new GetPlayersInRoomRequest();
+                    getPlayersInRoomRequest.roomId = room.id;
+                    String jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
+
+                    Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, jsonRepr);
+                    GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
+
                     Label r = new Label();
-                    r.Content = room.name +" ("+"/"+room.maxPlayers+")";
+                    r.Content = room.name +" ("+roomResponse.players.Count+"/"+room.maxPlayers+")";
                     r.FontSize = 18;
                     r.FontFamily = new FontFamily("Ink Free");
                     r.FontWeight = FontWeights.Bold;
