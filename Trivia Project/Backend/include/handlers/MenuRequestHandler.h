@@ -13,6 +13,8 @@
 
 #include "responses/GetHighScoreResponse.h"
 
+#include "infrastructure/RequestHandlerFactory.h"
+
 class RequestHandlerFactory;
 
 class MenuRequestHandler : public IRequestHandler

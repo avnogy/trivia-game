@@ -25,7 +25,11 @@ public:
 			CloseRoomRequest,
 			StartGameRequest,
 			GetRoomStateRequest,
-			LeaveRoomRequest
+			LeaveRoomRequest,
+			LeaveGameRequest,
+			GetQuestionRequest,
+			SubmitAnswerRequest,
+			GetGameResultRequest
 		};
 	};
 

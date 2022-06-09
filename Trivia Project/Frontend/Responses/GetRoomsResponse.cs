@@ -9,7 +9,7 @@ using Frontend.Responses;
 
 namespace Frontend.Responses
 {
-    internal class GetRoomsResponse
+    internal struct GetRoomsResponse
     {
         public int status;
         public List<RoomData> rooms;

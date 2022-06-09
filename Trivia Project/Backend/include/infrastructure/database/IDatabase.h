@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "infrastructure/database/Question.h"
+#include "managers/GameManager/Question.h"
 
 #define DATABASE_FILE_PATH "..\\..\\database.sqlite"
 
