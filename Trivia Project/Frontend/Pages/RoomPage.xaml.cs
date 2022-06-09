@@ -55,9 +55,18 @@ namespace Frontend.Pages
             }
         }
 
-            private void leaveBTN_Click(object sender, RoutedEventArgs e)
+        private void leaveBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            Communicator.Send(Communicator.RequestType.LeaveRoomRequest, "");
+            StatusResponse status = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (status.status == 0)
+            {
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
+            }
+            else
+            {
+                MessageBox.Show("Couldn't leave room' Please try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }

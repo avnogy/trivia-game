@@ -73,7 +73,7 @@ namespace Frontend.Pages
                         }
                         else
                         {
-                            MessageBox.Show("Couldn't join room, Please try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("Can't join room.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
                     };
                     roomsSP.Children.Add(r);
