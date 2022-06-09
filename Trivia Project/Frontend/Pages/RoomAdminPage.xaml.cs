@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -35,6 +38,8 @@ namespace Frontend.Pages
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
+            Communicator.Send(Communicator.RequestType.CloseRoomRequest, "");
+            CloseRoomResponse statisticsReponse = JsonConvert.DeserializeObject<CloseRoomResponse>(Communicator.Receive());
             ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
     }

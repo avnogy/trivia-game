@@ -213,7 +213,6 @@
     <ClInclude Include="include\responses\CreateRoomResponse.h" />
     <ClInclude Include="include\responses\GetGameResultsResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
-    <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
     <ClInclude Include="include\responses\GetQuestionResponse.h" />
     <ClInclude Include="include\responses\GetRoomsResponse.h" />

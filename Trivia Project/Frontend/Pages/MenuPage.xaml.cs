@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -37,5 +40,14 @@ namespace Frontend.Pages
             ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
 
+        private void statisticsBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new StatisticsPage();
+        }
+
+        private void joinBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
+        }
     }
 }

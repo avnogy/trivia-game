@@ -147,7 +147,7 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::CreateRoomRequest: case IDS::GetRoomsRequest: case IDS::GetPlayersInRoomRequest: case IDS::JoinRoomRequest: case IDS::GetStatisticsRequest: case IDS::LogoutRequest:
+	case IDS::CreateRoomRequest: case IDS::GetRoomsRequest: case IDS::GetPlayersInRoomRequest: case IDS::JoinRoomRequest: case IDS::GetStatisticsRequest: case IDS::LogoutRequest:case IDS::GetLeaderboardRequest:
 		return true;
 	default:
 		return false;
@@ -177,6 +177,9 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case IDS::GetStatisticsRequest:
 		return getPersonalStats(requestInfo);
+
+	case IDS::GetLeaderboardRequest:
+		return getHighScore(requestInfo);
 
 	case IDS::LogoutRequest:
 		return logout(requestInfo);

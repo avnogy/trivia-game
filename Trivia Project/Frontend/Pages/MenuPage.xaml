@@ -49,6 +49,7 @@
             FontWeight="Bold"/>
         <Button 
             x:Name="joinBTN"
+            Click="joinBTN_Click"
             Margin="0,5,0,5" 
             Grid.Column="1"
             Grid.Row="3" 
@@ -61,6 +62,7 @@
             FontWeight="Bold"/>
         <Button 
             x:Name="statisticsBTN" 
+            Click="statisticsBTN_Click"
             Margin="0,5,0,5" 
             Grid.Column="1" 
             Grid.Row="4" 
