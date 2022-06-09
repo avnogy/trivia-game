@@ -42,41 +42,47 @@ namespace Frontend.Pages
             Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
             GetRoomsResponse roomsResponse = JsonConvert.DeserializeObject<GetRoomsResponse>(Communicator.Receive());
             roomsSP.Children.Clear();
-            foreach (RoomData room in roomsResponse.rooms)
+            if (roomsResponse.rooms != null)
             {
-                if (room.isActive == true)
+                foreach (RoomData room in roomsResponse.rooms)
                 {
-                    GetPlayersInRoomRequest getPlayersInRoomRequest = new GetPlayersInRoomRequest();
-                    getPlayersInRoomRequest.roomId = room.id;
-                    String jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
-
-                    Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, jsonRepr);
-                    GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
-
-                    Label r = new Label();
-                    r.Content = room.name +" ("+roomResponse.players.Count+"/"+room.maxPlayers+")";
-                    r.FontSize = 18;
-                    r.FontFamily = new FontFamily("Ink Free");
-                    r.FontWeight = FontWeights.Bold;
-                    r.Tag = room;
-                    r.MouseUp += (x, y) => 
+                    if (room.isActive == true)
                     {
-                        JoinRoomRequest joinRoomRequest = new JoinRoomRequest(); 
-                        joinRoomRequest.roomId = room.id;
-                        String jsonRepr = JsonConvert.SerializeObject(joinRoomRequest);
-                        Communicator.Send(Communicator.RequestType.JoinRoomRequest, jsonRepr);
-                        StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-                        if (statusResponse.status == 0)
+                        GetPlayersInRoomRequest getPlayersInRoomRequest = new GetPlayersInRoomRequest();
+                        getPlayersInRoomRequest.roomId = room.id;
+                        String jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
+
+                        Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, jsonRepr);
+                        GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
+
+                        if (roomResponse.players != null)
                         {
-                            timer.Stop();
-                            ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomPage((RoomData)(r.Tag));
+                            Label r = new Label();
+                            r.Content = room.name +" ("+roomResponse.players.Count+"/"+room.maxPlayers+")";
+                            r.FontSize = 18;
+                            r.FontFamily = new FontFamily("Ink Free");
+                            r.FontWeight = FontWeights.Bold;
+                            r.Tag = room;
+                            r.MouseUp += (x, y) =>
+                            {
+                                JoinRoomRequest joinRoomRequest = new JoinRoomRequest();
+                                joinRoomRequest.roomId = room.id;
+                                String jsonRepr = JsonConvert.SerializeObject(joinRoomRequest);
+                                Communicator.Send(Communicator.RequestType.JoinRoomRequest, jsonRepr);
+                                StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+                                if (statusResponse.status == 0)
+                                {
+                                    timer.Stop();
+                                    ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomPage((RoomData)(r.Tag));
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Can't join room.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                                }
+                            };
+                            roomsSP.Children.Add(r);
                         }
-                        else
-                        {
-                            MessageBox.Show("Can't join room.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        }
-                    };
-                    roomsSP.Children.Add(r);
+                    }
                 }
             }
             if (roomsSP.Children.Count == 0)
