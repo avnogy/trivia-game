@@ -18,7 +18,7 @@
     <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp" />
     <ClCompile Include="src\infrastructure\database\DatabaseError.cpp" />
     <ClCompile Include="src\infrastructure\database\IDatabase.cpp" />
-    <ClCompile Include="src\infrastructure\database\Question.cpp" />
+    <ClCompile Include="src\managers\GameManager\Question.cpp" />
     <ClCompile Include="src\infrastructure\database\sqlite3.c" />
     <ClCompile Include="src\infrastructure\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
@@ -26,6 +26,8 @@
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
     <ClCompile Include="src\managers\LoggedUser.cpp" />
+    <ClCompile Include="src\managers\GameManager\Game.cpp" />
+    <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -55,7 +57,7 @@
     <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\infrastructure\database\DatabaseError.h" />
     <ClInclude Include="include\infrastructure\database\IDatabase.h" />
-    <ClInclude Include="include\infrastructure\database\Question.h" />
+    <ClInclude Include="include\managers\GameManager\Question.h" />
     <ClInclude Include="include\infrastructure\database\sqlite3.h" />
     <ClInclude Include="include\infrastructure\database\SqliteDataBase.h" />
     <ClInclude Include="include\infrastructure\json\json.hpp" />
@@ -83,6 +85,9 @@
     <ClInclude Include="include\managers\LoggedUser.h" />
     <ClInclude Include="include\requests\SubmitAnswerRequest.h" />
     <ClInclude Include="include\requests\LoginRequest.h" />
+    <ClInclude Include="include\managers\GameManager\GameData.h" />
+    <ClInclude Include="include\managers\GameManager\Game.h" />
+    <ClInclude Include="include\managers\GameManager\GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

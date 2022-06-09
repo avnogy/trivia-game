@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
+    <ClCompile Include="src\managers\GameManager\Game.cpp" />
     <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
     <ClCompile Include="src\handlers\IRequestHandler.cpp" />
@@ -151,7 +153,7 @@
     <ClCompile Include="src\infrastructure\Communicator.cpp" />
     <ClCompile Include="src\infrastructure\database\DatabaseError.cpp" />
     <ClCompile Include="src\infrastructure\database\IDatabase.cpp" />
-    <ClCompile Include="src\infrastructure\database\Question.cpp" />
+    <ClCompile Include="src\managers\GameManager\Question.cpp" />
     <ClCompile Include="src\infrastructure\database\sqlite3.c" />
     <ClCompile Include="src\infrastructure\database\SqliteDataBase.cpp" />
     <ClCompile Include="src\infrastructure\json\JsonRequestPacketDeserializer.cpp" />
@@ -170,13 +172,16 @@
     <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\managers\GameManager\GameManager.h" />
+    <ClInclude Include="include\managers\GameManager\Game.h" />
+    <ClInclude Include="include\managers\GameManager\GameData.h" />
     <ClInclude Include="include\handlers\IRoomMemberRequestHandler.h" />
     <ClInclude Include="include\handlers\RoomAdminRequestHandler.h" />
     <ClInclude Include="include\handlers\RoomMemberRequestHandler.h" />
     <ClInclude Include="include\infrastructure\Communicator.h" />
     <ClInclude Include="include\infrastructure\database\DatabaseError.h" />
     <ClInclude Include="include\infrastructure\database\IDatabase.h" />
-    <ClInclude Include="include\infrastructure\database\Question.h" />
+    <ClInclude Include="include\managers\GameManager\Question.h" />
     <ClInclude Include="include\infrastructure\database\sqlite3.h" />
     <ClInclude Include="include\infrastructure\database\SqliteDataBase.h" />
     <ClInclude Include="include\infrastructure\json\json.hpp" />
