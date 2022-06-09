@@ -69,11 +69,6 @@
             Grid.Row="6"
             Background="#FFABD3EF" >
             <Label
-            Content="players: "
-            FontSize="22" 
-            FontFamily="Ink Free"
-            FontWeight="Bold"/>
-            <Label
             x:Name="playersLBL"
             Content=""
             FontSize="22" 
