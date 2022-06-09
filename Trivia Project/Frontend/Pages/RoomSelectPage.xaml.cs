@@ -28,13 +28,27 @@ namespace Frontend.Pages
             InitializeComponent();
             Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
             GetRoomsResponse roomsResponse = JsonConvert.DeserializeObject<GetRoomsResponse>(Communicator.Receive());
+            roomsSP.Children.Clear();
             foreach (RoomData room in roomsResponse.rooms)
             {
+                if (room.isActive == true)
+                {
+                    Label r = new Label();
+                    r.Content = room.name +" ("+"/"+room.maxPlayers+")";
+                    r.FontSize = 18;
+                    r.FontFamily = new FontFamily("Ink Free");
+                    r.FontWeight = FontWeights.Bold;
+                    roomsSP.Children.Add(r);
+                }
+            }
+            if (roomsSP.Children.Count == 0)
+            {
                 Label r = new Label();
-                r.Content = room.name +" "+ room.maxPlayers;
+                r.Content = "There are no active rooms.. :(";
                 r.FontSize = 18;
                 r.FontFamily = new FontFamily("Ink Free");
                 r.FontWeight = FontWeights.Bold;
+                r.Foreground = new BrushConverter().ConvertFrom("#FF505050") as SolidColorBrush;
                 roomsSP.Children.Add(r);
             }
         }

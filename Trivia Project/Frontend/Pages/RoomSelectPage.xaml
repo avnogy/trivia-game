@@ -72,33 +72,6 @@
                 Grid.Row="1" Grid.Column="1"
                 Name="roomsSP"
                 Orientation="Vertical">
-                <StackPanel            
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"
-                Grid.Row="1" Grid.Column="1"
-                Orientation="Horizontal">
-                    <Label
-                    Content="room1"
-                    FontSize="18" FontFamily="Ink Free" FontWeight="Bold"/>
-
-                    <Label
-                    Content="(1/10)"
-                    FontSize="18" FontFamily="Ink Free" FontWeight="Bold"/>
-                </StackPanel>
-                <StackPanel            
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"
-                Grid.Row="1" Grid.Column="1"
-                Orientation="Horizontal">
-                    <Label
-                    Content="room2"
-                    FontSize="18" FontFamily="Ink Free" FontWeight="Bold"/>
-
-                    <Label
-                    Content="(3/10)"
-                    FontSize="18" FontFamily="Ink Free" FontWeight="Bold"/>
-                </StackPanel>
-
             </StackPanel>
 
 

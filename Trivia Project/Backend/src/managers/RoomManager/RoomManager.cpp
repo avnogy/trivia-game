@@ -30,6 +30,7 @@ unsigned int RoomManager::getNextRoomId() const
 bool RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 {
 	//the second item in the pair is the state of the operation
+
 	return m_rooms.insert({ data.id, Room(data, user) }).second;
 }
 

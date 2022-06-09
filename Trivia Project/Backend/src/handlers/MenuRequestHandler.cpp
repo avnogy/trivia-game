@@ -118,7 +118,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 	case true:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(CreateRoomResponse{CreateRoomResponse::SUCCESS}),
-			RequestHandlerFactory::instance().createRoomAdminRequestHandler(RoomManager::instance().getRoom(RoomManager::instance().getNextRoomId()), m_user)
+			RequestHandlerFactory::instance().createRoomAdminRequestHandler(RoomManager::instance().getRoom(roomData.id), m_user)
 		}; 
 
 	case false:
