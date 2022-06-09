@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.Responses
 {
-    internal struct SignupResponse
+    internal struct StatusResponse
     {
         public int status;
     }

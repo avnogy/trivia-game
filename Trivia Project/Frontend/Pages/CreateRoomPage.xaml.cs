@@ -59,7 +59,7 @@ namespace Frontend.Pages
 
 
             //parsing create room response
-            SignupResponse signupReponse = JsonConvert.DeserializeObject<SignupResponse>(Communicator.Receive());
+            StatusResponse signupReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
             if (signupReponse.status == 0)
             {
                 ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomAdminPage(nameTBX.Text, timePerQuestion, amountOfPlayers);

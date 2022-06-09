@@ -53,8 +53,8 @@ namespace Frontend.Pages
             Communicator.Send(Communicator.RequestType.LoginRequest, jsonRepr);
 
             //parsing signup response
-            LoginResponse loginReponse = JsonConvert.DeserializeObject<LoginResponse>(Communicator.Receive());
-            if (loginReponse != null && loginReponse.status == 0)
+            StatusResponse loginReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (loginReponse.status == 0)
             {
                 this.switchToMenu();
             }
