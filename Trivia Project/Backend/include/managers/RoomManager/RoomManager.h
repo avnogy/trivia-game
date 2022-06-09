@@ -18,6 +18,7 @@ public:
 	bool deleteRoom(const int& ID);
 	bool joinRoom(const LoggedUser& user, unsigned int roomID);
 
+	Room& getRoom(unsigned int roomId);
 	unsigned int getNextRoomId() const;
 	unsigned int getRoomState(const int& ID) const;
 	std::vector<RoomData> getRooms() const;

@@ -1,4 +1,4 @@
-#include "infrastructure/database/Question.h"
+#include "managers/GameManager/Question.h"
 
 /// <summary>
 /// Creating a new quest class

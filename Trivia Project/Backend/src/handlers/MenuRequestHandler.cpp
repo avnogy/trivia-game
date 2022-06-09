@@ -11,8 +11,8 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo) const
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
-		(IRequestHandler*)this
-	}; //return game handler
+		RequestHandlerFactory::instance().createLoginRequestHandler()
+	}; 
 }
 
 /// <summary>
@@ -27,7 +27,7 @@ RequestResult MenuRequestHandler::getRooms(const RequestInfo& requestInfo) const
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetRoomsResponse{ GetRoomsResponse::SUCCESS, result }),
 		(IRequestHandler*)this
-	}; //return game handler
+	};
 }
 
 /// <summary>
@@ -43,7 +43,7 @@ RequestResult MenuRequestHandler::getPlayersInRoom(const RequestInfo& requestInf
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
 		(IRequestHandler*)this
-	}; //return game handler
+	};
 }
 
 /// <summary>
@@ -58,7 +58,7 @@ RequestResult MenuRequestHandler::getPersonalStats(const RequestInfo& requestInf
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetStatisticsResponse{ GetStatisticsResponse::SUCCESS, result }),
 		(IRequestHandler*)this
-	}; //return game handler
+	};
 }
 
 /// <summary>
@@ -73,7 +73,7 @@ RequestResult MenuRequestHandler::getHighScore(const RequestInfo& requestInfo) c
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetHighScoreResponse{ GetHighScoreResponse::SUCCESS, result }),
 		(IRequestHandler*)this
-	}; //return game handler
+	};
 }
 
 /// <summary>
@@ -91,8 +91,8 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo) const
 	case true:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(JoinRoomResponse{JoinRoomResponse::SUCCESS}),
-			(IRequestHandler*)this
-		}; //change this to game request handler
+			RequestHandlerFactory::instance().createRoomMemberRequestHandler(RoomManager::instance().getRoom(request.roomId), m_user)
+		};
 
 	case false:
 		return {
@@ -118,8 +118,8 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 	case true:
 		return {
 			JsonRequestPacketSerializer::serializeResponse(CreateRoomResponse{CreateRoomResponse::SUCCESS}),
-			(IRequestHandler*)this
-		}; //change this to game request handler
+			RequestHandlerFactory::instance().createRoomAdminRequestHandler(RoomManager::instance().getRoom(RoomManager::instance().getNextRoomId()), m_user)
+		}; 
 
 	case false:
 		return {

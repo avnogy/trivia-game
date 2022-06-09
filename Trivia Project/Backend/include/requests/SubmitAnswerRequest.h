@@ -1,6 +1,7 @@
 #pragma once
+#include <string>
 
 struct SubmitAnswerRequest
 {
-	unsigned int answerId;
+	std::string answer;
 };

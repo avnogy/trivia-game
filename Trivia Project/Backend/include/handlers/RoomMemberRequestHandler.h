@@ -14,5 +14,5 @@ public:
 	bool isRequestRelevant(const RequestInfo& requestInfo) const override;
 	RequestResult handleRequest(const RequestInfo& requestInfo) override;
 
-	RoomMemberRequestHandler(const Room& room, const LoggedUser& user);
+	RoomMemberRequestHandler(Room& room, const LoggedUser& user);
 };

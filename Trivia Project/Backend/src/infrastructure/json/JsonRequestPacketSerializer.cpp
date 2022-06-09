@@ -199,7 +199,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(const SubmitAnswerRes
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	json["correctAnswerId"] = response.correctAnswerId;
+	json["correctAnswer"] = response.correctAnswer;
 	return json.dump();
 }
 

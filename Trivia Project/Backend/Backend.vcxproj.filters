@@ -28,6 +28,7 @@
     <ClCompile Include="src\managers\LoggedUser.cpp" />
     <ClCompile Include="src\managers\GameManager\Game.cpp" />
     <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
+    <ClCompile Include="src\handlers\GameRequestHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\IRequestHandler.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="include\managers\GameManager\GameData.h" />
     <ClInclude Include="include\managers\GameManager\Game.h" />
     <ClInclude Include="include\managers\GameManager\GameManager.h" />
+    <ClInclude Include="include\handlers\GameRequestHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
