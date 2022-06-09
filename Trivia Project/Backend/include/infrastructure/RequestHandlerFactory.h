@@ -10,6 +10,7 @@
 #include "handlers/MenuRequestHandler.h"
 #include "handlers/RoomAdminRequestHandler.h"
 #include "handlers/RoomMemberRequestHandler.h"
+#include "handlers/GameRequestHandler.h"
 #include "utils/Singleton.h"
 
 class LoginRequestHandler;
@@ -25,6 +26,7 @@ class RequestHandlerFactory
 public:
 	LoginRequestHandler* createLoginRequestHandler() const;
 	MenuRequestHandler* createMenuRequestHandler(const LoggedUser& user) const;
-	RoomAdminRequestHandler* createRoomAdminRequestHandler(const Room& room, const LoggedUser& user) const;
-	RoomMemberRequestHandler* createRoomMemberRequestHandler(const Room& room, const LoggedUser& user) const;
+	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& room, const LoggedUser& user) const;
+	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& room, const LoggedUser& user) const;
+	GameRequestHandler* createGameRequestHandler(const Game& game, const LoggedUser& user);
 };

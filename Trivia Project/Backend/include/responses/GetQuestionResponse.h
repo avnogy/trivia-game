@@ -3,6 +3,10 @@
 
 struct GetQuestionResponse
 {
+	enum
+	{
+		SUCCESS
+	};
 	unsigned int status;
 	Question question;
 };

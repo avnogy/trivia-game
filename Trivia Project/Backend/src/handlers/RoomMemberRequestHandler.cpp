@@ -51,7 +51,7 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& request
 /// <summary>
 /// Create a new RoomMember handler
 /// </summary>
-RoomMemberRequestHandler::RoomMemberRequestHandler(const Room& room, const LoggedUser& user) :
+RoomMemberRequestHandler::RoomMemberRequestHandler(Room& room, const LoggedUser& user) :
 	IRoomMemberRequestHandler(room, user)
 {
 }

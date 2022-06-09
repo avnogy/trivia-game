@@ -6,6 +6,7 @@
 #include "managers/LoggedUser.h"
 #include "responses/SubmitAnswerResponse.h"
 #include "managers/GameManager/Question.h"
+#include "responses/GetGameResultsResponse.h"
 
 class Game
 {
@@ -16,7 +17,10 @@ private:
 public:
 	Game(const std::vector<Question>& questions, const std::vector<std::string>& users);
 
-	SubmitAnswerResponse submitAnswer(const LoggedUser& user, const std::string& answer);
+	std::vector<PlayerResults> getGameResults() const;
+	std::vector<Question> getQuestions() const;
+	Question getQuestionForUser(const LoggedUser& user) const;
+	void submitAnswer(const LoggedUser& user, const std::string& answer) ;
 	void removePlayer(const LoggedUser& user);
 };
 

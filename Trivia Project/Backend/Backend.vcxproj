@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\handlers\GameRequestHandler.cpp" />
     <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
     <ClCompile Include="src\managers\GameManager\Game.cpp" />
     <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\handlers\GameRequestHandler.h" />
     <ClInclude Include="include\managers\GameManager\GameManager.h" />
     <ClInclude Include="include\managers\GameManager\Game.h" />
     <ClInclude Include="include\managers\GameManager\GameData.h" />

@@ -15,6 +15,10 @@ struct PlayerResults
 
 struct GetGameResultsResponse
 {
+	enum
+	{
+		SUCCESS
+	};
 	unsigned int status;
 	std::vector<PlayerResults> results;
 };

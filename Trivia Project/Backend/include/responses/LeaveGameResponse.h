@@ -2,5 +2,9 @@
 
 struct LeaveGameResponse
 {
+	enum
+	{
+		SUCCESS
+	};
 	unsigned int status;
 };

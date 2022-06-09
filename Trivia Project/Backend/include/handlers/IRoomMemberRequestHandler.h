@@ -10,9 +10,9 @@
 class IRoomMemberRequestHandler : public IRequestHandler
 {
 protected:
-	Room m_room;
+	Room& m_room;
 	LoggedUser m_user;
 
 	RequestResult getRoomState(const RequestInfo& requestInfo) const;
-	IRoomMemberRequestHandler(const Room& room, const LoggedUser& user);
+	IRoomMemberRequestHandler(Room& room, const LoggedUser& user);
 };
