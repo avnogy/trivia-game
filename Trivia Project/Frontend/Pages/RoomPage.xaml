@@ -63,18 +63,17 @@
             FontFamily="Ink Free"
             FontWeight="Bold" />
 
-        <StackPanel
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Grid.Row="6"
-            Background="#FFABD3EF" >
-            <Label
+
+        <Label
             x:Name="playersLBL"
             Content=""
             FontSize="22" 
             FontFamily="Ink Free"
-            FontWeight="Bold"/>
-        </StackPanel>
+            FontWeight="Bold"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Grid.Row="6"
+            Background="#FFABD3EF"/>
 
 
         <Button 

@@ -25,13 +25,14 @@ namespace Frontend.Pages
     public partial class RoomSelectPage : Page
     {
         const int refreshTime = 5; //seconds
+        DispatcherTimer timer;
         public RoomSelectPage()
         {
             InitializeComponent();
             PopulateRoom(null,null);
 
             //timer refreshes rooms
-            DispatcherTimer timer = new DispatcherTimer();
+            timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(refreshTime);
             timer.Tick += new EventHandler(PopulateRoom);
             timer.Start();
@@ -58,9 +59,22 @@ namespace Frontend.Pages
                     r.FontFamily = new FontFamily("Ink Free");
                     r.FontWeight = FontWeights.Bold;
                     r.Tag = room;
-                    r.MouseDoubleClick += (x, y) => 
+                    r.MouseUp += (x, y) => 
                     {
-                        ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomPage((RoomData)(r.Tag));
+                        JoinRoomRequest joinRoomRequest = new JoinRoomRequest(); 
+                        joinRoomRequest.roomId = room.id;
+                        String jsonRepr = JsonConvert.SerializeObject(joinRoomRequest);
+                        Communicator.Send(Communicator.RequestType.JoinRoomRequest, jsonRepr);
+                        StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+                        if (statusResponse.status == 0)
+                        {
+                            timer.Stop();
+                            ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomPage((RoomData)(r.Tag));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Couldn't join room, Please try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
                     };
                     roomsSP.Children.Add(r);
                 }
