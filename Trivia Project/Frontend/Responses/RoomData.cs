@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.Responses
 {
-    internal struct RoomData
+    public struct RoomData
     {
 		public int id;
 		public string name;

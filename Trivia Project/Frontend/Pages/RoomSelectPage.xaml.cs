@@ -57,6 +57,11 @@ namespace Frontend.Pages
                     r.FontSize = 18;
                     r.FontFamily = new FontFamily("Ink Free");
                     r.FontWeight = FontWeights.Bold;
+                    r.Tag = room;
+                    r.MouseDoubleClick += (x, y) => 
+                    {
+                        ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomPage((RoomData)(r.Tag));
+                    };
                     roomsSP.Children.Add(r);
                 }
             }
