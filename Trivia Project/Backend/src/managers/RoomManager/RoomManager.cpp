@@ -1,6 +1,16 @@
 #include "managers/RoomManager/RoomManager.h"
 
 /// <summary>
+/// Getting a room
+/// </summary>
+/// <param name="roomId"></param>
+/// <returns></returns>
+Room& RoomManager::getRoom(unsigned int roomId)
+{
+	return m_rooms[roomId];
+}
+
+/// <summary>
 ///	Getting the next room id.
 /// </summary>
 /// <returns>biggest room id + 1</returns>

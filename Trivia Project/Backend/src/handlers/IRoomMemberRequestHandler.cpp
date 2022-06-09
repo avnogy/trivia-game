@@ -17,3 +17,11 @@ RequestResult IRoomMemberRequestHandler::getRoomState(const RequestInfo& request
 		(IRequestHandler*)this
 	};
 }
+
+/// <summary>
+/// Create a new Room Member Handler
+/// </summary>
+IRoomMemberRequestHandler::IRoomMemberRequestHandler(Room& room, const LoggedUser& user) :
+	m_room(room), m_user(user)
+{
+}

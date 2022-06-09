@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-struct StatisticsResponse
+struct GetStatisticsResponse
 {
 	enum
 	{
