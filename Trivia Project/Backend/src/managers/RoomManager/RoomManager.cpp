@@ -86,5 +86,12 @@ std::vector<RoomData> RoomManager::getRooms() const
 /// <returns>all usernames of all players in a room</returns>
 std::vector<std::string> RoomManager::getPlayersInRoom(const int& ID) const
 {
-	return m_rooms.at(ID).getAllUsers();
+	if (m_rooms.find(ID) != m_rooms.end())
+	{
+		return m_rooms.at(ID).getAllUsers();
+	}
+	else
+	{
+		return std::vector<std::string>();
+	}
 }
