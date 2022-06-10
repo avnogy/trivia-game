@@ -36,6 +36,8 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 	};
 }
 
+
+
 /// <summary>
 /// Checks whether the the request is relevant to this handler
 /// </summary>
@@ -45,7 +47,7 @@ bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) 
 {
 	switch (requestInfo.id)
 	{
-	case IDS::CloseRoomRequest: case IDS::StartGameRequest: case IDS::GetRoomStateRequest:
+	case IDS::CloseRoomRequest: case IDS::StartGameRequest: case IDS::GetRoomStateRequest: case IDS::GetPlayersInRoomRequest:
 		return true;
 	default:
 		return false;
@@ -66,6 +68,9 @@ RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& requestI
 
 	case IDS::StartGameRequest:
 		return startGame(requestInfo);
+
+	case IDS::GetPlayersInRoomRequest:
+		return getPlayersInRoom(requestInfo);
 
 	case IDS::GetRoomStateRequest:
 		return getRoomState(requestInfo);

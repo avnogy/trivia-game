@@ -16,33 +16,34 @@ using Newtonsoft.Json;
 using Frontend.Requests;
 using Frontend.Responses;
 using System.Windows.Threading;
+
 namespace Frontend.Pages
 {
     /// <summary>
-    /// Interaction logic for RoomAdminPage.xaml
+    /// Interaction logic for RoomPage.xaml
     /// </summary>
-    public partial class RoomAdminPage : Page
+    public partial class RoomPage : Page
     {
         const int refreshTime = 2; //seconds
         DispatcherTimer timer;
-        public RoomAdminPage(string roomName,int timePerQuestion, int maxPlayers)
+        public RoomPage(RoomData room)
         {
             InitializeComponent();
-            nameTBX.Text += roomName;
-            timeTBX.Text += timePerQuestion;
-            amountTBX.Text += maxPlayers;
+            nameTBX.Text += room.name;
+            timeTBX.Text += room.timePerQuestion;
 
-            PopulateRoom(null,null);
+            PopulateRoom(null, null);
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(refreshTime);
             timer.Tick += new EventHandler(PopulateRoom);
             timer.Start();
+
         }
         private void PopulateRoom(object? sender, EventArgs? e)
         {
             Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, "");
             GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
-            
+
             if (roomResponse.players != null)
             {
                 playersLBL.Content = "players:\n";
@@ -54,17 +55,19 @@ namespace Frontend.Pages
 
         }
 
-        private void startBTN_Click(object sender, RoutedEventArgs e)
+        private void leaveBTN_Click(object sender, RoutedEventArgs e)
         {
-            //TO:DO: start a game here
-        }
-
-        private void backBTN_Click(object sender, RoutedEventArgs e)
-        {
-            Communicator.Send(Communicator.RequestType.CloseRoomRequest, "");
-            StatusResponse statisticsReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            timer.Stop();
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
+            Communicator.Send(Communicator.RequestType.LeaveRoomRequest, "");
+            StatusResponse status = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (status.status == 0)
+            {
+                timer.Stop();
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
+            }
+            else
+            {
+                MessageBox.Show("Couldn't leave room' Please try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ bool RoomMemberRequestHandler::isRequestRelevant(const RequestInfo& requestInfo)
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveRoomRequest: case IDS::GetRoomStateRequest:
+	case IDS::LeaveRoomRequest: case IDS::GetRoomStateRequest: case IDS::GetPlayersInRoomRequest:
 		return true;
 	default:
 		return false;
@@ -45,6 +45,9 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& request
 
 	case IDS::GetRoomStateRequest:
 		return getRoomState(requestInfo);
+
+	case IDS::GetPlayersInRoomRequest:
+		return getPlayersInRoom(requestInfo);
 	}
 }
 

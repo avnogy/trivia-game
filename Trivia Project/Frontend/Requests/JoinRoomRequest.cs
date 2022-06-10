@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Frontend.Responses
+namespace Frontend.Requests
 {
-    internal struct CloseRoomResponse
+    internal struct JoinRoomRequest
     {
-        public int status;
+        public int roomId;
     }
 }

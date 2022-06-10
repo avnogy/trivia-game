@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Responses
 {
-    internal struct SignupResponse
+    internal struct GetPlayersInRoomResponse
     {
-        public int status;
+        public List<string> players;
     }
 }

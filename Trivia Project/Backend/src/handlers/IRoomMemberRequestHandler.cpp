@@ -1,4 +1,15 @@
 #include "handlers/IRoomMemberRequestHandler.h"
+#include <managers/RoomManager/RoomManager.h>
+
+RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo) const
+{
+	auto result = RoomManager::instance().getPlayersInRoom(m_room.getRoomData().id);
+
+	return RequestResult{
+		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
+		(IRequestHandler*)this
+	};
+}
 
 /// <summary>
 /// Getting information about room:
