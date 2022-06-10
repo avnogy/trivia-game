@@ -4,7 +4,7 @@
 RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo) const
 {
 	GetPlayersInRoomRequest request = JsonRequestPacketDeserializer::deserializeGetPlayersInRoomRequest(requestInfo.buffer);
-	auto result = RoomManager::instance().getPlayersInRoom(request.roomId);
+	auto result = RoomManager::instance().getPlayersInRoom(m_room.getRoomData().id);
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
