@@ -20,58 +20,47 @@ namespace Frontend
     /// </summary>
     public partial class QuestionPage : Page
     {
+        private Button[] buttons;
+
         public QuestionPage()
         {
             InitializeComponent();
+            this.buttons = new Button[4];
+            this.buttons[0] = choiceTopLeftBTN;
+            this.buttons[1] = choiceTopRightBTN;
+            this.buttons[2] = choiceBottomLeftBTN;
+            this.buttons[3] = choiceBottomRightBTN;
+        }
+
+        private void select(int buttonIndex)
+        {
+            for (int i = 0; i < this.buttons.Length; i++)
+            {
+                if (i == buttonIndex) continue;
+                this.buttons[i].Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
+            }
+
+            this.buttons[buttonIndex].Background = new BrushConverter().ConvertFrom("#FDFFB6") as SolidColorBrush;
         }
 
         private void choiceTopLeftBTN_Click(object sender, RoutedEventArgs e)
         {
-            //select
-            choiceTopLeftBTN.Background = new BrushConverter().ConvertFrom("#FDFFB6") as SolidColorBrush;
-
-            //deselect
-            choiceTopRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
+            select(0);
         }
 
         private void choiceTopRightBTN_Click(object sender, RoutedEventArgs e)
         {
-            //select
-            choiceTopRightBTN.Background = new BrushConverter().ConvertFrom("#FDFFB6") as SolidColorBrush;
-
-            //deselect
-            choiceTopLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
+            select(1);
         }
 
         private void choiceBottomLeftBTN_Click(object sender, RoutedEventArgs e)
         {
-
-            //select
-            choiceBottomLeftBTN.Background = new BrushConverter().ConvertFrom("#FDFFB6") as SolidColorBrush;
-
-            //deselect
-            choiceTopLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceTopRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-
-
+            select(2);
         }
 
         private void choiceBottomRightBTN_Click(object sender, RoutedEventArgs e)
         {
-
-            //select
-            choiceBottomRightBTN.Background = new BrushConverter().ConvertFrom("#FDFFB6") as SolidColorBrush;
-
-            //deselect
-            choiceTopLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceTopRightBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-            choiceBottomLeftBTN.Background = new BrushConverter().ConvertFrom("#FFABD3EF") as SolidColorBrush;
-
+            select(3);
         }
     }
 }
