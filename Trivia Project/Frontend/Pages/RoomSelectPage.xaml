@@ -34,6 +34,7 @@
             FontWeight="Bold"/>
 
         <Button 
+            Template="{StaticResource NoMouseOverButtonTemplate}"
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" 
             x:Name="backBTN"
