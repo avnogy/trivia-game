@@ -98,6 +98,7 @@ namespace Frontend.Pages
         }
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
         }
     }
