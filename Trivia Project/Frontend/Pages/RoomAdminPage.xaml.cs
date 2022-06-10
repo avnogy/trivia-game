@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Frontend.Requests;
 using Frontend.Responses;
-
+using System.Windows.Threading;
 namespace Frontend.Pages
 {
     /// <summary>
@@ -23,12 +23,35 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomAdminPage : Page
     {
+        const int refreshTime = 2; //seconds
+        DispatcherTimer timer;
         public RoomAdminPage(string roomName,int timePerQuestion, int maxPlayers)
         {
             InitializeComponent();
             nameTBX.Text += roomName;
             timeTBX.Text += timePerQuestion;
             amountTBX.Text += maxPlayers;
+
+            PopulateRoom(null,null);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(refreshTime);
+            timer.Tick += new EventHandler(PopulateRoom);
+            timer.Start();
+        }
+        private void PopulateRoom(object? sender, EventArgs? e)
+        {
+            Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, "");
+            GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
+            
+            if (roomResponse.players != null)
+            {
+                playersLBL.Content = "players:\n";
+                foreach (string player in roomResponse.players)
+                {
+                    playersLBL.Content += player + "\n";
+                }
+            }
+
         }
 
         private void startBTN_Click(object sender, RoutedEventArgs e)
@@ -40,6 +63,7 @@ namespace Frontend.Pages
         {
             Communicator.Send(Communicator.RequestType.CloseRoomRequest, "");
             StatusResponse statisticsReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            timer.Stop();
             ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
     }

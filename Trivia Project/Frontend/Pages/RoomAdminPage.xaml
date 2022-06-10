@@ -19,10 +19,12 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1.5*"/>
@@ -30,7 +32,7 @@
 
         <Label
             x:Name="titleLBL"
-            Content="create room"
+            Content="Trivia"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
@@ -47,10 +49,10 @@
             x:Name="nameTBX"
             Text="room name: "
             FontSize="22"
-            Background="#FFC7D3DC"
+            Background="#FFABD3EF"
             FontFamily="Ink Free"
             FontWeight="Bold"/>
-        
+
         <TextBox
             IsReadOnly="True"
             Grid.Column="1"
@@ -59,7 +61,7 @@
             x:Name="timeTBX" 
             Text="time per question: "
             FontSize="22" 
-            Background="#FFC7D3DC" 
+            Background="#FFABD3EF" 
             FontFamily="Ink Free"
             FontWeight="Bold" />
 
@@ -71,13 +73,24 @@
             x:Name="amountTBX" 
             Text="max amount of players: "
             FontSize="22" 
-            Background="#FFC7D3DC" 
+            Background="#FFABD3EF" 
             FontFamily="Ink Free"
             FontWeight="Bold"/>
 
+        <Label
+            x:Name="playersLBL"
+            Content=""
+            FontSize="22" 
+            FontFamily="Ink Free"
+            FontWeight="Bold"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Grid.Row="8"
+            Background="#FFABD3EF"/>
+
         <Button
             Grid.Column="2" 
-            Grid.Row="8" 
+            Grid.Row="10" 
             x:Name="startBTN" 
             Click="startBTN_Click"           
             Content="start"
@@ -90,7 +103,7 @@
             IsDefault="True"/>
         <Button 
             Grid.Column="1"
-            Grid.Row="8"        
+            Grid.Row="10"        
             x:Name="backBTN"
             Click="backBTN_Click"   
             Content="close room"

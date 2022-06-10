@@ -25,16 +25,15 @@ namespace Frontend.Pages
     public partial class RoomPage : Page
     {
         const int refreshTime = 2; //seconds
-        int roomId;
+        DispatcherTimer timer;
         public RoomPage(RoomData room)
         {
             InitializeComponent();
-            roomId = room.id;
             nameTBX.Text += room.name;
             timeTBX.Text += room.timePerQuestion;
 
             PopulateRoom(null, null);
-            DispatcherTimer timer = new DispatcherTimer();
+            timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(refreshTime);
             timer.Tick += new EventHandler(PopulateRoom);
             timer.Start();
@@ -42,17 +41,18 @@ namespace Frontend.Pages
         }
         private void PopulateRoom(object? sender, EventArgs? e)
         {
-            GetPlayersInRoomRequest getPlayersInRoomRequest = new GetPlayersInRoomRequest();
-            getPlayersInRoomRequest.roomId = roomId;
-            String jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
+            Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, "");
+            GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
 
-            Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, jsonRepr);
-            GetPlayersInRoomResponse playersResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
-            playersLBL.Content = "players:\n";
-            foreach (string player in playersResponse.players)
+            if (roomResponse.players != null)
             {
-                playersLBL.Content += player + "\n";
+                playersLBL.Content = "players:\n";
+                foreach (string player in roomResponse.players)
+                {
+                    playersLBL.Content += player + "\n";
+                }
             }
+
         }
 
         private void leaveBTN_Click(object sender, RoutedEventArgs e)
@@ -61,6 +61,7 @@ namespace Frontend.Pages
             StatusResponse status = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
             if (status.status == 0)
             {
+                timer.Stop();
                 ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
             }
             else
