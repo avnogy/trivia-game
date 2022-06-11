@@ -24,7 +24,7 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomSelectPage : Page
     {
-        const int refreshTime = 5; //seconds
+        const int refreshTime = 2; //seconds
         DispatcherTimer timer;
         public RoomSelectPage()
         {
@@ -41,6 +41,7 @@ namespace Frontend.Pages
         {
             Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
             GetRoomsResponse roomsResponse = JsonConvert.DeserializeObject<GetRoomsResponse>(Communicator.Receive());
+
             roomsSP.Children.Clear();
             if (roomsResponse.rooms != null)
             {

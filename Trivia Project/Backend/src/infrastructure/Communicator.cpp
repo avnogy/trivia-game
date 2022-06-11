@@ -61,6 +61,7 @@ void Communicator::handleNewClient(Socket* socket)
 	}
 	catch (...)
 	{
+		std::cerr << "an error occured" << std::endl;
 	}
 
 	m_clients.erase(socket);

@@ -26,7 +26,7 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomPage : Page
     {
-        const int refreshTime = 3; //seconds
+        const int refreshTime = 2; //seconds
         DispatcherTimer timer;
         BackgroundWorker serverListener = new BackgroundWorker();
 
@@ -56,16 +56,36 @@ namespace Frontend.Pages
         {
             while (true)
             {
-                String recv = Communicator.Receive();
-                try
+                if (serverListener.CancellationPending)
                 {
-                    UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(recv);
-                    serverListener.ReportProgress(updateResponse.type);
+                    e.Cancel = true;
+                    break;
                 }
-                catch (Exception)
+
+                //receive message from server
+                if (Communicator.IsDataAvailable())
                 {
-                    GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(recv);
-                    PopulateRoom(roomResponse, null);
+                    String recv = Communicator.Receive();
+
+                    //try to parse message
+                    UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(recv);
+
+                    //if message has not parsed correctly
+                    if (updateResponse.status == 0)
+                    {
+                        //parse message again
+                        GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(recv);
+
+                        //update population
+                        serverListener.ReportProgress(3, roomResponse);
+                    }
+                    else
+                    {
+                        //try to start/leave room
+                        timer.Stop();
+                        serverListener.ReportProgress(updateResponse.type, null);
+                        break;
+                    }
                 }
             }
         }
@@ -76,15 +96,29 @@ namespace Frontend.Pages
             {
                 case UpdateResponse.Type.StartGame:
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(); break;
-                case UpdateResponse.Type.LeaveRoom: 
+
+                case UpdateResponse.Type.LeaveRoom:
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage(); break;
+
+                case (UpdateResponse.Type)3:
+                    {
+                        GetPlayersInRoomResponse roomResponse = (GetPlayersInRoomResponse)e.UserState;
+                        if (roomResponse.players != null)
+                        {
+                            playersLBL.Content = "players:\n";
+                            foreach (string player in roomResponse.players)
+                            {
+                                playersLBL.Content += player + "\n";
+                            }
+                        }
+                    }
+                    break;
+                    //PopulateRoom((GetPlayersInRoomResponse)e.UserState); break;
             }
         }
 
-        private void PopulateRoom(object? sender, EventArgs? e)
+        private void PopulateRoom(GetPlayersInRoomResponse roomResponse)
         {
-            GetPlayersInRoomResponse roomResponse = (GetPlayersInRoomResponse)sender;
-
             if (roomResponse.players != null)
             {
                 playersLBL.Content = "players:\n";
@@ -97,17 +131,13 @@ namespace Frontend.Pages
 
         private void leaveBTN_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
+            serverListener.CancelAsync();
+
             Communicator.Send(Communicator.RequestType.LeaveRoomRequest, "");
             StatusResponse status = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            if (status.status == 0)
-            {
-                timer.Stop();
-                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
-            }
-            else
-            {
-                MessageBox.Show("Couldn't leave room' Please try again.", "Failed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
         }
     }
 }

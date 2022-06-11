@@ -4,7 +4,7 @@ struct UpdateResponse
 {
 	enum
 	{
-		SUCCESS,
+		SUCCESS=1,
 		FAILURE
 	};
 	enum

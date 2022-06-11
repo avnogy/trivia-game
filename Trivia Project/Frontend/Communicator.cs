@@ -85,5 +85,10 @@ namespace Frontend
 
             return Encoding.Default.GetString(buffer);
         }
+
+        public static bool IsDataAvailable()
+        {
+            return stream.DataAvailable;
+        }
     }
 }
