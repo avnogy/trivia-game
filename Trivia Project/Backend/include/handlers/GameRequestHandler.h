@@ -8,7 +8,7 @@
 class GameRequestHandler : public IRequestHandler
 {
 private:
-	Game m_game;
+	Game& m_game;
 	LoggedUser m_user;
 
 	RequestResult getQuestion(const RequestInfo& requestInfo) const;
@@ -17,7 +17,7 @@ private:
 	RequestResult leaveGame(const RequestInfo& requestInfo);
 
 public:
-	GameRequestHandler(const Game& game, const LoggedUser& user);
+	GameRequestHandler(Game& game, const LoggedUser& user);
 
 	virtual bool isRequestRelevant(const RequestInfo& requestInfo) const;
 	virtual RequestResult handleRequest(const RequestInfo& requestInfo);
