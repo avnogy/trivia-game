@@ -1,7 +1,4 @@
 #include "infrastructure/Communicator.h"
-#include <thread>
-#include <iostream>
-
 #pragma warning(disable : 4996)
 
 /// <summary>
@@ -81,10 +78,30 @@ void Communicator::bindUsernameToSocket(const std::string& username, IRequestHan
 	{
 		if (it.second == requestHandler)
 		{
-			usernameToSocket[username] = it.first;
+			m_usernameToSocket[username] = it.first;
 			break;
 		}
 	}
+}
+
+/// <summary>
+/// Getting the socket of a client usering it's username
+/// </summary>
+/// <param name="username">username of a client</param>
+/// <returns>socket of the client</returns>
+Socket* Communicator::getSocket(const std::string& username)
+{
+	return m_usernameToSocket[username];
+}
+
+/// <summary>
+/// Setting a request handler to a client using it's username
+/// </summary>
+/// <param name="username">username of client</param>
+/// <param name="requestHandler">new request handler</param>
+void Communicator::setRequestHandler(const std::string& username, IRequestHandler* requestHandler)
+{
+	m_clients[getSocket(username)] = requestHandler;
 }
 
 /// <summary>

@@ -51,19 +51,21 @@ namespace Frontend.Pages
                     playersLBL.Content += player + "\n";
                 }
             }
-
         }
 
         private void startBTN_Click(object sender, RoutedEventArgs e)
         {
-            //TO:DO: start a game here
+            timer.Stop();
+            Communicator.Send(Communicator.RequestType.StartGameRequest, "");
+            StatusResponse startGameResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             Communicator.Send(Communicator.RequestType.CloseRoomRequest, "");
             StatusResponse statisticsReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            timer.Stop();
             ((MainWindow)Application.Current.MainWindow).frame.Content = new CreateRoomPage();
         }
     }

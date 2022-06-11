@@ -215,11 +215,7 @@ std::string JsonRequestPacketSerializer::serializeResponse(const GetQuestionResp
 	question["possibleAnswers"] = response.question.getPossibleAnswers();
 	question["correctAnswer"] = response.question.getCorrectAnswer();
 
-
-	nlohmann::json json;
-	json["status"] = response.status;
-	json["question"] = question;
-	return json.dump();
+	return question.dump();
 }
 
 /// <summary>

@@ -11,4 +11,4 @@ Game GameManager::createGame(const Room& room)
 	Game game(IDatabase::instance()->getQuestions(), room.getAllUsers());
 	m_games.push_back(game);
 	return game;
-}
+};

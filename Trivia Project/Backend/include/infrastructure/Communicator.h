@@ -10,6 +10,8 @@
 #include "infrastructure/RequestHandlerFactory.h"
 #include "utils/Singleton.h"
 #include "handlers/IRequestHandler.h"
+#include <thread>
+#include <iostream>
 
 #define PORT 4206
 
@@ -20,6 +22,7 @@ class Communicator
 
 private:
 	Socket m_serverSocket;
+	std::unordered_map<std::string, Socket*> m_usernameToSocket;
 	std::unordered_map<Socket*, IRequestHandler*> m_clients;
 
 	RequestInfo recvRequest(Socket& socket);
@@ -27,7 +30,8 @@ private:
 	void handleNewClient(Socket* socket);
 
 public:
-	std::unordered_map<std::string, Socket*> usernameToSocket;
 	void startHandleRequest();
 	void bindUsernameToSocket(const std::string& username, IRequestHandler* requestHandler);
+	Socket* getSocket(const std::string& username);
+	void setRequestHandler(const std::string& username, IRequestHandler* requestHandler);
 };

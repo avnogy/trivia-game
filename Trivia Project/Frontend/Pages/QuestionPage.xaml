@@ -109,6 +109,6 @@
             MinWidth="120"
             Background="#FFABD3EF" 
             FontFamily="Ink Free"
-            FontWeight="Bold"/>
+            FontWeight="Bold" Click="submitBTN_Click"/>
     </Grid>
 </Page>

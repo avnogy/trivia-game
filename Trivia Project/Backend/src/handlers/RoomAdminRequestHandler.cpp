@@ -1,14 +1,29 @@
 #include "handlers/RoomAdminRequestHandler.h"
 
+/// <summary>
+/// closing room  - telling all room members to leave
+/// </summary>
+/// <param name="requestInfo">information about request</param>
+/// <returns>response and new handler</returns>
 RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo) const
 {
 	for (auto& user : m_room.getAllUsers())
 	{
+		//if user is this user, continue
 		if (user == m_user.getUsername())
 			continue;
-		Communicator::instance().usernameToSocket[user]->send(
-			JsonRequestPacketSerializer::serializeResponse(LeaveRoomResponse{ LeaveRoomResponse::SUCCESS })
-		);
+
+		//accesing the users socket
+		Socket* userSocket = Communicator::instance().getSocket(user);
+
+		//creating a new handler to user
+		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createMenuRequestHandler(user);
+
+		//sending user a start game message
+		userSocket->send(JsonRequestPacketSerializer::serializeResponse(LeaveRoomResponse{ LeaveRoomResponse::SUCCESS }));
+
+		//replacing user's handler
+		Communicator::instance().setRequestHandler(user, newRequestHandler);
 	}
 
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
@@ -19,24 +34,41 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 	};
 }
 
+/// <summary>
+/// starting game  - telling all room members to start
+/// </summary>
+/// <param name="requestInfo">information about request</param>
+/// <returns>response and new handler</returns>
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo) const
 {
+	Game game = GameManager::instance().createGame(m_room);
+
 	for (auto& user : m_room.getAllUsers())
 	{
+		//if user is this user, continue
 		if (user == m_user.getUsername())
 			continue;
-		Communicator::instance().usernameToSocket[user]->send(
-			JsonRequestPacketSerializer::serializeResponse(StartGameResponse{ StartGameResponse::SUCCESS })
-		);
+		
+		//accesing the users socket
+		Socket* userSocket = Communicator::instance().getSocket(user);
+		
+		//creating a new handler to user
+		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createGameRequestHandler(game, user);
+
+		//sending user a start game message
+		userSocket->send(JsonRequestPacketSerializer::serializeResponse(StartGameResponse{ StartGameResponse::SUCCESS }));
+
+		//replacing user's handler
+		Communicator::instance().setRequestHandler(user, newRequestHandler);
 	}
+
+	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
 	return RequestResult{
 		JsonRequestPacketSerializer::serializeResponse(StartGameResponse{StartGameResponse::SUCCESS}),
-		(IRequestHandler*)this // game handler
+		(IRequestHandler*)RequestHandlerFactory::instance().createGameRequestHandler(game, m_user)
 	};
 }
-
-
 
 /// <summary>
 /// Checks whether the the request is relevant to this handler

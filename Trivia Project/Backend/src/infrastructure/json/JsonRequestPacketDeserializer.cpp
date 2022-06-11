@@ -100,6 +100,6 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
 	json bufferContent = json::parse(buffer);
 
 	return SubmitAnswerRequest{
-		bufferContent["answerId"]
+		bufferContent["answer"]
 	};
 }

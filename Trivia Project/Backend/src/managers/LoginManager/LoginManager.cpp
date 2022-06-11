@@ -30,13 +30,13 @@ bool LoginManager::login(const std::string& username, const std::string& passwor
 		return false;
 
 	//if user not signed up or password's not match
-	if (!IDatabase::instance()->doesUserExist(username) || !IDatabase::instance()->doesPasswordMatch(username, password))
+	if ((IDatabase::instance()->doesUserExist(username) && IDatabase::instance()->doesPasswordMatch(username, password)))
 	{
-		return false;
+		m_loggedUsers.insert(username);
+		return true;
 	}
 
-	m_loggedUsers.insert(username);
-	return true;
+	return false;
 }
 
 /// <summary>
