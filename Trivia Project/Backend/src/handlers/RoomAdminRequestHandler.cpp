@@ -20,7 +20,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createMenuRequestHandler(user);
 
 		//sending user a start game message
-		userSocket->send(JsonRequestPacketSerializer::serializeResponse(LeaveRoomResponse{ LeaveRoomResponse::SUCCESS }));
+		userSocket->send(JsonRequestPacketSerializer::serializeResponse(UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::LeaveRoom }));
 
 		//replacing user's handler
 		Communicator::instance().setRequestHandler(user, newRequestHandler);
@@ -56,7 +56,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createGameRequestHandler(game, user);
 
 		//sending user a start game message
-		userSocket->send(JsonRequestPacketSerializer::serializeResponse(StartGameResponse{ StartGameResponse::SUCCESS }));
+		userSocket->send(JsonRequestPacketSerializer::serializeResponse(UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::StartGame }));
 
 		//replacing user's handler
 		Communicator::instance().setRequestHandler(user, newRequestHandler);

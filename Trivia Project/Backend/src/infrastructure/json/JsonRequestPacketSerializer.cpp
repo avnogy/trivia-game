@@ -229,3 +229,11 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LeaveGameRespon
 	json["status"] = response.status;
 	return json.dump();
 }
+
+std::string JsonRequestPacketSerializer::serializeResponse(const UpdateResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["type"] = response.type;
+	return json.dump();
+}

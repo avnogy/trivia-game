@@ -33,7 +33,6 @@ namespace Frontend.Pages
         public RoomPage(RoomData room)
         {
             InitializeComponent();
-            //ThreadStart target = new ThreadStart(listenToServer);
             serverListener.WorkerSupportsCancellation = true;
             serverListener.WorkerReportsProgress = true;
             serverListener.DoWork += listenToServer;
@@ -45,30 +44,35 @@ namespace Frontend.Pages
             nameTBX.Text += room.name;
             timeTBX.Text += room.timePerQuestion;
 
-            //PopulateRoom(null, null);
-            //timer = new DispatcherTimer();
-            //timer.Interval = TimeSpan.FromSeconds(refreshTime);
-            //timer.Tick += new EventHandler(PopulateRoom);
-            //timer.Start();
+            /*PopulateRoom(null, null);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(refreshTime);
+            timer.Tick += new EventHandler(PopulateRoom);
+            timer.Start();*/
 
         }
 
         private void listenToServer(object sender, DoWorkEventArgs e)
         {
-            StatusResponse serverResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            serverListener.ReportProgress(0);
+            UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(Communicator.Receive());
+            serverListener.ReportProgress(updateResponse.type);
         }
 
         private void loadQuestionPage(object sender, ProgressChangedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+            switch ((UpdateResponse.Type)e.ProgressPercentage)
+            {
+                case UpdateResponse.Type.StartGame:
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(); break;
+                case UpdateResponse.Type.LeaveRoom: 
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage(); break;
+            }
         }
 
         private void PopulateRoom(object? sender, EventArgs? e)
         {
             Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, "");
             GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
-
             if (roomResponse.players != null)
             {
                 playersLBL.Content = "players:\n";
