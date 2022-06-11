@@ -36,29 +36,41 @@ namespace Frontend.Pages
             serverListener.WorkerSupportsCancellation = true;
             serverListener.WorkerReportsProgress = true;
             serverListener.DoWork += listenToServer;
-            serverListener.ProgressChanged += loadQuestionPage;
+            serverListener.ProgressChanged += handleServerUpdates;
 
             serverListener.RunWorkerAsync();
-
 
             nameTBX.Text += room.name;
             timeTBX.Text += room.timePerQuestion;
 
-            /*PopulateRoom(null, null);
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(refreshTime);
-            timer.Tick += new EventHandler(PopulateRoom);
-            timer.Start();*/
+            timer.Tick += new EventHandler(
+                (object? sender, EventArgs? e) => { Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, ""); }
+                );
+            timer.Start();
 
         }
 
         private void listenToServer(object sender, DoWorkEventArgs e)
         {
-            UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(Communicator.Receive());
-            serverListener.ReportProgress(updateResponse.type);
+            while (true)
+            {
+                String recv = Communicator.Receive();
+                try
+                {
+                    UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(recv);
+                    serverListener.ReportProgress(updateResponse.type);
+                }
+                catch (Exception)
+                {
+                    GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(recv);
+                    PopulateRoom(roomResponse, null);
+                }
+            }
         }
 
-        private void loadQuestionPage(object sender, ProgressChangedEventArgs e)
+        private void handleServerUpdates(object sender, ProgressChangedEventArgs e)
         {
             switch ((UpdateResponse.Type)e.ProgressPercentage)
             {
@@ -71,8 +83,8 @@ namespace Frontend.Pages
 
         private void PopulateRoom(object? sender, EventArgs? e)
         {
-            Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, "");
-            GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
+            GetPlayersInRoomResponse roomResponse = (GetPlayersInRoomResponse)sender;
+
             if (roomResponse.players != null)
             {
                 playersLBL.Content = "players:\n";
@@ -81,7 +93,6 @@ namespace Frontend.Pages
                     playersLBL.Content += player + "\n";
                 }
             }
-
         }
 
         private void leaveBTN_Click(object sender, RoutedEventArgs e)
