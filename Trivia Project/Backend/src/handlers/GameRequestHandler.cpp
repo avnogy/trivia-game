@@ -31,6 +31,11 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 		this
 	};
 }
+/// <summary>
+/// returns a result array sorted by winner
+/// </summary>
+/// <param name="v"></param>
+/// <returns></returns>
 std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v)
 {
 	//compares two users by avrage time and correctness of answers
