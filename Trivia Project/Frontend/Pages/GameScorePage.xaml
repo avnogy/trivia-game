@@ -69,13 +69,12 @@
                 <RowDefinition Height="13*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-
-            <Label
-            Grid.Column="1" Grid.Row="1" 
-            x:Name="statisticsLBL" 
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-            FontSize="20" FontFamily="Ink Free" FontWeight="Bold"/>
-
+            <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
+                <StackPanel
+                Name="scoresSP"
+                Orientation="Vertical">
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>
