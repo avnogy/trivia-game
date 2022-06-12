@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <queue>
 #include "managers/GameManager/Question.h"
 
 #define DATABASE_FILE_PATH "D:\\Coding\\magshimim\\Advanced-Programming\\trivia-project\\Trivia Project\\database.sqlite"
@@ -26,5 +27,5 @@ public:
 	virtual std::vector<std::string> getLeaderboard() const = 0;
 
 	//questions
-	virtual std::vector<Question> getQuestions() const = 0;
+	virtual std::queue<Question> getQuestions() const = 0;
 };

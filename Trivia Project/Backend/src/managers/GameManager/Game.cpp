@@ -4,12 +4,12 @@
 /// Creating a new game
 /// </summary>
 /// <param name="questions">questions for games</param>
-Game::Game(const std::vector<Question>& questions, const std::vector<std::string>& users) :
-	m_questions(questions)
+Game::Game(const std::queue<Question>& questions, const std::vector<std::string>& users) :
+	m_questions(questions), m_currentQuestion(m_questions.front())
 {
 	for (const auto& user : users)
 	{
-		m_players.insert({ user, GameData{m_questions[0]}});
+		m_players.insert({ user, GameData() });
 	}
 }
 
@@ -37,19 +37,20 @@ std::vector<PlayerResults> Game::getGameResults() const
 /// Getting all questions
 /// </summary>
 /// <returns>all questions</returns>
-std::vector<Question> Game::getQuestions() const
+std::queue<Question> Game::getQuestions() const
 {
 	return m_questions;
 }
 
 /// <summary>
-/// Getting currect question for a user
+/// getting the current question
 /// </summary>
-/// <param name="user"></param>
-/// <returns>currect question</returns>
-Question Game::getQuestionForUser(const LoggedUser& user) const
+const Question& Game::getQuestion()
 {
-	return m_players.at(user).currentQuestion;
+	m_currentQuestion = m_questions.front();
+	m_questions.push(m_currentQuestion);
+	m_questions.pop();
+	return m_currentQuestion;
 }
 
 /// <summary>
@@ -60,9 +61,7 @@ Question Game::getQuestionForUser(const LoggedUser& user) const
 /// <returns>SubmitAnswerResponse</returns>
 void Game::submitAnswer(const LoggedUser& user, const std::string& answer) 
 {
-	const std::string& correctAnswer = m_players[user].currentQuestion.getCorrectAnswer();
-
-	if (correctAnswer == answer)
+	if (m_currentQuestion.getCorrectAnswer() == answer)
 	{
 		m_players[user].correctAnswerCount++;
 	}

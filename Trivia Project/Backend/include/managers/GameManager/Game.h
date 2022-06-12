@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 #include <vector>
 #include <unordered_map>
 #include "managers/GameManager/Question.h"
@@ -11,15 +12,16 @@
 class Game
 {
 private:
-	std::vector<Question> m_questions;
+	std::queue<Question> m_questions;
 	std::unordered_map<LoggedUser, GameData> m_players;
+	Question& m_currentQuestion;
 
 public:
-	Game(const std::vector<Question>& questions, const std::vector<std::string>& users);
+	Game(const std::queue<Question>& questions, const std::vector<std::string>& users);
 
 	std::vector<PlayerResults> getGameResults() const;
-	std::vector<Question> getQuestions() const;
-	Question getQuestionForUser(const LoggedUser& user) const;
+	std::queue<Question> getQuestions() const;
+	const Question& getQuestion();
 	void submitAnswer(const LoggedUser& user, const std::string& answer) ;
 	void removePlayer(const LoggedUser& user);
 };

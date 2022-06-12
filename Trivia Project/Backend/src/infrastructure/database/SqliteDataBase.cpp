@@ -265,18 +265,18 @@ int SqliteDataBase::getNumOfPlayerGames(const std::string& username) const
 /// Getting a vector of all questions in database
 /// </summary>
 /// <returns>all questions in database</returns>
-std::vector<Question> SqliteDataBase::getQuestions() const
+std::queue<Question> SqliteDataBase::getQuestions() const
 {
-	std::vector<Question> questions;
+	std::queue<Question> questions;
 
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
 			return 0;
 
-		std::vector<Question>& questions = *(std::vector<Question>*)data;
+		std::queue<Question>& questions = *(std::queue<Question>*)data;
 
-		questions.push_back(
+		questions.push(
 			Question(argv[0], { argv[1], argv[2], argv[3], argv[4] })
 		);
 

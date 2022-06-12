@@ -8,7 +8,7 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 {
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game.getQuestionForUser(m_user)}
+			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game.getQuestion()}
 		),
 		(IRequestHandler*)this
 	};
@@ -26,7 +26,7 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS, m_game.getQuestionForUser(m_user).getCorrectAnswer()}
+			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS, m_game.getQuestion().getCorrectAnswer()}
 		),
 		this
 	};

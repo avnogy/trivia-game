@@ -10,6 +10,13 @@ Question::Question(const std::string& question, const std::vector<std::string>& 
 {
 }
 
+Question& Question::operator=(const Question& other)
+{
+	this->m_question = other.m_question;
+	this->m_possibleAnswers = other.m_possibleAnswers;
+	return *this;
+}
+
 /// <summary>
 /// Getting the question
 /// </summary>
