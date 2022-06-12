@@ -28,5 +28,5 @@ public:
 	MenuRequestHandler* createMenuRequestHandler(const LoggedUser& user) const;
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& room, const LoggedUser& user) const;
 	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& room, const LoggedUser& user) const;
-	GameRequestHandler* createGameRequestHandler(const Game& game, const LoggedUser& user);
+	GameRequestHandler* createGameRequestHandler(Game& game, const LoggedUser& user);
 };
