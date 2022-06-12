@@ -5,13 +5,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	
-    <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-	
-    <OutputPath>$(SolutionDir)bin/dist/$(MSbuildProjectName)-$(Configuration)/</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)bin/intermediate/$(MSbuildProjectName)-$(Configuration)/</IntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
