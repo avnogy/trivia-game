@@ -65,7 +65,7 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="game">game</param>
 /// <param name="user">user</param>
-GameRequestHandler::GameRequestHandler(const Game& game, const LoggedUser& user) :
+GameRequestHandler::GameRequestHandler(Game& game, const LoggedUser& user) :
 	m_game(game), m_user(user)
 {
 }
