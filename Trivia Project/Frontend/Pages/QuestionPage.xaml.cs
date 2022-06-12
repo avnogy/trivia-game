@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Frontend.Requests;
 using Frontend.Responses;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Frontend
 {
@@ -26,11 +27,18 @@ namespace Frontend
     {
         private Button[] buttons;
         private int selectedButtonIndex;
+        BackgroundWorker serverListener = new BackgroundWorker();
 
         public QuestionPage()
         {
             InitializeComponent();
 
+            serverListener.WorkerSupportsCancellation = true;
+            serverListener.WorkerReportsProgress = true;
+            serverListener.DoWork += listenToServer;
+            serverListener.ProgressChanged += markCorrectAnswer;
+
+            
             //getting question and answers from server
             Communicator.Send(Communicator.RequestType.GetQuestionRequest, "");
             GetQuestionResponse response = JsonConvert.DeserializeObject<GetQuestionResponse>(Communicator.Receive());
@@ -48,20 +56,16 @@ namespace Frontend
             this.buttons[3] = choiceBottomRightBTN;
         }
 
-        private void select(int buttonIndex)
+        private void listenToServer(object sender, DoWorkEventArgs e)
         {
-            for (int i = 0; i < this.buttons.Length; i++)
-            {
-                if (i == buttonIndex) continue;
-                this.buttons[i].Background = new BrushConverter().ConvertFrom("#98c9f0") as SolidColorBrush;
-            }
-
-            this.buttons[buttonIndex].Background = new BrushConverter().ConvertFrom("#FEE253") as SolidColorBrush;
-            this.selectedButtonIndex = buttonIndex;
+            CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(Communicator.Receive());
+            serverListener.ReportProgress(0, updateResponse);
         }
 
-        private void markCorrectAsnwer(String correctAnswer)
+        private void markCorrectAnswer(object sender, ProgressChangedEventArgs e)
         {
+            String correctAnswer = ((CorrectAnswerResponse)e.UserState).correctAnswer;
+
             if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
             {
                 this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
@@ -78,6 +82,20 @@ namespace Frontend
                     }
                 }
             }
+
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+        }
+
+        private void select(int buttonIndex)
+        {
+            for (int i = 0; i < this.buttons.Length; i++)
+            {
+                if (i == buttonIndex) continue;
+                this.buttons[i].Background = new BrushConverter().ConvertFrom("#98c9f0") as SolidColorBrush;
+            }
+
+            this.buttons[buttonIndex].Background = new BrushConverter().ConvertFrom("#FEE253") as SolidColorBrush;
+            this.selectedButtonIndex = buttonIndex;
         }
 
         private void choiceTopLeftBTN_Click(object sender, RoutedEventArgs e)
@@ -111,7 +129,7 @@ namespace Frontend
             Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
 
             SubmitAnswerResponse submitResponse = JsonConvert.DeserializeObject<SubmitAnswerResponse>(Communicator.Receive());
-            markCorrectAsnwer(submitResponse.correctAnswer);
+            serverListener.RunWorkerAsync();
         }
     }
 }

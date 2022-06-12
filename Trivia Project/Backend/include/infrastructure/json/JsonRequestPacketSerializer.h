@@ -22,6 +22,7 @@
 #include "responses/GetQuestionResponse.h"
 #include "responses/LeaveGameResponse.h"
 #include "responses/UpdateResponse.h"
+#include "responses/CorrectAnswerResponse.h"
 
 class JsonRequestPacketSerializer
 {
@@ -53,5 +54,6 @@ public:
 	static std::string serializeResponse(const LeaveGameResponse& response);
 
 	static std::string serializeResponse(const UpdateResponse& response);
+	static std::string serializeResponse(const CorrectAnswerResponse& response);
 
 };

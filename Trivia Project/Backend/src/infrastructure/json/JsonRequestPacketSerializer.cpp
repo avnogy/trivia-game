@@ -198,7 +198,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const SubmitAnswerRes
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	json["correctAnswer"] = response.correctAnswer;
 	return json.dump();
 }
 
@@ -235,5 +234,12 @@ std::string JsonRequestPacketSerializer::serializeResponse(const UpdateResponse&
 	nlohmann::json json;
 	json["status"] = response.status;
 	json["type"] = response.type;
+	return json.dump();
+}
+
+std::string JsonRequestPacketSerializer::serializeResponse(const CorrectAnswerResponse& response)
+{
+	nlohmann::json json;
+	json["correctAnswer"] = response.correctAnswer;
 	return json.dump();
 }

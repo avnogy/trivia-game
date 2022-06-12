@@ -78,15 +78,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin/dist/$(ProjectName)-$(Configuration)/</OutDir>
-    <IntDir>$(SolutionDir)bin/intermediate/$(ProjectName)-$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin/dist/$(ProjectName)-$(Configuration)/</OutDir>
-    <IntDir>$(SolutionDir)bin/intermediate/$(ProjectName)-$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
@@ -212,6 +212,7 @@
     <ClInclude Include="include\requests\LoginRequest.h" />
     <ClInclude Include="include\requests\SubmitAnswerRequest.h" />
     <ClInclude Include="include\responses\CloseRoomResponse.h" />
+    <ClInclude Include="include\responses\CorrectAnswerResponse.h" />
     <ClInclude Include="include\responses\CreateRoomResponse.h" />
     <ClInclude Include="include\responses\GetGameResultsResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />

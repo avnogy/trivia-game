@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Frontend.Responses
 {
-    internal struct SubmitAnswerResponse
+    internal struct CorrectAnswerResponse
     {
-        public int status;
-    }
+        public String correctAnswer;
+    };
 }

@@ -8,6 +8,4 @@ struct SubmitAnswerResponse
 		SUCCESS
 	};
 	unsigned int status;
-	//unsigned int correctAnswerId;
-	std::string correctAnswer;
 };

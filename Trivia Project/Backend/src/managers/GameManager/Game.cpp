@@ -5,11 +5,50 @@
 /// </summary>
 /// <param name="questions">questions for games</param>
 Game::Game(const std::queue<Question>& questions, const std::vector<std::string>& users) :
-	m_questions(questions), m_currentQuestion(m_questions.front())
+	m_questions(questions),
+	m_currentQuestion(m_questions.front()),
+	m_submitCount(0),
+	m_sendCorrectAnswers(Game::sendCorrectAnswers, this) //creating a thread to send all players the correct answers
 {
 	for (const auto& user : users)
 	{
 		m_players.insert({ user, GameData() });
+	}
+
+	m_sendCorrectAnswers.detach();
+}
+
+/// <summary>
+/// Check if all players jave submited an answer
+/// </summary>
+bool Game::isAllSubmited()
+{
+	if (m_submitCount.size() < m_players.size())
+		return false;
+
+	m_submitCount.clear();
+	return true;
+}
+
+void Game::sendCorrectAnswers(Game* game)
+{
+	while (true)
+	{
+		while (!game->isAllSubmited())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+
+		for (const auto& user : game->m_players)
+		{
+			//accesing the users socket
+			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
+
+			//sending user a start game message
+			userSocket->send(JsonRequestPacketSerializer::serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }));
+		}
+
+		game->nextQuestion();
 	}
 }
 
@@ -45,12 +84,18 @@ std::queue<Question> Game::getQuestions() const
 /// <summary>
 /// getting the current question
 /// </summary>
-const Question& Game::getQuestion()
+const Question& Game::getQuestion() const
 {
-	m_currentQuestion = m_questions.front();
+	return m_questions.front();
+}
+
+/// <summary>
+/// making m_currectQuestion the next question
+/// </summary>
+void Game::nextQuestion()
+{
 	m_questions.push(m_currentQuestion);
 	m_questions.pop();
-	return m_currentQuestion;
 }
 
 /// <summary>
@@ -59,8 +104,12 @@ const Question& Game::getQuestion()
 /// <param name="user">user that submitted the answer</param>
 /// <param name="answer>the answer the user submitted</param>
 /// <returns>SubmitAnswerResponse</returns>
-void Game::submitAnswer(const LoggedUser& user, const std::string& answer) 
+void Game::submitAnswer(const LoggedUser& user, const std::string& answer)
 {
+	m_submitCountMutex.lock();
+	m_submitCount.insert(user.getUsername());
+	m_submitCountMutex.unlock();
+
 	if (m_currentQuestion.getCorrectAnswer() == answer)
 	{
 		m_players[user].correctAnswerCount++;

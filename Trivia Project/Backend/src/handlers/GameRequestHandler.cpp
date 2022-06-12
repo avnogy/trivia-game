@@ -8,7 +8,7 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 {
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game.getQuestion()}
+			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game->getQuestion()}
 		),
 		(IRequestHandler*)this
 	};
@@ -22,11 +22,11 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo) 
 {
 	SubmitAnswerRequest request = JsonRequestPacketDeserializer::instance().deserializeSubmitAnswerRequest(requestInfo.buffer);
-	m_game.submitAnswer(m_user, request.answer);
+	m_game->submitAnswer(m_user, request.answer);
 
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS, m_game.getQuestion().getCorrectAnswer()}
+			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}
 		),
 		this
 	};
@@ -40,7 +40,7 @@ RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo)
 {
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, m_game.getGameResults()}
+			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, m_game->getGameResults()}
 		),
 		(IRequestHandler*)this
 	};
@@ -53,7 +53,7 @@ RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo)
 /// <returns></returns>
 RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 {
-	m_game.removePlayer(m_user);
+	m_game->removePlayer(m_user);
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
 		this
@@ -65,7 +65,7 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="game">game</param>
 /// <param name="user">user</param>
-GameRequestHandler::GameRequestHandler(Game& game, const LoggedUser& user) :
+GameRequestHandler::GameRequestHandler(Game* game, const LoggedUser& user) :
 	m_game(game), m_user(user)
 {
 }
