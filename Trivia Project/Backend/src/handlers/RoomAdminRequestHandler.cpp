@@ -41,9 +41,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 /// <returns>response and new handler</returns>
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo) const
 {
-	Game g = GameManager::instance().createGame(m_room);
-	Game* pg = new Game(g);
-	Game& game = *pg;
+	Game game = GameManager::instance().createGame(m_room);
 
 	for (auto& user : m_room.getAllUsers())
 	{

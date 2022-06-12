@@ -61,6 +61,7 @@ Question Game::getQuestionForUser(const LoggedUser& user) const
 void Game::submitAnswer(const LoggedUser& user, const std::string& answer) 
 {
 	const std::string& correctAnswer = m_players[user].currentQuestion.getCorrectAnswer();
+
 	if (correctAnswer == answer)
 	{
 		m_players[user].correctAnswerCount++;
