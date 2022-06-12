@@ -9,7 +9,7 @@ using Frontend.Responses;
 
 namespace Frontend.Responses
 {
-    internal struct PlayerResults
+    public struct PlayerResults
 	{
 		public string username;
 		public int correctAnswerCount;
@@ -18,7 +18,7 @@ namespace Frontend.Responses
 
 	}
 
-	internal struct GetGameResultsResponse
+	public struct GetGameResultsResponse
 	{
 		public int status;
 		public List<PlayerResults> results;

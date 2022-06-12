@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -20,7 +23,7 @@ namespace Frontend.Pages
     /// </summary>
     public partial class GameScorePage : Page
     {
-        public GameScorePage()
+        public GameScorePage(GetGameResultsResponse gameResults)
         {
             InitializeComponent();
         }
