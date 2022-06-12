@@ -26,6 +26,7 @@ namespace Frontend.Pages
         public GameScorePage(GetGameResultsResponse gameResults)
         {
             InitializeComponent();
+            
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
