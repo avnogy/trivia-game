@@ -32,7 +32,8 @@ namespace Frontend
             LeaveGameRequest,
             GetQuestionRequest,
             SubmitAnswerRequest,
-            GetGameResultRequest
+            GetGameResultRequest,
+            AddQuestionRequest
         };
 
 

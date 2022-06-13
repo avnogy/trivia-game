@@ -294,6 +294,27 @@ std::queue<Question> SqliteDataBase::getQuestions() const
 	return questions;
 }
 
+/// <summary>
+/// adds a question to the database
+/// </summary>
+/// <param name="question"></param>
+/// <returns>status of operation</returns>
+bool SqliteDataBase::addQuestion(const Question& question) const 
+{
+	return sqlexec("INSERT INTO questions (question,correctanswer,possibleanswer1,possibleanswer2,possibleanswer3) VALUES(\"" +
+				    question.getQuestion() +
+		"\" , \"" + question.getCorrectAnswer() +
+		"\" , \"" + question.getPossibleAnswers()[1] +
+		"\" , \"" + question.getPossibleAnswers()[2] +
+		"\" , \"" + question.getPossibleAnswers()[3] +
+		"\" );", nullptr, nullptr);
+}
+
+
+/// <summary>
+/// retrives leaderboard from the database
+/// </summary>
+/// <returns>leaderboard stats</returns>
 std::vector<std::string> SqliteDataBase::getLeaderboard() const
 {
 	std::vector<std::string> players;

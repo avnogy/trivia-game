@@ -109,6 +109,7 @@ void Game::nextQuestion()
 	m_currentQuestion = m_questions.front();
 }
 
+
 /// <summary>
 /// checking if the answer is correct, and getting the correct answer
 /// </summary>

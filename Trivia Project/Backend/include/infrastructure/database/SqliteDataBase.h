@@ -30,7 +30,7 @@ public:
 	std::vector<std::string> getLeaderboard() const override;
 	//questions
 	std::queue<Question> getQuestions() const override;
-
+	bool addQuestion(const Question& question) const override;
 private:
 	bool sqlexec(const std::string& msg, int(*callback)(void* data, int argc, char** argv, char** azColName) = nullptr, void* callbackArg = nullptr) const;
 

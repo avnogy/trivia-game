@@ -14,6 +14,7 @@
 #include "responses/GetHighScoreResponse.h"
 
 #include "infrastructure/RequestHandlerFactory.h"
+#include "infrastructure/database/SqliteDataBase.h"
 
 class RequestHandlerFactory;
 
@@ -29,6 +30,7 @@ private:
 	RequestResult getHighScore(const RequestInfo& requestInfo) const;
 	RequestResult joinRoom(const RequestInfo& requestInfo) const;
 	RequestResult createRoom(const RequestInfo& requestInfo) const;
+	RequestResult addQuestion(const RequestInfo& requestInfo) const;
 
 public:
 	MenuRequestHandler(const LoggedUser& user);
