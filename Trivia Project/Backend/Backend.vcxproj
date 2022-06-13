@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\requests\AddQuestionRequest.h" />
     <ClCompile Include="src\handlers\GameRequestHandler.cpp" />
     <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
     <ClCompile Include="src\managers\GameManager\Game.cpp" />

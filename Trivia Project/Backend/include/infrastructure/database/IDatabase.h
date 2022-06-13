@@ -28,4 +28,5 @@ public:
 
 	//questions
 	virtual std::queue<Question> getQuestions() const = 0;
+	virtual bool addQuestion(const Question& question) const = 0;
 };

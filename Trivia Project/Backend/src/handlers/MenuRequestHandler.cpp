@@ -130,6 +130,26 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 }
 
 /// <summary>
+/// adds a question to the database
+/// </summary>
+/// <param name="requestInfo"></param>
+/// <returns></returns>
+RequestResult MenuRequestHandler::addQuestion(const RequestInfo& requestInfo) const
+{
+	AddQuestionRequest request = JsonRequestPacketDeserializer::deserializeAddQuestionRequest(requestInfo.buffer);
+	//putting correct answer at [0]
+	request.possibleAnswers.insert(request.possibleAnswers.begin(), request.correctAnswer);
+	Question question{request.question,request.possibleAnswers};
+	bool result = IDatabase::instance()->addQuestion(question);
+
+	return RequestResult{
+	JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
+	(IRequestHandler*)this
+	};
+
+}
+
+/// <summary>
 /// Creating an new MenuRequestHandler
 /// </summary>
 /// <param name="user">user to give the handler to</param>
@@ -147,7 +167,14 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::CreateRoomRequest: case IDS::GetRoomsRequest: case IDS::GetPlayersInRoomRequest: case IDS::JoinRoomRequest: case IDS::GetStatisticsRequest: case IDS::LogoutRequest:case IDS::GetLeaderboardRequest:
+	case IDS::CreateRoomRequest: 
+	case IDS::GetRoomsRequest: 
+	case IDS::GetPlayersInRoomRequest: 
+	case IDS::JoinRoomRequest: 
+	case IDS::GetStatisticsRequest: 
+	case IDS::LogoutRequest:
+	case IDS::GetLeaderboardRequest: 
+	case IDS::AddQuestionRequest:
 		return true;
 	default:
 		return false;
@@ -183,5 +210,8 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case IDS::LogoutRequest:
 		return logout(requestInfo);
+	
+	case IDS::AddQuestionRequest:
+		return addQuestion(requestInfo);
 	}
 }

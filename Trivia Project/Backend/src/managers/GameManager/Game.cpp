@@ -98,6 +98,7 @@ void Game::nextQuestion()
 	m_questions.pop();
 }
 
+
 /// <summary>
 /// checking if the answer is correct, and getting the correct answer
 /// </summary>

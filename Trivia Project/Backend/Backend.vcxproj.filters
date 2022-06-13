@@ -29,6 +29,7 @@
     <ClCompile Include="src\managers\RoomManager\Room.cpp" />
     <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
     <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
+    <ClCompile Include="include\requests\AddQuestionRequest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\GameRequestHandler.h" />
