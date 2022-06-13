@@ -22,7 +22,7 @@
             <RowDefinition Height="1*"/>
 
         </Grid.RowDefinitions>
-        
+
         <Label
             x:Name="questionLBL" 
             Content="sample question"
@@ -31,7 +31,18 @@
             Grid.Row="0" 
             HorizontalAlignment="Center" 
             VerticalAlignment="Center"
-            FontSize="36"  
+            FontSize="18"  
+            FontFamily="Ink Free"
+            FontWeight="Bold"/>
+
+        <Label
+            x:Name="timeLBL" 
+            Content="10:00"
+            Grid.Column="3"
+            Grid.Row="0" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            FontSize="24"  
             FontFamily="Ink Free"
             FontWeight="Bold"/>
 

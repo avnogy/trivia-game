@@ -71,6 +71,21 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 }
 
 /// <summary>
+/// Closes room and logs out user
+/// </summary>
+/// <param name="requestInfo"></param>
+/// <returns></returns>
+RequestResult RoomAdminRequestHandler::logout(const RequestInfo& requestInfo)
+{
+	closeRoom(requestInfo);
+	bool result = LoginManager::instance().logout(m_user.getUsername());
+	return RequestResult{
+		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
+		RequestHandlerFactory::instance().createLoginRequestHandler()
+	};
+}
+
+/// <summary>
 /// Checks whether the the request is relevant to this handler
 /// </summary>
 /// <param name="requestInfo">info about request</param>
@@ -79,7 +94,7 @@ bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) 
 {
 	switch (requestInfo.id)
 	{
-	case IDS::CloseRoomRequest: case IDS::StartGameRequest: case IDS::GetRoomStateRequest: case IDS::GetPlayersInRoomRequest:
+	case IDS::CloseRoomRequest: case IDS::StartGameRequest: case IDS::GetRoomStateRequest: case IDS::GetPlayersInRoomRequest: 	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;
@@ -106,6 +121,9 @@ RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& requestI
 
 	case IDS::GetRoomStateRequest:
 		return getRoomState(requestInfo);
+
+	case IDS::LogoutRequest:
+		return logout(requestInfo);
 	}
 }
 
