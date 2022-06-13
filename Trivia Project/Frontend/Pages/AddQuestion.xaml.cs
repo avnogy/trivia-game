@@ -24,5 +24,23 @@ namespace Frontend.Pages
         {
             InitializeComponent();
         }
+
+        private void backBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
+        }
+
+        private void submitBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (questionTBX.Text == "" || rightAnswerTBX.Text == "" ||
+                wrongAnswer1TBX.Text == "" || wrongAnswer2TBX.Text == "" ||
+                wrongAnswer3TBX.Text == "")
+            {
+                MessageBox.Show("Fields can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
+        }
     }
 }
