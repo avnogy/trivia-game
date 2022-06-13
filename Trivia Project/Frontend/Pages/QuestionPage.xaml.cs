@@ -28,7 +28,6 @@ namespace Frontend
     public partial class QuestionPage : Page
     {
         private Button[] buttons;
-        int timeToAnswer;
         private int selectedButtonIndex = 4;
         BackgroundWorker serverListener = new BackgroundWorker();
         DispatcherTimer answerTime = new DispatcherTimer();
@@ -79,7 +78,7 @@ namespace Frontend
             this.buttons[4] = new Button { Content = "wrong answer for sure" };
         }
 
-        public QuestionPage(int time)
+        public QuestionPage()
         {
             InitializeComponent();
             initializeTimer();
@@ -100,13 +99,11 @@ namespace Frontend
                 }
 
                 if (!Communicator.IsDataAvailable())
-                {
                     continue;
-                }
 
                 MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
                 CorrectAnswerResponse correctAnswerResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(response.message);
-                System.Threading.Thread.Sleep(25);
+                System.Threading.Thread.Sleep(25); //waiting to maybe receive another response
 
                 if (response.type == MessageTypeResponse.Type.CorrectAnswerResponse)
                 {
@@ -138,7 +135,14 @@ namespace Frontend
             {
                 case MessageTypeResponse.Type.CorrectAnswerResponse:
                     markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
+
+                    var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+                    timer.Start();
+                    timer.Tick += (sender, args) =>
+                    {
+                        timer.Stop();
+                        ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+                    };
                     break;
 
                 case MessageTypeResponse.Type.GetGameResultsResponse:
@@ -153,7 +157,15 @@ namespace Frontend
 
         private void markCorrectAnswer(String correctAnswer)
         {
-            if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
+            if (this.selectedButtonIndex == 4) //if user didnt choose
+            {
+                foreach (ref Button button in this.buttons.AsSpan())
+                {
+                    //mark all as wrong
+                    button.Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
+                }
+            }
+            else if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
             {
                 this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
             }
@@ -164,8 +176,6 @@ namespace Frontend
                 {
                     if (button.Content.ToString() == correctAnswer)
                     {
-                        button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
-                        break;
                     }
                 }
             }

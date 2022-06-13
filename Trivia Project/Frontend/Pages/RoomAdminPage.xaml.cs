@@ -61,7 +61,7 @@ namespace Frontend.Pages
             timer.Stop();
             Communicator.Send(Communicator.RequestType.StartGameRequest, "");
             StatusResponse startGameResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
