@@ -106,7 +106,7 @@ namespace Frontend
 
                 MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
                 CorrectAnswerResponse correctAnswerResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(response.message);
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(25);
 
                 if (response.type == MessageTypeResponse.Type.CorrectAnswerResponse)
                 {
