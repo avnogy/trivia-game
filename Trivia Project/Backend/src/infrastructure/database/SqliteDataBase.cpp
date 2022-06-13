@@ -301,13 +301,13 @@ std::queue<Question> SqliteDataBase::getQuestions() const
 /// <returns>status of operation</returns>
 bool SqliteDataBase::addQuestion(const Question& question) const 
 {
-	return sqlexec("INSERT INTO questions (question,correctanswer,possibleanswer1,possibleanswer2,possibleanswer3) VALUES(" +
-		question.getQuestion() +
-		", " + question.getCorrectAnswer() +
-		"," + question.getPossibleAnswers()[1] +
-		"," + question.getPossibleAnswers()[2] +
-		"," + question.getPossibleAnswers()[3] +
-		");", nullptr, nullptr);
+	return sqlexec("INSERT INTO questions (question,correctanswer,possibleanswer1,possibleanswer2,possibleanswer3) VALUES(\"" +
+				    question.getQuestion() +
+		"\" , \"" + question.getCorrectAnswer() +
+		"\" , \"" + question.getPossibleAnswers()[1] +
+		"\" , \"" + question.getPossibleAnswers()[2] +
+		"\" , \"" + question.getPossibleAnswers()[3] +
+		"\" );", nullptr, nullptr);
 }
 
 
