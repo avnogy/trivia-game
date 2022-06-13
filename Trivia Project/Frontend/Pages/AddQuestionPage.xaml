@@ -99,7 +99,7 @@
             FontSize="20"
             FontFamily="Ink Free" 
             Background="#FFABD3EF" 
-            FontWeight="Normal"/>
+            FontWeight="Bold"/>
         <TextBox
             Margin="0,0,0,5"
             x:Name="wrongAnswer2TBX"
@@ -108,7 +108,7 @@
             FontFamily="Ink Free" 
             FontSize="20"
             Background="#FFABD3EF" 
-            FontWeight="Normal"/>
+            FontWeight="Bold"/>
         <TextBox
             Margin="0,0,0,5"
             x:Name="wrongAnswer3TBX"
@@ -117,7 +117,7 @@
             FontFamily="Ink Free" 
             FontSize="20"
             Background="#FFABD3EF" 
-            FontWeight="Normal"/>
+            FontWeight="Bold"/>
 
         <Button 
             x:Name="submitBTN"
