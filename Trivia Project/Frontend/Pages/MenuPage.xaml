@@ -33,7 +33,28 @@
             FontFamily="Ink Free"
             VerticalAlignment="Center"
             FontWeight="Bold"/>
+        <Label
+            x:Name="usernameLBL" 
+            Content="Username: "
 
+            Grid.Row="2" 
+            Grid.Column="2"
+            HorizontalAlignment="Left" 
+            FontSize="25" 
+            FontFamily="Ink Free"
+            VerticalAlignment="Center"
+            FontWeight="Bold"/>
+        <TextBlock
+            x:Name="creditsLBL"
+            TextWrapping="Wrap"
+            Grid.Row="4"
+            Grid.RowSpan="2"
+            Grid.Column="2"
+            HorizontalAlignment="Center" 
+            FontSize="25" 
+            FontFamily="Ink Free"
+            VerticalAlignment="Center"
+            FontWeight="Bold"/>
         <Button 
             x:Name="createBTN" 
             Click="buttonCreate_Click"

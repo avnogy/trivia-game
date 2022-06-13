@@ -16,6 +16,7 @@ namespace Frontend
     /// </summary>
     public partial class App : Application
     {
+        public static string? username;
         private App()
         {
             Communicator.Init("127.0.0.1", 4206);

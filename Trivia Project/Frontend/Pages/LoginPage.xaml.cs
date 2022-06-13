@@ -56,25 +56,12 @@ namespace Frontend.Pages
             StatusResponse loginReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
             if (loginReponse.status == 0)
             {
+                App.username = loginRequest.username;
                 this.switchToMenu();
             }
             else
             {
                 MessageBox.Show("Your username or password are incorrect, Please try again.", "Invalid Credentials", MessageBoxButton.OK, MessageBoxImage.Error);
-                /*Label errorLabel = new Label();
-                errorLabel.Name = "LabelError";
-                errorLabel.Content = "You're not signed up yet.";
-                errorLabel.Margin = new Thickness(30, 0, 30, 0);
-                errorLabel.VerticalAlignment = VerticalAlignment.Bottom;
-                errorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
-                errorLabel.Foreground = Brushes.Black;
-                errorLabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xCF, 0xCF));
-                errorLabel.FontFamily = new FontFamily("Bell MT");
-                errorLabel.FontSize = 12.5;
-
-                Grid.SetRow(errorLabel, 0);
-                Grid.SetColumnSpan(errorLabel, 3);
-                Grid.Children.Add(errorLabel);*/
             }
         }
     }
