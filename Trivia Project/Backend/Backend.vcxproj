@@ -155,7 +155,6 @@
     <ClCompile Include="src\managers\GameManager\Game.cpp" />
     <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp" />
     <ClCompile Include="src\handlers\RoomMemberRequestHandler.cpp" />
     <ClCompile Include="src\infrastructure\Communicator.cpp" />
