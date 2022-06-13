@@ -91,6 +91,7 @@
     <ClInclude Include="include\responses\LeaveRoomResponse.h" />
     <ClInclude Include="include\responses\StartGameResponse.h" />
     <ClInclude Include="include\responses\CorrectAnswerResponse.h" />
+    <ClInclude Include="include\responses\MessageTypeResponse.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

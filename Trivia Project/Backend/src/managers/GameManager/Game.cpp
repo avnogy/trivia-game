@@ -34,32 +34,34 @@ void Game::sendCorrectAnswers(Game* game)
 {
 	while (true)
 	{
-		bool isSendGameResults = game->getQuestions().size() <= 0;
-
-		if (isSendGameResults)
-			break;
-
 		while (!game->isAllSubmited())
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 
+		std::string correctAnswerResponse = JsonRequestPacketSerializer::instance().serializeResponse(
+			MessageTypeResponse{
+				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse: MessageTypeResponse::Type::CorrectAnswerResponse,
+				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() })
+			});
+
+		game->nextQuestion();
+
 		for (const auto& user : game->m_players)
 		{
 			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
 
-			userSocket->send(JsonRequestPacketSerializer::serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }));
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			userSocket->send(correctAnswerResponse);
 
-			if (isSendGameResults)
+			if (game->getQuestions().size() <= 0)
 			{
-				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }));
+				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(
+					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }
+					));
+				return;
 			}
 
 		}
-
-		if(!isSendGameResults)
-			game->nextQuestion();
 	}
 }
 

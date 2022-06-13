@@ -222,6 +222,7 @@
     <ClInclude Include="include\responses\GetRoomStateResponse.h" />
     <ClInclude Include="include\responses\JoinRoomResponse.h" />
     <ClInclude Include="include\responses\LeaveRoomResponse.h" />
+    <ClInclude Include="include\responses\MessageTypeResponse.h" />
     <ClInclude Include="include\responses\StartGameResponse.h" />
     <ClInclude Include="include\responses\UpdateResponse.h" />
     <ClInclude Include="include\responses\LeaveGameResponse.h" />

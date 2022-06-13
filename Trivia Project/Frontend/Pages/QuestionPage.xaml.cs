@@ -59,7 +59,7 @@ namespace Frontend
             serverListener.WorkerSupportsCancellation = true;
             serverListener.WorkerReportsProgress = true;
             serverListener.DoWork += listenToServer;
-            serverListener.ProgressChanged += markCorrectAnswer;
+            serverListener.ProgressChanged += handleServerMessages;
         }
 
         private void initializeComponents(GetQuestionResponse response)
@@ -98,46 +98,60 @@ namespace Frontend
                     e.Cancel = true;
                     break;
                 }
-                String recv = Communicator.Receive();
-                CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(recv);
 
-                if (Communicator.IsDataAvailable())
+                if (!Communicator.IsDataAvailable())
                 {
-                    GetGameResultsResponse gameResultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(recv);
-                    Tuple<CorrectAnswerResponse, GetGameResultsResponse> t = new Tuple<CorrectAnswerResponse, GetGameResultsResponse>(updateResponse, gameResultsResponse);
-                    serverListener.ReportProgress(1, t);
+                    continue;
                 }
-                else
+
+                MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
+                CorrectAnswerResponse correctAnswerResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(response.message);
+                System.Threading.Thread.Sleep(2000);
+
+                if (response.type == MessageTypeResponse.Type.CorrectAnswerResponse)
                 {
-                    serverListener.ReportProgress(0, updateResponse);
+                    serverListener.ReportProgress((int)MessageTypeResponse.Type.CorrectAnswerResponse, correctAnswerResponse);
+                    close(); return;
                 }
-                
+
+                else if (response.type == MessageTypeResponse.Type.GetGameResultsResponse)
+                {
+                    serverListener.ReportProgress(3, correctAnswerResponse);
+
+                    GetGameResultsResponse gameResultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
+                    serverListener.ReportProgress((int)MessageTypeResponse.Type.GetGameResultsResponse, gameResultsResponse);
+
+                    close(); return;
+                }
             }
         }
 
-        private void markCorrectAnswer(object sender, ProgressChangedEventArgs e)
+        private void close()
         {
-            switch (e.ProgressPercentage)
-            {
-                case 0:
-                    mark(((CorrectAnswerResponse)e.UserState).correctAnswer);
+            answerTime.Stop();
+            serverListener.CancelAsync();
+        }
 
-                    answerTime.Stop();
-                    serverListener.CancelAsync();
+        private void handleServerMessages(object sender, ProgressChangedEventArgs e)
+        {
+            switch ((MessageTypeResponse.Type)e.ProgressPercentage)
+            {
+                case MessageTypeResponse.Type.CorrectAnswerResponse:
+                    markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
                     break;
 
-                case 1:
-                    mark(((CorrectAnswerResponse)e.UserState).correctAnswer);
-
-                    answerTime.Stop();
-                    serverListener.CancelAsync();
+                case MessageTypeResponse.Type.GetGameResultsResponse:
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
+                    break;
+
+                case (MessageTypeResponse.Type)3:
+                    markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
                     break;
             }
         }
 
-        private void mark(String correctAnswer)
+        private void markCorrectAnswer(String correctAnswer)
         {
             if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
             {
@@ -191,7 +205,7 @@ namespace Frontend
 
         private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
-            answerTime.Stop();
+            close();
             String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;

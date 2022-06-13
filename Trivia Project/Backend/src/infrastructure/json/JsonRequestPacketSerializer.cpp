@@ -243,3 +243,11 @@ std::string JsonRequestPacketSerializer::serializeResponse(const CorrectAnswerRe
 	json["correctAnswer"] = response.correctAnswer;
 	return json.dump();
 }
+
+std::string JsonRequestPacketSerializer::serializeResponse(const MessageTypeResponse& response)
+{
+	nlohmann::json json;
+	json["type"] = response.type;
+	json["message"] = response.message;
+	return json.dump();
+}
