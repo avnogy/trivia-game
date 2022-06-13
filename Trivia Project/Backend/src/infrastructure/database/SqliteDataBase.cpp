@@ -307,7 +307,7 @@ bool SqliteDataBase::addQuestion(const Question& question) const
 		"," + question.getPossibleAnswers()[1] +
 		"," + question.getPossibleAnswers()[2] +
 		"," + question.getPossibleAnswers()[3] +
-		";", nullptr, nullptr);
+		");", nullptr, nullptr);
 }
 
 

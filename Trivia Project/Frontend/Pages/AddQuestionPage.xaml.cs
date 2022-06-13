@@ -54,10 +54,15 @@ namespace Frontend.Pages
             string jsonRepr = JsonConvert.SerializeObject(request);
             Communicator.Send(Communicator.RequestType.AddQuestionRequest, jsonRepr);
 
-            StatusResponse loginReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            if (loginReponse.status == 0)
+            StatusResponse response = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (response.status == 0)
             {
-
+                MessageBox.Show("Your question was added to the database.", "Success", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new AddQuestionPage();
+            }
+            else
+            {
+                MessageBox.Show("Error, Couldnt add question to the database, try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

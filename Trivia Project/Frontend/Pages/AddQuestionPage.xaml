@@ -97,6 +97,7 @@
             Grid.Column="1" 
             Grid.Row="7"
             FontSize="20"
+            FontFamily="Ink Free" 
             Background="#FFABD3EF" 
             FontWeight="Normal"/>
         <TextBox
@@ -104,6 +105,7 @@
             x:Name="wrongAnswer2TBX"
             Grid.Column="1" 
             Grid.Row="8"
+            FontFamily="Ink Free" 
             FontSize="20"
             Background="#FFABD3EF" 
             FontWeight="Normal"/>
@@ -112,6 +114,7 @@
             x:Name="wrongAnswer3TBX"
             Grid.Column="1" 
             Grid.Row="9"
+            FontFamily="Ink Free" 
             FontSize="20"
             Background="#FFABD3EF" 
             FontWeight="Normal"/>
