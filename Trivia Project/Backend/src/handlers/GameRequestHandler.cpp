@@ -31,7 +31,24 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 		this
 	};
 }
-
+/// <summary>
+/// returns a result array sorted by winner
+/// </summary>
+/// <param name="v"></param>
+/// <returns></returns>
+std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v)
+{
+	//compares two users by avrage time and correctness of answers
+	auto compare = [](PlayerResults a, PlayerResults b)
+	{
+		return (1000 * a.correctAnswerCount /
+			((a.wrongAnswerCount * a.averageAnswerTime)) == 0 ? 1 : ((a.wrongAnswerCount * 3 + a.averageAnswerTime)) ) < 
+			(1000 * b.correctAnswerCount /
+				(b.wrongAnswerCount * b.averageAnswerTime) == 0 ? 1 : (b.wrongAnswerCount * 3 + b.averageAnswerTime));
+	};
+	std::sort(v.begin(), v.end(),compare);
+	return v;
+}
 /// <summary>
 /// Getting the game results of all players in game
 /// </summary>
@@ -40,7 +57,7 @@ RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo)
 {
 	return RequestResult{
 		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, m_game->getGameResults()}
+			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, sortResultsByWinner(m_game.getGameResults())}
 		),
 		(IRequestHandler*)this
 	};
