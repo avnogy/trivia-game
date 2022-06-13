@@ -12,15 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Pages
 {
     /// <summary>
     /// Interaction logic for AddQuestion.xaml
     /// </summary>
-    public partial class AddQuestion : Page
+    public partial class AddQuestionPage : Page
     {
-        public AddQuestion()
+        public AddQuestionPage()
         {
             InitializeComponent();
         }
@@ -39,8 +42,23 @@ namespace Frontend.Pages
                 MessageBox.Show("Fields can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            AddQuestionRequest request = new AddQuestionRequest();
 
+            request.question = questionTBX.Text;
+            request.possibleAnswers = new List<string>();
+            request.possibleAnswers.Add(wrongAnswer1TBX.Text);
+            request.possibleAnswers.Add(wrongAnswer2TBX.Text);
+            request.possibleAnswers.Add(wrongAnswer3TBX.Text);
+            request.correctAnswer = rightAnswerTBX.Text;
 
+            string jsonRepr = JsonConvert.SerializeObject(request);
+            Communicator.Send(Communicator.RequestType.AddQuestionRequest, jsonRepr);
+
+            StatusResponse loginReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (loginReponse.status == 0)
+            {
+
+            }
         }
     }
 }

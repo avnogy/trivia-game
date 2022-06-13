@@ -15,12 +15,13 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
         <Label
@@ -43,7 +44,7 @@
             Content="create room" 
             HorizontalAlignment="Left" 
             FontSize="24" 
-            Width="175" 
+            Width="200" 
             Background="#FFABD3EF" 
             FontFamily="Ink Free" 
             FontWeight="Bold"/>
@@ -56,6 +57,19 @@
             Content="join room" 
             HorizontalAlignment="left" 
             FontSize="24"
+            Width="175" 
+            Background="#FFABD3EF" 
+            FontFamily="Ink Free"
+            FontWeight="Bold"/>
+        <Button 
+            x:Name="addQuestionBTN" 
+            Click="addQuestionBTN_Click"
+            Margin="0,5,0,5" 
+            Grid.Column="1" 
+            Grid.Row="4" 
+            Content="add question"
+            HorizontalAlignment="left"
+            FontSize="24"
             Width="150" 
             Background="#FFABD3EF" 
             FontFamily="Ink Free"
@@ -65,7 +79,7 @@
             Click="statisticsBTN_Click"
             Margin="0,5,0,5" 
             Grid.Column="1" 
-            Grid.Row="4" 
+            Grid.Row="5" 
             Content="statistics"
             HorizontalAlignment="left"
             FontSize="24"
@@ -78,7 +92,7 @@
             Click="buttonExit_Click"  
             Margin="0,5,0,5"
             Grid.Column="1"
-            Grid.Row="5" 
+            Grid.Row="6" 
             Content="exit" 
             HorizontalAlignment="left" 
             FontSize="24"

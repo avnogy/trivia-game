@@ -49,5 +49,10 @@ namespace Frontend.Pages
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
         }
+
+        private void addQuestionBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new AddQuestionPage();
+        }
     }
 }
