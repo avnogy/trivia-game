@@ -1,6 +1,11 @@
 #include "handlers/IRoomMemberRequestHandler.h"
 #include <managers/RoomManager/RoomManager.h>
 
+/// <summary>
+/// Returns avector containing players in room
+/// </summary>
+/// <param name="requestInfo">request information</param>
+/// <returns>players in room</returns>
 RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo) const
 {
 	auto result = RoomManager::instance().getPlayersInRoom(m_room.getRoomData().id);
@@ -12,7 +17,7 @@ RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& req
 }
 
 /// <summary>
-/// Getting information about room:
+/// Returns information about room:
 /// state, users, num of questions, question timeout
 /// </summary>
 /// <param name="requestInfo">info about request</param>

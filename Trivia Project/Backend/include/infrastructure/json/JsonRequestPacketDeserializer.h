@@ -8,6 +8,7 @@
 #include "requests/CreateRoomRequest.h"
 #include "requests/JoinRoomRequest.h"
 #include "requests/SubmitAnswerRequest.h"
+#include "requests/AddQuestionRequest.h"
 #include "utils/Singleton.h"
 
 using namespace nlohmann;
@@ -27,4 +28,5 @@ public:
 	static CreateRoomRequest deserializeCreateRoomRequest(const std::string& buffer);
 
 	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const std::string& buffer);
+	static AddQuestionRequest deserializeAddQuestionRequest(const std::string& buffer);
 };

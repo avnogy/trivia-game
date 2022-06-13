@@ -54,7 +54,7 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo) const
 }
 
 /// <summary>
-/// Check if the request is a login request or a signup request
+/// This function checks if the request is a login request or a signup request
 /// </summary>
 /// <param name="requestInfo">struct containing request information</param>
 /// <returns>whether the reqeust is login or signup</returns>
@@ -70,7 +70,7 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) cons
 }
 
 /// <summary>
-/// Check whether the request is login or signup and calls the right methods to handle request
+/// This functions checks whether the request is login or signup and calls the right methods to handle request
 /// </summary>
 /// <param name="requestInfo">inforamtion about the request</param>
 /// <returns>request result</returns>

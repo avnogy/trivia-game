@@ -25,6 +25,8 @@ namespace Frontend.Pages
         public MenuPage()
         {
             InitializeComponent();
+            usernameLBL.Content += "\n" + App.username;
+            creditsLBL.Text = "Credits: \nAmir Haim Mizrahi \n Avner Midelis";
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,11 @@ namespace Frontend.Pages
         private void joinBTN_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage();
+        }
+
+        private void addQuestionBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new AddQuestionPage();
         }
     }
 }

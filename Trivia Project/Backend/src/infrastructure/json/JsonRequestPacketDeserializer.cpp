@@ -103,3 +103,14 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
 		bufferContent["answer"]
 	};
 }
+
+AddQuestionRequest JsonRequestPacketDeserializer::deserializeAddQuestionRequest(const std::string& buffer)
+{
+	json bufferContent = json::parse(buffer);
+
+	return AddQuestionRequest{
+		bufferContent["question"],
+		bufferContent["possibleAnswers"],
+		bufferContent["correctAnswer"]
+	};
+}

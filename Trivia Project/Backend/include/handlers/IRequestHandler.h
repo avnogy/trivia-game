@@ -29,7 +29,8 @@ public:
 			LeaveGameRequest,
 			GetQuestionRequest,
 			SubmitAnswerRequest,
-			GetGameResultRequest
+			GetGameResultRequest,
+			AddQuestionRequest
 		};
 	};
 
