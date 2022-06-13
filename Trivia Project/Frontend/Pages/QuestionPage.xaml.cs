@@ -17,6 +17,7 @@ using Frontend.Requests;
 using Frontend.Responses;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Frontend.Pages;
 
 namespace Frontend
 {
@@ -42,13 +43,14 @@ namespace Frontend
             //getting question and answers from server
             Communicator.Send(Communicator.RequestType.GetQuestionRequest, "");
             GetQuestionResponse response = JsonConvert.DeserializeObject<GetQuestionResponse>(Communicator.Receive());
+
             questionLBL.Content = response.question;
             choiceTopLeftBTN.Content = response.possibleAnswers[0];
             choiceTopRightBTN.Content = response.possibleAnswers[1];
             choiceBottomLeftBTN.Content = response.possibleAnswers[2];
             choiceBottomRightBTN.Content = response.possibleAnswers[3];
 
-            //initiating buttins
+            //initiating buttons
             this.buttons = new Button[4];
             this.buttons[0] = choiceTopLeftBTN;
             this.buttons[1] = choiceTopRightBTN;
@@ -58,32 +60,54 @@ namespace Frontend
 
         private void listenToServer(object sender, DoWorkEventArgs e)
         {
-            CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(Communicator.Receive());
-            serverListener.ReportProgress(0, updateResponse);
+            String recv = Communicator.Receive();
+
+            CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(recv);
+
+            if (updateResponse.correctAnswer == "")
+            {
+                GetGameResultsResponse resultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
+                serverListener.ReportProgress(1, resultsResponse);
+            }
+            else
+            {
+                serverListener.ReportProgress(0, updateResponse);
+            }
         }
 
         private void markCorrectAnswer(object sender, ProgressChangedEventArgs e)
         {
-            String correctAnswer = ((CorrectAnswerResponse)e.UserState).correctAnswer;
-
-            if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
+            switch (e.ProgressPercentage)
             {
-                this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
-            }
-            else
-            {
-                this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
-                foreach(ref Button button in this.buttons.AsSpan())
+                case 0:
                 {
-                    if (button.Content.ToString() == correctAnswer)
+                    String correctAnswer = ((CorrectAnswerResponse)e.UserState).correctAnswer;
+
+                    if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
                     {
-                        button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
-                        break;
+                        this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
                     }
-                }
+                    else
+                    {
+                        this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
+                        foreach (ref Button button in this.buttons.AsSpan())
+                        {
+                            if (button.Content.ToString() == correctAnswer)
+                            {
+                                button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
+                                break;
+                            }
+                        }
+                    }
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+                }break;
+
+                case 1:
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
+                    break;
             }
 
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+            
         }
 
         private void select(int buttonIndex)

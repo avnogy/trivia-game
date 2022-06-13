@@ -94,8 +94,8 @@ const Question& Game::getQuestion() const
 /// </summary>
 void Game::nextQuestion()
 {
-	m_questions.push(m_currentQuestion);
 	m_questions.pop();
+	m_currentQuestion = m_questions.front();
 }
 
 /// <summary>
