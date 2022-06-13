@@ -4,7 +4,7 @@
 #include <queue>
 #include "managers/GameManager/Question.h"
 
-#define DATABASE_FILE_PATH "..\\..\\database.sqlite"
+#define DATABASE_FILE_PATH "../../database.sqlite"
 
 class IDatabase
 {
