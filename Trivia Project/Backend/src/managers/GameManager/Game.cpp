@@ -34,34 +34,43 @@ void Game::sendCorrectAnswers(Game* game)
 {
 	while (true)
 	{
+		bool isGameEnded = false;
+		std::string correctAnswerResponse = "";
+
+		//waiting until all players submited an answer
 		while (!game->isAllSubmited())
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 
-		std::string correctAnswerResponse = JsonRequestPacketSerializer::instance().serializeResponse(
+		//assembling message to send to players
+		correctAnswerResponse = JsonRequestPacketSerializer::instance().serializeResponse(
 			MessageTypeResponse{
 				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse: MessageTypeResponse::Type::CorrectAnswerResponse,
 				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() })
 			});
 
 		game->nextQuestion();
+		isGameEnded = game->getQuestions().size() <= 0;
 
 		for (const auto& user : game->m_players)
 		{
 			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
 
+			//sending question to all players
 			userSocket->send(correctAnswerResponse);
 
-			if (game->getQuestions().size() <= 0)
+			//if it is the last questions, send also the game results
+			if (isGameEnded)
 			{
 				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(
 					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }
 					));
-				return;
 			}
-
 		}
+
+		if (isGameEnded)
+			return;
 	}
 }
 
