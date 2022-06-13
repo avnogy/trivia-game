@@ -5,7 +5,8 @@ struct SubmitAnswerResponse
 {
 	enum
 	{
-		SUCCESS
+		SUCCESS,
+		FAILURE
 	};
 	unsigned int status;
 };

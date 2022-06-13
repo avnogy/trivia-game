@@ -29,6 +29,7 @@ public:
 	Game(const std::queue<Question>& questions, const std::vector<std::string>& users);
 
 	bool isAllSubmited();
+	bool isAlreadySubmited(const LoggedUser& user) const;
 
 	std::queue<Question> getQuestions() const;
 	const Question&		 getQuestion() const;

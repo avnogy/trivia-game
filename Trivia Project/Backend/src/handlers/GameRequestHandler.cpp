@@ -22,14 +22,27 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo) 
 {
 	SubmitAnswerRequest request = JsonRequestPacketDeserializer::instance().deserializeSubmitAnswerRequest(requestInfo.buffer);
-	m_game->submitAnswer(m_user, request.answer);
 
-	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}
-		),
-		this
-	};
+	if (m_game->isAlreadySubmited(m_user))
+	{
+		return RequestResult{
+			JsonRequestPacketSerializer::instance().serializeResponse(
+				SubmitAnswerResponse{SubmitAnswerResponse::FAILURE}
+			),
+			this
+		};
+	}
+	else
+	{
+		m_game->submitAnswer(m_user, request.answer);
+
+		return RequestResult{
+			JsonRequestPacketSerializer::instance().serializeResponse(
+				SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}
+			),
+			this
+		};
+	}
 }
 
 /// <summary>

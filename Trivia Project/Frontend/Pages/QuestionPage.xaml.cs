@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using Frontend.Pages;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace Frontend
 {
@@ -29,8 +30,9 @@ namespace Frontend
     {
         private Button[] buttons;
         private int selectedButtonIndex = 4;
-        BackgroundWorker serverListener = new BackgroundWorker();
-        DispatcherTimer answerTime = new DispatcherTimer();
+        private BackgroundWorker serverListener = new BackgroundWorker();
+        private DispatcherTimer answerTime = new DispatcherTimer();
+        private Mutex receiveMtx = new Mutex();
 
         private void initializeTimer()
         {
@@ -101,7 +103,10 @@ namespace Frontend
                 if (!Communicator.IsDataAvailable())
                     continue;
 
+                receiveMtx.WaitOne();
                 MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
+                receiveMtx.ReleaseMutex();
+
                 CorrectAnswerResponse correctAnswerResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(response.message);
                 System.Threading.Thread.Sleep(25); //waiting to maybe receive another response
 
@@ -115,7 +120,9 @@ namespace Frontend
                 {
                     serverListener.ReportProgress(3, correctAnswerResponse);
 
+                    receiveMtx.WaitOne();
                     GetGameResultsResponse gameResultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
+                    receiveMtx.ReleaseMutex();
                     serverListener.ReportProgress((int)MessageTypeResponse.Type.GetGameResultsResponse, gameResultsResponse);
 
                     close(); return;
@@ -219,7 +226,6 @@ namespace Frontend
 
         private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
-            close();
             String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;
@@ -227,9 +233,15 @@ namespace Frontend
 
             String jsonRepr = JsonConvert.SerializeObject(submitRequest);
             Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
-
+            receiveMtx.WaitOne();
             SubmitAnswerResponse submitResponse = JsonConvert.DeserializeObject<SubmitAnswerResponse>(Communicator.Receive());
-            serverListener.RunWorkerAsync();
+            receiveMtx.ReleaseMutex();
+
+            if (submitResponse.status == 0)
+            {
+                close();
+                serverListener.RunWorkerAsync();
+            }
         }
     }
 }

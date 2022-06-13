@@ -30,6 +30,11 @@ bool Game::isAllSubmited()
 	return true;
 }
 
+bool Game::isAlreadySubmited(const LoggedUser& user) const
+{
+	return m_submitCount.count(user.getUsername()) != 0;
+}
+
 void Game::sendCorrectAnswers(Game* game)
 {
 	while (true)
