@@ -26,6 +26,7 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomPage : Page
     {
+        int timeToAnswer;
         const int refreshTime = 2; //seconds
         DispatcherTimer timer;
         BackgroundWorker serverListener = new BackgroundWorker();
@@ -40,6 +41,7 @@ namespace Frontend.Pages
 
             serverListener.RunWorkerAsync();
 
+            timeToAnswer = room.timePerQuestion;
             nameTBX.Text += room.name;
             timeTBX.Text += room.timePerQuestion;
 
@@ -95,7 +97,7 @@ namespace Frontend.Pages
             switch ((UpdateResponse.Type)e.ProgressPercentage)
             {
                 case UpdateResponse.Type.StartGame:
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(); break;
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer); break;
 
                 case UpdateResponse.Type.LeaveRoom:
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage(); break;

@@ -24,10 +24,13 @@ namespace Frontend.Pages
     public partial class RoomAdminPage : Page
     {
         const int refreshTime = 2; //seconds
+        int timeToAnswer;
         DispatcherTimer timer;
         public RoomAdminPage(string roomName,int timePerQuestion, int maxPlayers)
         {
             InitializeComponent();
+            timeToAnswer = timePerQuestion;
+            
             nameTBX.Text += roomName;
             timeTBX.Text += timePerQuestion;
             amountTBX.Text += maxPlayers;
@@ -58,7 +61,7 @@ namespace Frontend.Pages
             timer.Stop();
             Communicator.Send(Communicator.RequestType.StartGameRequest, "");
             StatusResponse startGameResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+            ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)

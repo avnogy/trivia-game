@@ -17,7 +17,7 @@ using Frontend.Requests;
 using Frontend.Responses;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using Frontend.Pages;
+using System.Windows.Threading;
 
 namespace Frontend
 {
@@ -27,12 +27,31 @@ namespace Frontend
     public partial class QuestionPage : Page
     {
         private Button[] buttons;
-        private int selectedButtonIndex;
+        int timeToAnswer;
+        private int selectedButtonIndex = 4;
         BackgroundWorker serverListener = new BackgroundWorker();
+        DispatcherTimer answerTime = new DispatcherTimer();
 
-        public QuestionPage()
+        public QuestionPage(int time)
         {
             InitializeComponent();
+            answerTime.Interval = TimeSpan.FromSeconds(1);
+            answerTime.Tick += (sender, args) =>
+            {
+                int minutesLeft = int.Parse(timeLBL.Content.ToString().Split(':')[0]);
+                int secondsLeft = int.Parse(timeLBL.Content.ToString().Split(':')[1]);
+                int totalSecondsLeft = minutesLeft * 60 + secondsLeft;
+
+                totalSecondsLeft -= 1; //Tick
+                timeLBL.Content = "0" + totalSecondsLeft/60 + ":" +
+((totalSecondsLeft%60 >= 10) ? totalSecondsLeft%60 : "0" + totalSecondsLeft%60);
+                if (totalSecondsLeft <= 0)
+                {
+                    submitBTN_Click(null, null);
+                }
+
+            };
+            answerTime.Start();
 
             serverListener.WorkerSupportsCancellation = true;
             serverListener.WorkerReportsProgress = true;
@@ -43,70 +62,63 @@ namespace Frontend
             //getting question and answers from server
             Communicator.Send(Communicator.RequestType.GetQuestionRequest, "");
             GetQuestionResponse response = JsonConvert.DeserializeObject<GetQuestionResponse>(Communicator.Receive());
-
+            timeLBL.Content = time == 10 ? "" : "0" + time + ":00";
+            timeToAnswer = time;
             questionLBL.Content = response.question;
             choiceTopLeftBTN.Content = response.possibleAnswers[0];
             choiceTopRightBTN.Content = response.possibleAnswers[1];
             choiceBottomLeftBTN.Content = response.possibleAnswers[2];
             choiceBottomRightBTN.Content = response.possibleAnswers[3];
 
-            //initiating buttons
-            this.buttons = new Button[4];
+            //initiating buttins
+            this.buttons = new Button[5];
             this.buttons[0] = choiceTopLeftBTN;
             this.buttons[1] = choiceTopRightBTN;
             this.buttons[2] = choiceBottomLeftBTN;
             this.buttons[3] = choiceBottomRightBTN;
+            this.buttons[4] = new Button {Content = "wrong answer for sure" };
         }
-
         private void listenToServer(object sender, DoWorkEventArgs e)
         {
-            String recv = Communicator.Receive();
-
-            CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(recv);
-
-            if (updateResponse.correctAnswer == "")
-            {
-                GetGameResultsResponse resultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
-                serverListener.ReportProgress(1, resultsResponse);
-            }
-            else
-            {
-                serverListener.ReportProgress(0, updateResponse);
-            }
+            CorrectAnswerResponse updateResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(Communicator.Receive());
+            serverListener.ReportProgress(0, updateResponse);
         }
 
         private void markCorrectAnswer(object sender, ProgressChangedEventArgs e)
         {
-            switch (e.ProgressPercentage)
+            String correctAnswer = ((CorrectAnswerResponse)e.UserState).correctAnswer;
+
+            if (this.selectedButtonIndex == 4) //if user didnt choose
             {
-                case 0:
+                foreach (ref Button button in this.buttons.AsSpan()) 
                 {
-                    String correctAnswer = ((CorrectAnswerResponse)e.UserState).correctAnswer;
-
-                    if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
-                    {
-                        this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
-                    }
-                    else
-                    {
-                        this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
-                        foreach (ref Button button in this.buttons.AsSpan())
-                        {
-                            if (button.Content.ToString() == correctAnswer)
-                            {
-                                button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
-                                break;
-                            }
-                        }
-                    }
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
-                }break;
-
-                case 1:
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
-                    break;
+                    //mark all as wrong
+                    button.Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
+                }
             }
-
+            else if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
+            {
+                this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
+            }
+            else
+            {
+                this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
+                foreach (ref Button button in this.buttons.AsSpan())
+                {
+                    if (button.Content.ToString() == correctAnswer)
+                    {
+                        button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
+                        break;
+                    }
+                }
+            }
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+            timer.Start();
+            timer.Tick += (sender, args) =>
+            {
+                timer.Stop();
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
+            };
             
         }
 
@@ -142,8 +154,9 @@ namespace Frontend
             select(3);
         }
 
-        private void submitBTN_Click(object sender, RoutedEventArgs e)
+        private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
+            answerTime.Stop();
             String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;

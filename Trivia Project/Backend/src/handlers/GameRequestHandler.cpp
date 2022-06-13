@@ -72,6 +72,21 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 	};
 }
 
+
+/// <summary>
+/// logs out the user in the middle of a game
+/// </summary>
+/// <param name="requestInfo"></param>
+/// <returns></returns>
+RequestResult GameRequestHandler::logout(const RequestInfo& requestInfo)
+{
+	leaveGame(requestInfo);
+	bool result = LoginManager::instance().logout(m_user.getUsername());
+	return RequestResult{
+	JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
+	RequestHandlerFactory::instance().createLoginRequestHandler() };
+}
+
 /// <summary>
 /// Create a new GameRequestHandler
 /// </summary>
@@ -91,7 +106,7 @@ bool GameRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveGameRequest: case IDS::GetQuestionRequest: case IDS::SubmitAnswerRequest: case IDS::GetGameResultRequest:
+	case IDS::LeaveGameRequest: case IDS::GetQuestionRequest: case IDS::SubmitAnswerRequest: case IDS::GetGameResultRequest:	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;
@@ -118,5 +133,8 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& requestInfo)
 		
 	case IDS::GetGameResultRequest:
 		return getGameResults(requestInfo);
+
+	case IDS::LogoutRequest:
+		return logout(requestInfo);
 	}
 }
