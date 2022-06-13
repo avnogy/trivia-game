@@ -136,7 +136,7 @@ namespace Frontend
                 case MessageTypeResponse.Type.CorrectAnswerResponse:
                     markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
 
-                    var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+                    var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2.5) };
                     timer.Start();
                     timer.Tick += (sender, args) =>
                     {
@@ -157,18 +157,21 @@ namespace Frontend
 
         private void markCorrectAnswer(String correctAnswer)
         {
-            if (this.selectedButtonIndex == 4) //if user didnt choose
+            //user didn't choose - all red
+            if (this.selectedButtonIndex == 4)
             {
                 foreach (ref Button button in this.buttons.AsSpan())
                 {
-                    //mark all as wrong
                     button.Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
                 }
             }
+            //user choose right - choice green
             else if (correctAnswer == this.buttons[this.selectedButtonIndex].Content.ToString())
             {
                 this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
             }
+
+            //use choose wrong - choice red, right answer green
             else
             {
                 this.buttons[this.selectedButtonIndex].Background = new BrushConverter().ConvertFrom("#eb8496") as SolidColorBrush;
@@ -176,6 +179,7 @@ namespace Frontend
                 {
                     if (button.Content.ToString() == correctAnswer)
                     {
+                       button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
                     }
                 }
             }
