@@ -34,6 +34,11 @@ void Game::sendCorrectAnswers(Game* game)
 {
 	while (true)
 	{
+		bool isSendGameResults = game->getQuestions().size() <= 0;
+
+		if (isSendGameResults)
+			break;
+
 		while (!game->isAllSubmited())
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -41,14 +46,20 @@ void Game::sendCorrectAnswers(Game* game)
 
 		for (const auto& user : game->m_players)
 		{
-			//accesing the users socket
 			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
 
-			//sending user a start game message
 			userSocket->send(JsonRequestPacketSerializer::serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }));
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+			if (isSendGameResults)
+			{
+				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }));
+			}
+
 		}
 
-		game->nextQuestion();
+		if(!isSendGameResults)
+			game->nextQuestion();
 	}
 }
 

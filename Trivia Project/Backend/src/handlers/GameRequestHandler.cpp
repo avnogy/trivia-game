@@ -6,24 +6,12 @@
 /// <param name="requestInfo">inforamtion about request</param>
 RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) const
 {
-	if (m_game->getQuestions().size() > 0)
-	{
-		return RequestResult{
-			JsonRequestPacketSerializer::instance().serializeResponse(
-				GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game->getQuestion()}
-			),
-			(IRequestHandler*)this
-		};
-	}
-	else
-	{
-		return RequestResult{
-			JsonRequestPacketSerializer::instance().serializeResponse(
-				GetGameResultsResponse{GetGameResultsResponse::SUCCESS, m_game->getGameResults()}
-			),
-			(IRequestHandler*)this
-		};
-	}
+	return RequestResult{
+		JsonRequestPacketSerializer::instance().serializeResponse(
+			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game->getQuestion()}
+		),
+		(IRequestHandler*)this
+	};
 }
 
 /// <summary>
