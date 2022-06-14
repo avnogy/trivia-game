@@ -30,7 +30,7 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 	}
 	else
 	{
-		m_game->submitAnswer(m_user, request.answer);
+		m_game->submitAnswer(m_user, request.answer, request.timeToAnswer);
 
 		return RequestResult{
 			SERIALIZE(SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}),
@@ -65,10 +65,10 @@ std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v)
 RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 {
 	m_game->removePlayer(m_user);
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
-		this
-	};
+		RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
+	);
 }
 
 

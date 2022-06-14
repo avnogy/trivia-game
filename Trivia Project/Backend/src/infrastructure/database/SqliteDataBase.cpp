@@ -154,7 +154,10 @@ float SqliteDataBase::getPlayerAverageAnswerTime(const std::string& username) co
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(float*)data = atof(argv[0]);
 		return 0;
@@ -184,7 +187,10 @@ int SqliteDataBase::getNumOfCorrectAnswers(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -214,7 +220,10 @@ int SqliteDataBase::getUserId(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -245,7 +254,10 @@ int SqliteDataBase::getNumOfTotalAnswers(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -275,7 +287,10 @@ int SqliteDataBase::getNumOfPlayerGames(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -379,15 +394,27 @@ std::vector<std::string> SqliteDataBase::getLeaderboard() const
 
 bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
 {
+	int userId = getUserId(statistic.username);
 	float averageTime = getPlayerAverageAnswerTime(statistic.username);
 	int totalAnswers = getNumOfTotalAnswers(statistic.username);
 	int correctAnswers = getNumOfCorrectAnswers(statistic.username);	
 	int playedGames = getNumOfPlayerGames(statistic.username);
-	return sqlexec("INSERT INTO statistics (user_id,averageAnswerTime,numOfCorrectAnswers,numOfTotalAnswers,numOfPlayerGames)VALUES(\"" +
-		std::to_string(getUserId(statistic.username)) + //id matching the username
-		"\",\"" + std::to_string(((totalAnswers * averageTime) + statistic.averageAnswerTime) / totalAnswers + 1) + //avrage of all answer times
-		"\",\"" + std::to_string(correctAnswers + statistic.correctAnswerCount) + //adding correct answers
-		"\",\"" + std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + //adding total answers
-		"\",\"" + std::to_string(playedGames + 1) + //+1 game played
-		"\");", nullptr, nullptr);
+
+	return sqlexec(
+		"INSERT OR REPLACE INTO statistics "
+		"(statistics_id, user_id, averageAnswerTime, numOfCorrectAnswers, numOfTotalAnswers, numOfPlayerGames) "
+		"VALUES "
+		"((SELECT statistics_id FROM statistics WHERE user_id = " + std::to_string(userId) + ")," +
+			std::to_string(userId) + "," +
+			std::to_string((totalAnswers * averageTime + (statistic.averageAnswerTime * (statistic.correctAnswerCount + statistic.wrongAnswerCount))) / (totalAnswers + (statistic.correctAnswerCount + statistic.wrongAnswerCount))) + "," +
+			std::to_string(correctAnswers + statistic.correctAnswerCount) + "," +
+			std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + "," +
+			std::to_string(playedGames + 1)+
+			");",
+		nullptr,
+		nullptr);
+
+	/*
+	
+	*/
 }

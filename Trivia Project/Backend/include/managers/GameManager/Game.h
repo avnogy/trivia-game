@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include "infrastructure/Communicator.h"
+#include "infrastructure/json/JsonRequestPacketSerializer.h"
 #include "managers/GameManager/Question.h"
 #include "managers/GameManager/GameData.h"
 #include "managers/LoggedUser.h"
