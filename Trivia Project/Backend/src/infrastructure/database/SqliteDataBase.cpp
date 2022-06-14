@@ -413,8 +413,4 @@ bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
 			");",
 		nullptr,
 		nullptr);
-
-	/*
-	
-	*/
 }
