@@ -41,6 +41,24 @@ namespace Frontend.Pages
         {
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
+            if (!App.IsInputValidString(usernameTXB.Text))
+            {
+                MessageBox.Show("username can't be empty and must contain only letters or numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (!emailTBX.Text.Contains('@') || emailTBX.Text.Contains('\"') ||
+                emailTBX.Text.Contains('\''))
+            {
+                MessageBox.Show("email adress must be valid.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (passwordTXB.Password.ToString() == ""||
+                passwordTXB.Password.ToString().Contains('\"') ||
+                passwordTXB.Password.ToString().Contains('\''))
+            {
+                MessageBox.Show("password can't contain \" or \'.'", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             signupRequest.username = usernameTXB.Text;
             signupRequest.password = passwordTXB.Password.ToString();
             signupRequest.email    = emailTBX.Text;

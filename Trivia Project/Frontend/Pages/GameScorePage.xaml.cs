@@ -46,9 +46,7 @@ namespace Frontend.Pages
                     label.Content += "(winner)";
                 }
 
-                label.Content += "\nscore: " +Math.Round(1000 * ((float)player.correctAnswerCount/
-                    (float)((player.wrongAnswerCount + player.averageAnswerTime) == 0 ?
-                    1 : ((player.wrongAnswerCount)*3 + player.averageAnswerTime))));
+                label.Content += "\nscore: " + CalculateScore(player.wrongAnswerCount, player.correctAnswerCount, player.averageAnswerTime);
                 scoresSP.Children.Add(label);
 
                 if (player.username == username)
@@ -59,7 +57,19 @@ namespace Frontend.Pages
                 }
             }
         }
-
+        /// <summary>
+        /// calculates the score given all the statistics of the user
+        /// </summary>
+        /// <param name="wrongAnswers"></param>
+        /// <param name="correctAnswers"></param>
+        /// <param name="averageTime"></param>
+        /// <returns></returns>
+        private static int CalculateScore(int wrongAnswers, int correctAnswers, float averageTime)
+        {
+            return (int)Math.Round(1000 * ((float)correctAnswers/
+                    (float)((wrongAnswers + averageTime) == 0 ?
+                    1 : (wrongAnswers*3 + averageTime))));
+        }
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
