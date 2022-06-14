@@ -11,6 +11,7 @@
 #include "responses/SubmitAnswerResponse.h"
 #include "managers/GameManager/Question.h"
 #include "responses/GetGameResultsResponse.h"
+#include "handlers/GameRequestHandler.h"
 
 #include <thread>
 #include <mutex>
@@ -25,7 +26,7 @@ private:
 	std::unordered_set<std::string> m_submitCount;
 	std::mutex m_submitCountMutex;
 	std::thread m_sendCorrectAnswers;
-
+	static std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v);
 public:
 	Game(const std::queue<Question>& questions, const std::vector<std::string>& users);
 
