@@ -76,20 +76,6 @@ namespace Frontend.Pages
             else
             {
                 MessageBox.Show("You've already signed up.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                /*Label errorLabel = new Label();
-                errorLabel.Name = "LabelError";
-                errorLabel.Content = "You've already signed up.";
-                errorLabel.Margin = new Thickness(30, 0, 30, 0);
-                errorLabel.VerticalAlignment = VerticalAlignment.Bottom;
-                errorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
-                errorLabel.Foreground = Brushes.Black;
-                errorLabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xCF, 0xCF));
-                errorLabel.FontFamily = new FontFamily("Bell MT");
-                errorLabel.FontSize = 12.5;
-
-                Grid.SetRow(errorLabel, 0);
-                Grid.SetColumnSpan(errorLabel, 3);
-                Grid.Children.Add(errorLabel); */
             }
         }
     }
