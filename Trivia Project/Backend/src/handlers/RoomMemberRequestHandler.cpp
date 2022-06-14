@@ -39,7 +39,10 @@ bool RoomMemberRequestHandler::isRequestRelevant(const RequestInfo& requestInfo)
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveRoomRequest: case IDS::GetRoomStateRequest: case IDS::GetPlayersInRoomRequest: case IDS::LogoutRequest:
+	case IDS::LeaveRoomRequest: 
+	case IDS::GetRoomStateRequest: 
+	case IDS::GetPlayersInRoomRequest: 
+	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;
