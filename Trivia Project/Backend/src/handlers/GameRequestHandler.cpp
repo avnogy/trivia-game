@@ -119,7 +119,11 @@ bool GameRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveGameRequest: case IDS::GetQuestionRequest: case IDS::SubmitAnswerRequest: case IDS::GetGameResultRequest:	case IDS::LogoutRequest:
+	case IDS::LeaveGameRequest: 
+	case IDS::GetQuestionRequest: 
+	case IDS::SubmitAnswerRequest: 
+	case IDS::GetGameResultRequest:	
+	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;

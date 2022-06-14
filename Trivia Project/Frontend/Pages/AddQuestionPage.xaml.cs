@@ -32,14 +32,13 @@ namespace Frontend.Pages
         {
             ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
         }
-
         private void submitBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (questionTBX.Text == "" || rightAnswerTBX.Text == "" ||
-                wrongAnswer1TBX.Text == "" || wrongAnswer2TBX.Text == "" ||
-                wrongAnswer3TBX.Text == "")
+            if (!App.IsInputValidString(questionTBX.Text) ||!App.IsInputValidString(rightAnswerTBX.Text)||
+                !App.IsInputValidString(wrongAnswer1TBX.Text)||!App.IsInputValidString( wrongAnswer2TBX.Text ) ||
+                !App.IsInputValidString(wrongAnswer3TBX.Text))
             {
-                MessageBox.Show("Fields can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fields can't be empty and must contain only letters or numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             AddQuestionRequest request = new AddQuestionRequest();

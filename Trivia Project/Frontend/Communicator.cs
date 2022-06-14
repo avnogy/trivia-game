@@ -42,7 +42,7 @@ namespace Frontend
         /// </summary>
         /// <param name="ip">server ip</param>
         /// <param name="port">server port</param>
-        public static void Init(String ip, int port)
+        public static void Init(string ip, int port)
         {
             socket = new TcpClient();
             endPoint = new IPEndPoint(IPAddress.Parse(ip), port);

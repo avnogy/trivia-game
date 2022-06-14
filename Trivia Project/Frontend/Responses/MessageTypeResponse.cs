@@ -15,6 +15,6 @@ namespace Frontend.Responses
         }
 
         public Type type;
-        public String message;
+        public string message;
     }
 }
