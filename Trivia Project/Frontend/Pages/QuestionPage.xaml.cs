@@ -127,10 +127,15 @@ namespace Frontend
                     break;
                 }
 
+                receiveMtx.WaitOne();
                 if (!Communicator.IsDataAvailable())
+                {
+                    receiveMtx.ReleaseMutex();
                     continue;
-
+                }
                 MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
+                receiveMtx.ReleaseMutex();
+
                 CorrectAnswerResponse correctAnswerResponse = JsonConvert.DeserializeObject<CorrectAnswerResponse>(response.message);
                 System.Threading.Thread.Sleep(25); //waiting to maybe receive another response
 
@@ -144,7 +149,9 @@ namespace Frontend
                 {
                     serverListener.ReportProgress(3, correctAnswerResponse);
 
+                    receiveMtx.WaitOne();
                     GetGameResultsResponse gameResultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
+                    receiveMtx.ReleaseMutex();
                     serverListener.ReportProgress((int)MessageTypeResponse.Type.GetGameResultsResponse, gameResultsResponse);
 
                     close(); return;
@@ -248,7 +255,7 @@ namespace Frontend
 
         private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
-            close();
+
             String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;
@@ -256,10 +263,16 @@ namespace Frontend
             submitRequest.timeToAnswer = ((float)answerTime.Elapsed.TotalSeconds);
 
             String jsonRepr = JsonConvert.SerializeObject(submitRequest);
+            receiveMtx.WaitOne();
             Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
 
             SubmitAnswerResponse submitResponse = JsonConvert.DeserializeObject<SubmitAnswerResponse>(Communicator.Receive());
-            serverListener.RunWorkerAsync();
+            if (submitResponse.status == 0)
+            {
+                close();
+                serverListener.RunWorkerAsync();
+            }
+            receiveMtx.ReleaseMutex();
         }
     }
 }
