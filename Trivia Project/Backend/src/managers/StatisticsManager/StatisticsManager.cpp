@@ -12,6 +12,12 @@ std::vector<std::string> StatisticsManager::getHighScore() const
 
 }
 
+bool StatisticsManager::addUserStatistic(const PlayerResults& statistic) const
+{
+	return IDatabase::instance()->addUserStatistic(statistic);
+}
+
+
 /// <summary>
 /// Getting all user statistics
 /// </summary>

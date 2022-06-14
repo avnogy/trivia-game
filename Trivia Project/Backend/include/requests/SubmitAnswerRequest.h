@@ -4,4 +4,5 @@
 struct SubmitAnswerRequest
 {
 	std::string answer;
+	float timeToAnswer;
 };

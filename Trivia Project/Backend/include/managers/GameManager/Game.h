@@ -36,7 +36,7 @@ public:
 	void				 nextQuestion();
 	std::vector<PlayerResults> getGameResults() const;
 
-	void submitAnswer(const LoggedUser& user, const std::string& answer) ;
+	void submitAnswer(const LoggedUser& user, const std::string& answer,const float timeToAnswer) ;
 	void removePlayer(const LoggedUser& user);
 
 	static void sendCorrectAnswers(Game* game);

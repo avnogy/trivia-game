@@ -56,19 +56,6 @@ std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v)
 	std::sort(v.begin(), v.end(),compare);
 	return v;
 }
-/// <summary>
-/// Getting the game results of all players in game
-/// </summary>
-/// <param name="requestInfo">information about request</param>
-RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo) const
-{
-	return RequestResult{
-		SERIALIZE((
-			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, sortResultsByWinner(m_game->getGameResults())}
-		)),
-		(IRequestHandler*)this
-	};
-}
 
 /// <summary>
 /// removing a player from the game
@@ -119,7 +106,10 @@ bool GameRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveGameRequest: case IDS::GetQuestionRequest: case IDS::SubmitAnswerRequest: case IDS::GetGameResultRequest:	case IDS::LogoutRequest:
+	case IDS::LeaveGameRequest: 
+	case IDS::GetQuestionRequest: 
+	case IDS::SubmitAnswerRequest: 	
+	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;
@@ -143,9 +133,6 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case IDS::SubmitAnswerRequest:
 		return submitAnswer(requestInfo);
-		
-	case IDS::GetGameResultRequest:
-		return getGameResults(requestInfo);
 
 	case IDS::LogoutRequest:
 		return logout(requestInfo);

@@ -100,7 +100,8 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
 	json bufferContent = json::parse(buffer);
 
 	return SubmitAnswerRequest{
-		bufferContent["answer"]
+		bufferContent["answer"],
+		bufferContent["timeToAnswer"]
 	};
 }
 

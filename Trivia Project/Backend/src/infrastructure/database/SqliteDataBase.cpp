@@ -202,6 +202,37 @@ int SqliteDataBase::getNumOfCorrectAnswers(const std::string& username) const
 }
 
 /// <summary>
+/// getting from the database the is matching the username
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>number of correct answers of a player</returns>
+int SqliteDataBase::getUserId(const std::string& username) const
+{
+	int numOfCorrectAnswers = 0;
+
+	//callback function will assign query result to numOfCorrectAnswers
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		*(int*)data = atoi(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT user_id FROM users WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&numOfCorrectAnswers
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return numOfCorrectAnswers;
+}
+
+
+/// <summary>
 /// getting from the database the num of total answers of a player
 /// </summary>
 /// <param name="username">player username</param>
@@ -284,14 +315,13 @@ std::queue<Question> SqliteDataBase::getQuestions() const
 	};
 
 	if (!sqlexec(
-		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;",
-		callback,
-		&questions
-	))
+		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;", callback, &questions) 
+		|| questions.size() <= 0)
 	{
 		throw SQLITE_DATABASE_ERROR;
 	}
 	return questions;
+
 }
 
 /// <summary>
@@ -345,4 +375,19 @@ std::vector<std::string> SqliteDataBase::getLeaderboard() const
 	}
 
 	return players;
+}
+
+bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
+{
+	float averageTime = getPlayerAverageAnswerTime(statistic.username);
+	int totalAnswers = getNumOfTotalAnswers(statistic.username);
+	int correctAnswers = getNumOfCorrectAnswers(statistic.username);	
+	int playedGames = getNumOfPlayerGames(statistic.username);
+	return sqlexec("INSERT INTO statistics (user_id,averageAnswerTime,numOfCorrectAnswers,numOfTotalAnswers,numOfPlayerGames)VALUES(\"" +
+		std::to_string(getUserId(statistic.username)) + //id matching the username
+		"\",\"" + std::to_string(((totalAnswers * averageTime) + statistic.averageAnswerTime) / totalAnswers + 1) + //avrage of all answer times
+		"\",\"" + std::to_string(correctAnswers + statistic.correctAnswerCount) + //adding correct answers
+		"\",\"" + std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + //adding total answers
+		"\",\"" + std::to_string(playedGames + 1) + //+1 game played
+		"\");", nullptr, nullptr);
 }
