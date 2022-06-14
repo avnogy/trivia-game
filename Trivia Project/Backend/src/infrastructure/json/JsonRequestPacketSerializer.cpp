@@ -21,7 +21,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LoginResponse& 
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	json["username"] = response.username;
 	return json.dump();
 }
 
@@ -199,7 +198,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const SubmitAnswerRes
 {
 	nlohmann::json json;
 	json["status"] = response.status;
-	json["correctAnswer"] = response.correctAnswer;
 	return json.dump();
 }
 
@@ -214,13 +212,8 @@ std::string JsonRequestPacketSerializer::serializeResponse(const GetQuestionResp
 
 	question["question"] = response.question.getQuestion();
 	question["possibleAnswers"] = response.question.getPossibleAnswers();
-	question["correctAnswer"] = response.question.getCorrectAnswer();
 
-
-	nlohmann::json json;
-	json["status"] = response.status;
-	json["question"] = question;
-	return json.dump();
+	return question.dump();
 }
 
 /// <summary>
@@ -232,5 +225,28 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LeaveGameRespon
 {
 	nlohmann::json json;
 	json["status"] = response.status;
+	return json.dump();
+}
+
+std::string JsonRequestPacketSerializer::serializeResponse(const UpdateResponse& response)
+{
+	nlohmann::json json;
+	json["status"] = response.status;
+	json["type"] = response.type;
+	return json.dump();
+}
+
+std::string JsonRequestPacketSerializer::serializeResponse(const CorrectAnswerResponse& response)
+{
+	nlohmann::json json;
+	json["correctAnswer"] = response.correctAnswer;
+	return json.dump();
+}
+
+std::string JsonRequestPacketSerializer::serializeResponse(const MessageTypeResponse& response)
+{
+	nlohmann::json json;
+	json["type"] = response.type;
+	json["message"] = response.message;
 	return json.dump();
 }

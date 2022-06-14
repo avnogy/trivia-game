@@ -8,7 +8,7 @@ struct PlayerResults
 	std::string username;
 	unsigned int correctAnswerCount;
 	unsigned int wrongAnswerCount;
-	unsigned int averageAnswerTime;
+	float averageAnswerTime;
 
 	NLOHMANN_DEFINE_TYPE_INTRUSIVE(PlayerResults, username, correctAnswerCount, wrongAnswerCount, averageAnswerTime);
 };

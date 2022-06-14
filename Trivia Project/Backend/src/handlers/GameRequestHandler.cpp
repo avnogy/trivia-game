@@ -7,9 +7,7 @@
 RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) const
 {
 	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game.getQuestionForUser(m_user)}
-		),
+		SERIALIZE((GetQuestionResponse{ GetQuestionResponse::SUCCESS, m_game->getQuestion() })),
 		(IRequestHandler*)this
 	};
 }
@@ -21,29 +19,24 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 /// <returns>response and next handler</returns>
 RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo) 
 {
-	SubmitAnswerRequest request = JsonRequestPacketDeserializer::instance().deserializeSubmitAnswerRequest(requestInfo.buffer);
-	m_game.submitAnswer(m_user, request.answer);
+	SubmitAnswerRequest request = DESERIALIZE(SubmitAnswerRequest, requestInfo.buffer);
 
-	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS, m_game.getQuestionForUser(m_user).getCorrectAnswer()}
-		),
-		this
-	};
-}
+	if (m_game->isAlreadySubmited(m_user))
+	{
+		return RequestResult{
+			SERIALIZE(SubmitAnswerResponse{SubmitAnswerResponse::FAILURE}),
+			this
+		};
+	}
+	else
+	{
+		m_game->submitAnswer(m_user, request.answer, request.timeToAnswer);
 
-/// <summary>
-/// Getting the game results of all players in game
-/// </summary>
-/// <param name="requestInfo">information about request</param>
-RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo) const
-{
-	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, m_game.getGameResults()}
-		),
-		(IRequestHandler*)this
-	};
+		return RequestResult{
+			SERIALIZE(SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}),
+			this
+		};
+	}
 }
 
 /// <summary>
@@ -53,11 +46,27 @@ RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo)
 /// <returns></returns>
 RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 {
-	m_game.removePlayer(m_user);
-	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
-		this
-	};
+	m_game->removePlayer(m_user);
+	ReturnNewRequestResult(
+		SERIALIZE(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
+		RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
+	);
+}
+
+
+/// <summary>
+/// logs out the user in the middle of a game
+/// </summary>
+/// <param name="requestInfo"></param>
+/// <returns></returns>
+RequestResult GameRequestHandler::logout(const RequestInfo& requestInfo)
+{
+	leaveGame(requestInfo);
+	bool result = LoginManager::instance().logout(m_user.getUsername());
+	ReturnNewRequestResult(
+		SERIALIZE((LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) })),
+		RequestHandlerFactory::instance().createLoginRequestHandler()
+	);
 }
 
 /// <summary>
@@ -65,7 +74,7 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="game">game</param>
 /// <param name="user">user</param>
-GameRequestHandler::GameRequestHandler(const Game& game, const LoggedUser& user) :
+GameRequestHandler::GameRequestHandler(std::shared_ptr<Game> game, const LoggedUser& user) :
 	m_game(game), m_user(user)
 {
 }
@@ -79,7 +88,10 @@ bool GameRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveGameRequest: case IDS::GetQuestionRequest: case IDS::SubmitAnswerRequest: case IDS::GetGameResultRequest:
+	case IDS::LeaveGameRequest: 
+	case IDS::GetQuestionRequest: 
+	case IDS::SubmitAnswerRequest: 	
+	case IDS::LogoutRequest:
 		return true;
 	default:
 		return false;
@@ -103,8 +115,8 @@ RequestResult GameRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case IDS::SubmitAnswerRequest:
 		return submitAnswer(requestInfo);
-		
-	case IDS::GetGameResultRequest:
-		return getGameResults(requestInfo);
+
+	case IDS::LogoutRequest:
+		return logout(requestInfo);
 	}
 }

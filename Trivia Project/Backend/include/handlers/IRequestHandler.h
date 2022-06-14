@@ -20,6 +20,7 @@ public:
 			GetPlayersInRoomRequest,
 			JoinRoomRequest,
 			GetStatisticsRequest,
+			GetLeaderboardRequest,
 			LogoutRequest,
 			CloseRoomRequest,
 			StartGameRequest,
@@ -28,7 +29,8 @@ public:
 			LeaveGameRequest,
 			GetQuestionRequest,
 			SubmitAnswerRequest,
-			GetGameResultRequest
+			GetGameResultRequest,
+			AddQuestionRequest
 		};
 	};
 

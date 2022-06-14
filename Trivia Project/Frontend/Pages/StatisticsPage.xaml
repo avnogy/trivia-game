@@ -1,0 +1,98 @@
+﻿<Page x:Class="Frontend.Pages.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Frontend.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="650"
+      Title="StatisticsPage">
+
+    <Grid x:Name="Grid" Background="#FFEAEAEA">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/> <!--title-->
+            <RowDefinition Height="0.5*"/> 
+            <RowDefinition Height="8*"/> <!--body-->
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/> <!--leaderboard button-->
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+
+        <Label
+            x:Name="titleLBL" 
+            Content="Personal Statistics"
+            Grid.Column="1" 
+            Grid.Row="0" 
+            HorizontalAlignment="Center"
+            FontSize="36"  
+            FontFamily="Ink Free" 
+            VerticalAlignment="Center"
+            FontWeight="Bold"/>
+
+        <Button 
+            Template="{StaticResource NoMouseOverButtonTemplate}"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            x:Name="backBTN"
+            Click="backBTN_Click"
+            Width="32" 
+            Height="32" 
+            BorderBrush="{x:Null}" 
+            IsCancel="True" 
+            Focusable="False">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform">
+                    <ImageBrush.ImageSource>
+                        <ImageSource>/Pages/back.png</ImageSource>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Button.Background>
+        </Button>
+
+        <Grid
+            x:Name="statsGRD"
+            Grid.Column="1" 
+            Grid.Row="2" 
+            Background="#FFABD3EF">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Label
+            Grid.Column="1" Grid.Row="1" 
+            x:Name="statisticsLBL" 
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            FontSize="30" FontFamily="Ink Free" FontWeight="Bold"/>
+
+        </Grid>
+        
+
+
+        <Button
+            Grid.Column="1" 
+            Grid.Row="4" 
+            x:Name="leaderboardBTN" 
+            Click="leaderboardBTN_Click"
+            Content="leaderboard"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            FontSize="28"
+            Background="#FFABD3EF"
+            FontFamily="Ink Free"
+            FontWeight="Bold" />
+    </Grid>
+</Page>

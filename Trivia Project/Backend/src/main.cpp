@@ -9,23 +9,10 @@ int main()
 	std::cout << " ----- Server -----" << std::endl;
 	try
 	{
-		//WSAInitializer wsaInit;
+		WSAInitializer wsaInit;
 
-		//Server::instance().run();
+		Server::instance().run();
 
-		auto questions = IDatabase::instance()->getQuestions();
-
-		for (auto question : questions)
-		{
-			auto q = question.getQuestion();
-			auto possible = question.getPossibleAnswers();
-
-			std::cout << q << '\n';
-			for (auto i : possible)
-				std::cout << " - " << i << '\n';
-
-			std::cout << std::endl;
-		}
 	}
 	catch (std::exception& e)
 	{

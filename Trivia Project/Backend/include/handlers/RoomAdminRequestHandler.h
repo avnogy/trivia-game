@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "handlers/IRoomMemberRequestHandler.h"
 #include "infrastructure/RequestHandlerFactory.h"
 #include "infrastructure/Communicator.h"
@@ -10,7 +12,7 @@ class RoomAdminRequestHandler : public IRoomMemberRequestHandler
 private:
 	RequestResult closeRoom(const RequestInfo& requestInfo) const;
 	RequestResult startGame(const RequestInfo& requestInfo) const;
-
+	RequestResult logout(const RequestInfo& requestInfo);
 public:
 	bool isRequestRelevant(const RequestInfo& requestInfo) const override;
 	RequestResult handleRequest(const RequestInfo& requestInfo) override;

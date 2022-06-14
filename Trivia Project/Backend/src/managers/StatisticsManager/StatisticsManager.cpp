@@ -7,8 +7,16 @@
 */
 std::vector<std::string> StatisticsManager::getHighScore() const
 {
-	return std::vector<std::string>();
+
+	return IDatabase::instance()->getLeaderboard();
+
 }
+
+bool StatisticsManager::addUserStatistic(const PlayerResults& statistic) const
+{
+	return IDatabase::instance()->addUserStatistic(statistic);
+}
+
 
 /// <summary>
 /// Getting all user statistics

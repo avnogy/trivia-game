@@ -5,9 +5,8 @@ struct SubmitAnswerResponse
 {
 	enum
 	{
-		SUCCESS
+		SUCCESS,
+		FAILURE
 	};
 	unsigned int status;
-	//unsigned int correctAnswerId;
-	std::string correctAnswer;
 };

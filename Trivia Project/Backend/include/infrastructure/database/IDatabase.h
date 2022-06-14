@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <queue>
 #include "managers/GameManager/Question.h"
+#include "responses/GetGameResultsResponse.h"
 
-#define DATABASE_FILE_PATH "D:/Coding/magshimim/Advanced-Programming/trivia-project/Trivia Project/database.sqlite"
+#define DATABASE_FILE_PATH "..\\..\\database.sqlite"
 
 class IDatabase
 {
@@ -23,7 +25,12 @@ public:
 	virtual int getNumOfCorrectAnswers(const std::string& username) const = 0;
 	virtual int getNumOfTotalAnswers(const std::string& username) const = 0;
 	virtual int getNumOfPlayerGames(const std::string& username) const = 0;
+	virtual int getUserId(const std::string& username) const = 0;
+	virtual std::vector<std::string> getLeaderboard() const = 0;
+	virtual bool addUserStatistic(const PlayerResults& statistic) const = 0;
+
 
 	//questions
-	virtual std::vector<Question> getQuestions() const = 0;
+	virtual std::queue<Question> getQuestions() const = 0;
+	virtual bool addQuestion(const Question& question) const = 0;
 };

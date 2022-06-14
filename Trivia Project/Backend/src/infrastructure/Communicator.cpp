@@ -1,7 +1,4 @@
 #include "infrastructure/Communicator.h"
-#include <thread>
-#include <iostream>
-
 #pragma warning(disable : 4996)
 
 /// <summary>
@@ -18,7 +15,7 @@ RequestInfo Communicator::recvRequest(Socket& socket)
 	requestInfo.receivalTime = ctime(&currentTime);
 
 	//get id
-	requestInfo.id = stoi(socket.recvString(1));
+	requestInfo.id = stoi(socket.recvString(2));
 
 	//get buffer
 	size_t contentSize = stoi(socket.recvString(4));
@@ -47,6 +44,7 @@ void Communicator::handleNewClient(Socket* socket)
 		while (true)
 		{
 			RequestInfo request = recvRequest(*socket);
+			std::cout << "request received: " << request.id << ' ' << request.buffer << std::endl;
 			RequestResult result;
 
 			if (m_clients[socket]->isRequestRelevant(request))
@@ -54,19 +52,20 @@ void Communicator::handleNewClient(Socket* socket)
 				result = m_clients[socket]->handleRequest(request);  //handling client
 				socket->send(result.response);						 //sending client response
 				m_clients[socket] = result.newHandler;			     //updating client handler
+
 			}
 			else
 			{
 				socket->send(JsonRequestPacketSerializer::serializeResponse(ErrorResponse()));
 			}
-
-			std::cout << result.response << '\n' << std::endl;
 		}
 	}
 	catch (...)
 	{
+		std::cerr << "An error occured OR user logged out" << std::endl;
 	}
 
+	eraseUsingSocket(*socket);
 	m_clients.erase(socket);
 	delete socket;
 }
@@ -82,10 +81,55 @@ void Communicator::bindUsernameToSocket(const std::string& username, IRequestHan
 	{
 		if (it.second == requestHandler)
 		{
-			usernameToSocket[username] = it.first;
+			m_usernameToSocket[username] = it.first;
 			break;
 		}
 	}
+}
+
+/// <summary>
+/// erasing user,socket pair usering username
+/// </summary>
+void Communicator::eraseUsingUsername(const std::string& username)
+{
+	m_usernameToSocket.erase(username);
+}
+
+/// <summary>
+/// erasing user,socket pair usering usernamsocket
+/// </summary>
+void Communicator::eraseUsingSocket(const Socket& socket)
+{
+	auto result = std::find_if(
+		m_usernameToSocket.begin(),
+		m_usernameToSocket.end(),
+		[&](const auto& pair) { return *pair.second == socket; }
+	);
+
+	if (result == m_usernameToSocket.end())
+		return;
+
+	eraseUsingUsername(result->first);
+}
+
+/// <summary>
+/// Getting the socket of a client usering it's username
+/// </summary>
+/// <param name="username">username of a client</param>
+/// <returns>socket of the client</returns>
+Socket* Communicator::getSocket(const std::string& username)
+{
+	return m_usernameToSocket[username];
+}
+
+/// <summary>
+/// Setting a request handler to a client using it's username
+/// </summary>
+/// <param name="username">username of client</param>
+/// <param name="requestHandler">new request handler</param>
+void Communicator::setRequestHandler(const std::string& username, IRequestHandler* requestHandler)
+{
+	m_clients[getSocket(username)] = requestHandler;
 }
 
 /// <summary>

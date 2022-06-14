@@ -1,7 +1,7 @@
 import requests, json, sqlite3, base64
 
-OPENTDB_URL = r'https://opentdb.com/api.php?amount=10&type=multiple&encode=base64'
-DATABASE_PATH = '../database.sqlite'
+OPENTDB_URL = r'https://opentdb.com/api.php?amount=3&type=multiple&encode=base64'
+DATABASE_PATH = r"D:\\Coding\\magshimim\\Advanced-Programming\\asd\\Trivia Project\\bin\\database.sqlite"
 
 def base64_string_decode(string):
     string = string.encode('utf-8')

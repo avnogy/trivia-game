@@ -78,12 +78,17 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin/dist/$(ProjectName)/$(Configuration)/</OutDir>
-    <IntDir>$(SolutionDir)bin/intermediate/$(ProjectName)/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
+    <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -134,6 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)/include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,12 +149,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\requests\AddQuestionRequest.h" />
     <ClCompile Include="src\handlers\GameRequestHandler.cpp" />
     <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
     <ClCompile Include="src\managers\GameManager\Game.cpp" />
     <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
     <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\IRequestHandler.cpp" />
     <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp" />
     <ClCompile Include="src\handlers\RoomMemberRequestHandler.cpp" />
     <ClCompile Include="src\infrastructure\Communicator.cpp" />
@@ -206,19 +212,21 @@
     <ClInclude Include="include\requests\LoginRequest.h" />
     <ClInclude Include="include\requests\SubmitAnswerRequest.h" />
     <ClInclude Include="include\responses\CloseRoomResponse.h" />
+    <ClInclude Include="include\responses\CorrectAnswerResponse.h" />
     <ClInclude Include="include\responses\CreateRoomResponse.h" />
     <ClInclude Include="include\responses\GetGameResultsResponse.h" />
     <ClInclude Include="include\responses\GetHighScoreResponse.h" />
-    <ClInclude Include="include\responses\GetPersonalStatsResponse.h" />
     <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
     <ClInclude Include="include\responses\GetQuestionResponse.h" />
     <ClInclude Include="include\responses\GetRoomsResponse.h" />
     <ClInclude Include="include\responses\GetRoomStateResponse.h" />
     <ClInclude Include="include\responses\JoinRoomResponse.h" />
-    <ClInclude Include="include\responses\LeaveGameResponse.h" />
     <ClInclude Include="include\responses\LeaveRoomResponse.h" />
-    <ClInclude Include="include\responses\LogoutResponse.h" />
+    <ClInclude Include="include\responses\MessageTypeResponse.h" />
     <ClInclude Include="include\responses\StartGameResponse.h" />
+    <ClInclude Include="include\responses\UpdateResponse.h" />
+    <ClInclude Include="include\responses\LeaveGameResponse.h" />
+    <ClInclude Include="include\responses\LogoutResponse.h" />
     <ClInclude Include="include\responses\GetStatisticsResponse.h" />
     <ClInclude Include="include\responses\SubmitAnswerResponse.h" />
     <ClInclude Include="include\server\Communicator.h" />

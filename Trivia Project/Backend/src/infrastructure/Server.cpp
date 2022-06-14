@@ -9,7 +9,7 @@ void Server::run()
 {
 	//creating a thread for the main operation of the server
 #ifndef _DEBUG
-	std::thread t_connector(&Communicator::startHandleRequest, this->m_communicator);
+	std::thread t_connector(&Communicator::startHandleRequest, std::ref(Communicator::instance()));
 	t_connector.detach();
 #else
 	Communicator::instance().startHandleRequest();

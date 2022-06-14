@@ -113,7 +113,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 {
 	//preparing a statement so it can be checked
 	struct sqlite3_stmt* selectstmt;
-	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\" AND password = " + password + "; ").c_str(), -1, &selectstmt, NULL);
+	int result = sqlite3_prepare_v2(m_db, ("SELECT * FROM users WHERE name = \"" + username + "\" AND password = \"" + password + "\"; ").c_str(), -1, &selectstmt, NULL);
 	if (result == SQLITE_OK)
 	{
 		//if row was returned the password matches the user
@@ -135,7 +135,7 @@ bool SqliteDataBase::doesPasswordMatch(const std::string& username, const std::s
 /// <param name="email"></param>
 void SqliteDataBase::addNewUser(const std::string& username, const std::string& password, const std::string& email) const
 {
-	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\"," + password + ",\"" + email + "\");"))
+	if (!sqlexec("INSERT INTO users (name,password,email) VALUES (\"" + username + "\",\"" + password + "\",\"" + email + "\");"))
 	{
 		throw DatabaseError("Sql request failed, Couldn't add user");
 	}
@@ -154,7 +154,10 @@ float SqliteDataBase::getPlayerAverageAnswerTime(const std::string& username) co
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(float*)data = atof(argv[0]);
 		return 0;
@@ -184,7 +187,10 @@ int SqliteDataBase::getNumOfCorrectAnswers(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -202,6 +208,40 @@ int SqliteDataBase::getNumOfCorrectAnswers(const std::string& username) const
 }
 
 /// <summary>
+/// getting from the database the is matching the username
+/// </summary>
+/// <param name="username">player username</param>
+/// <returns>number of correct answers of a player</returns>
+int SqliteDataBase::getUserId(const std::string& username) const
+{
+	int numOfCorrectAnswers = 0;
+
+	//callback function will assign query result to numOfCorrectAnswers
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+		{
+			*(float*)data = 0;
+			return 0;
+		}
+
+		*(int*)data = atoi(argv[0]);
+		return 0;
+	};
+
+	if (!sqlexec(
+		"SELECT user_id FROM users WHERE users.name = \"" + username + "\" LIMIT 1;",
+		callback,
+		&numOfCorrectAnswers
+	))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+	return numOfCorrectAnswers;
+}
+
+
+/// <summary>
 /// getting from the database the num of total answers of a player
 /// </summary>
 /// <param name="username">player username</param>
@@ -214,7 +254,10 @@ int SqliteDataBase::getNumOfTotalAnswers(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -244,7 +287,10 @@ int SqliteDataBase::getNumOfPlayerGames(const std::string& username) const
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
+		{
+			*(float*)data = 0;
 			return 0;
+		}
 
 		*(int*)data = atoi(argv[0]);
 		return 0;
@@ -265,18 +311,18 @@ int SqliteDataBase::getNumOfPlayerGames(const std::string& username) const
 /// Getting a vector of all questions in database
 /// </summary>
 /// <returns>all questions in database</returns>
-std::vector<Question> SqliteDataBase::getQuestions() const
+std::queue<Question> SqliteDataBase::getQuestions() const
 {
-	std::vector<Question> questions;
+	std::queue<Question> questions;
 
 	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
 	{
 		if (argc == 0)
 			return 0;
 
-		std::vector<Question>& questions = *(std::vector<Question>*)data;
+		std::queue<Question>& questions = *(std::queue<Question>*)data;
 
-		questions.push_back(
+		questions.push(
 			Question(argv[0], { argv[1], argv[2], argv[3], argv[4] })
 		);
 
@@ -284,12 +330,87 @@ std::vector<Question> SqliteDataBase::getQuestions() const
 	};
 
 	if (!sqlexec(
-		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;",
-		callback,
-		&questions
-	))
+		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;", callback, &questions) 
+		|| questions.size() <= 0)
 	{
 		throw SQLITE_DATABASE_ERROR;
 	}
 	return questions;
+
+}
+
+/// <summary>
+/// adds a question to the database
+/// </summary>
+/// <param name="question"></param>
+/// <returns>status of operation</returns>
+bool SqliteDataBase::addQuestion(const Question& question) const 
+{
+	return sqlexec("INSERT INTO questions (question,correctanswer,possibleanswer1,possibleanswer2,possibleanswer3) VALUES(\"" +
+				    question.getQuestion() +
+		"\" , \"" + question.getCorrectAnswer() +
+		"\" , \"" + question.getPossibleAnswers()[1] +
+		"\" , \"" + question.getPossibleAnswers()[2] +
+		"\" , \"" + question.getPossibleAnswers()[3] +
+		"\" );", nullptr, nullptr);
+}
+
+
+/// <summary>
+/// retrives leaderboard from the database
+/// </summary>
+/// <returns>leaderboard stats</returns>
+std::vector<std::string> SqliteDataBase::getLeaderboard() const
+{
+	std::vector<std::string> players;
+
+	auto callback = [](void* data, int argc, char** argv, char** azColName) -> int
+	{
+		if (argc == 0)
+			return 0;
+
+		std::vector<std::string>& players = *(std::vector<std::string>*)data;
+		
+		//entering the amount of fields returned to the vector
+		int count = 0;
+		while (argv[count] != NULL && count <= (5 * 4)) //5 players where each one has 4 fields
+		{
+			players.push_back(argv[count++]);
+		}
+		return 0;
+	};
+
+
+
+	if (!sqlexec(
+		"SELECT users.name, statistics.averageAnswerTime,statistics.numOfCorrectAnswers,statistics.numOfPlayerGames FROM statistics INNER JOIN users ON users.user_id = statistics.user_id LIMIT 5;",
+		callback,&players))
+	{
+		throw SQLITE_DATABASE_ERROR;
+	}
+
+	return players;
+}
+
+bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
+{
+	int userId = getUserId(statistic.username);
+	float averageTime = getPlayerAverageAnswerTime(statistic.username);
+	int totalAnswers = getNumOfTotalAnswers(statistic.username);
+	int correctAnswers = getNumOfCorrectAnswers(statistic.username);	
+	int playedGames = getNumOfPlayerGames(statistic.username);
+
+	return sqlexec(
+		"INSERT OR REPLACE INTO statistics "
+		"(statistics_id, user_id, averageAnswerTime, numOfCorrectAnswers, numOfTotalAnswers, numOfPlayerGames) "
+		"VALUES "
+		"((SELECT statistics_id FROM statistics WHERE user_id = " + std::to_string(userId) + ")," +
+			std::to_string(userId) + "," +
+			std::to_string((totalAnswers * averageTime + (statistic.averageAnswerTime * (statistic.correctAnswerCount + statistic.wrongAnswerCount))) / (totalAnswers + (statistic.correctAnswerCount + statistic.wrongAnswerCount))) + "," +
+			std::to_string(correctAnswers + statistic.correctAnswerCount) + "," +
+			std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + "," +
+			std::to_string(playedGames + 1)+
+			");",
+		nullptr,
+		nullptr);
 }

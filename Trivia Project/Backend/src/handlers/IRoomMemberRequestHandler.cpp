@@ -1,7 +1,23 @@
 #include "handlers/IRoomMemberRequestHandler.h"
+#include <managers/RoomManager/RoomManager.h>
 
 /// <summary>
-/// Getting information about room:
+/// Returns avector containing players in room
+/// </summary>
+/// <param name="requestInfo">request information</param>
+/// <returns>players in room</returns>
+RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& requestInfo) const
+{
+	auto result = RoomManager::instance().getPlayersInRoom(m_room.getRoomData().id);
+
+	return RequestResult{
+		SERIALIZE(GetPlayersInRoomResponse{ result }),
+		(IRequestHandler*)this
+	};
+}
+
+/// <summary>
+/// Returns information about room:
 /// state, users, num of questions, question timeout
 /// </summary>
 /// <param name="requestInfo">info about request</param>
@@ -11,9 +27,7 @@ RequestResult IRoomMemberRequestHandler::getRoomState(const RequestInfo& request
 	const auto& roomData = m_room.getRoomData();
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(
-			GetRoomStateResponse{ GetRoomStateResponse::SUCCESS, roomData.isActive, m_room.getAllUsers(), roomData.numOfQuestionsInGame, roomData.timePerQuestion }
-		),
+		SERIALIZE((GetRoomStateResponse{ GetRoomStateResponse::SUCCESS, roomData.isActive, m_room.getAllUsers(), roomData.numOfQuestionsInGame, roomData.timePerQuestion })),
 		(IRequestHandler*)this
 	};
 }

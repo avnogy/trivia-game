@@ -27,10 +27,12 @@ public:
 	int getNumOfCorrectAnswers(const std::string& username) const override;
 	int getNumOfTotalAnswers(const std::string& username) const override;
 	int getNumOfPlayerGames(const std::string& username) const override;
-
+	int getUserId(const std::string& username) const override;
+	std::vector<std::string> getLeaderboard() const override;
+	bool addUserStatistic(const PlayerResults& statistic) const override;
 	//questions
-	std::vector<Question> getQuestions() const override;
-
+	std::queue<Question> getQuestions() const override;
+	bool addQuestion(const Question& question) const override;
 private:
 	bool sqlexec(const std::string& msg, int(*callback)(void* data, int argc, char** argv, char** azColName) = nullptr, void* callbackArg = nullptr) const;
 

@@ -5,15 +5,17 @@
 #include "infrastructure/database/IDatabase.h"
 #include "utils/Singleton.h"
 
+class Game;
+
 class GameManager
 {
 	MAKE_SINGLETON(GameManager);
 	DELETE_CONSTRUCTOR(GameManager);
 
 private:
-	std::vector<Game> m_games;
+	std::vector<Game*> m_games;
 
 public:
-	Game createGame(const Room& room);
+	Game* createGame(const Room& room);
 };
 

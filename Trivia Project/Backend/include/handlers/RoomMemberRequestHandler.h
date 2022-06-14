@@ -9,6 +9,7 @@ class RoomMemberRequestHandler : public IRoomMemberRequestHandler
 {
 private:
 	RequestResult leaveRoom(const RequestInfo& requestInfo);
+	RequestResult logout(const RequestInfo& requestInfo);
 
 public:
 	bool isRequestRelevant(const RequestInfo& requestInfo) const override;

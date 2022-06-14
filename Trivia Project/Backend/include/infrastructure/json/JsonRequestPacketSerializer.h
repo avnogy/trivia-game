@@ -21,6 +21,11 @@
 #include "responses/SubmitAnswerResponse.h"
 #include "responses/GetQuestionResponse.h"
 #include "responses/LeaveGameResponse.h"
+#include "responses/UpdateResponse.h"
+#include "responses/CorrectAnswerResponse.h"
+#include "responses/MessageTypeResponse.h"
+
+#define SERIALIZE(response) JsonRequestPacketSerializer::serializeResponse(response)
 
 class JsonRequestPacketSerializer
 {
@@ -51,4 +56,9 @@ public:
 	static std::string serializeResponse(const GetQuestionResponse& response);
 	static std::string serializeResponse(const LeaveGameResponse& response);
 
+	static std::string serializeResponse(const UpdateResponse& response);
+	static std::string serializeResponse(const CorrectAnswerResponse& response);
+	static std::string serializeResponse(const MessageTypeResponse& response);
+
 };
+

@@ -30,6 +30,7 @@ unsigned int RoomManager::getNextRoomId() const
 bool RoomManager::createRoom(const LoggedUser& user, const RoomData& data)
 {
 	//the second item in the pair is the state of the operation
+
 	return m_rooms.insert({ data.id, Room(data, user) }).second;
 }
 
@@ -85,5 +86,12 @@ std::vector<RoomData> RoomManager::getRooms() const
 /// <returns>all usernames of all players in a room</returns>
 std::vector<std::string> RoomManager::getPlayersInRoom(const int& ID) const
 {
-	return m_rooms.at(ID).getAllUsers();
+	if (m_rooms.find(ID) != m_rooms.end())
+	{
+		return m_rooms.at(ID).getAllUsers();
+	}
+	else
+	{
+		return std::vector<std::string>();
+	}
 }

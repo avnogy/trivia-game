@@ -8,9 +8,12 @@
 #include "requests/CreateRoomRequest.h"
 #include "requests/JoinRoomRequest.h"
 #include "requests/SubmitAnswerRequest.h"
+#include "requests/AddQuestionRequest.h"
 #include "utils/Singleton.h"
 
 using namespace nlohmann;
+
+#define DESERIALIZE(request, buffer) JsonRequestPacketDeserializer::deserialize##request(buffer)
 
 class JsonRequestPacketDeserializer
 {
@@ -27,4 +30,5 @@ public:
 	static CreateRoomRequest deserializeCreateRoomRequest(const std::string& buffer);
 
 	static SubmitAnswerRequest deserializeSubmitAnswerRequest(const std::string& buffer);
+	static AddQuestionRequest deserializeAddQuestionRequest(const std::string& buffer);
 };

@@ -13,6 +13,7 @@ protected:
 	Room& m_room;
 	LoggedUser m_user;
 
+	RequestResult getPlayersInRoom(const RequestInfo& requestInfo) const;
 	RequestResult getRoomState(const RequestInfo& requestInfo) const;
 	IRoomMemberRequestHandler(Room& room, const LoggedUser& user);
 };

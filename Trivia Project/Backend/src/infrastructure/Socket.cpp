@@ -1,4 +1,5 @@
 #include "infrastructure/Socket.h"
+#include <iostream>
 #pragma warning(disable:4996)
 
 /// <summary>
@@ -100,52 +101,27 @@ std::string Socket::recvString(const size_t expectedSize)
 
 		string.push_back(temp);
 	}
-
 	return string;
 }
 
 /// <summary>
-/// Receiving a buffer of bytes from this socket
-/// </summary>
-/// <param name="expectedSize">amount of bytes to receive</param>
-/// <returns>a Vector of bytes representing the buffer</returns>
-std::vector<unsigned char> Socket::recvBuffer(const size_t expectedSize)
-{
-	std::vector<unsigned char> buffer;
-
-	for (int i = 0; i < expectedSize; i++)
-	{
-		char temp = NULL;
-		if (::recv(m_socket, &temp, 1, 0) == SOCKET_ERROR)
-			throw std::exception(__FUNCTION__ " - recv");
-
-		buffer.push_back(temp);
-	}
-
-	return buffer;
-}
-
-/// <summary>
-/// Sending a string to socket
+/// Sending a message to socket.
+/// message protocol: <message size (4 bytes)><message>
 /// </summary>
 /// <param name="message">Message to send</param>
-void Socket::send(const std::string& message)
+void Socket::send(std::string message)
 {
+	//converting message size to 4 bytes long string
+	std::string messageSize = std::to_string(message.size());
+	while (messageSize.size() < 4)
+		messageSize = '0' + messageSize;
+
+	message = messageSize + message;
+	
 	if (::send(m_socket, message.c_str(), message.size(), 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - send");
-}
 
-/// <summary>
-/// Sending a buffer of bytes to socket
-/// </summary>
-/// <param name="buffer">buffer to send</param>
-void Socket::send(const std::vector<unsigned char>& buffer)
-{
-	for (char ch : buffer)
-	{
-		if (::send(m_socket, &ch, 1, 0) == SOCKET_ERROR)
-			throw std::exception(__FUNCTION__ " - send");
-	}
+	std::cout << "sending: " << message << std::endl;
 }
 
 /// <summary>
@@ -156,4 +132,14 @@ void Socket::send(const std::vector<unsigned char>& buffer)
 bool Socket::operator<(const Socket& otherSocket) const
 {
 	return m_socket < otherSocket.m_socket;
+}
+
+/// <summary>
+/// checks whether two sockets are the same or not
+/// </summary>
+/// <param name="otherSocket">other socket to compare to this one</param>
+/// <returns>whether equels or not</returns>
+bool Socket::operator==(const Socket& otherSocket) const
+{
+	return m_socket == otherSocket.m_socket;
 }
