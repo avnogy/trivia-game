@@ -43,7 +43,6 @@ void Communicator::handleNewClient(Socket* socket)
 	{
 		while (true)
 		{
-			
 			RequestInfo request = recvRequest(*socket);
 			std::cout << "request received: " << request.id << ' ' << request.buffer << std::endl;
 			RequestResult result;
@@ -93,7 +92,7 @@ void Communicator::bindUsernameToSocket(const std::string& username, IRequestHan
 /// </summary>
 void Communicator::eraseUsingUsername(const std::string& username)
 {
-	//m_usernameToSocket.erase(username);
+	m_usernameToSocket.erase(username);
 }
 
 /// <summary>
