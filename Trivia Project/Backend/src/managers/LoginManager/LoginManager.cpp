@@ -51,5 +51,6 @@ bool LoginManager::logout(const std::string& username)
 		return false;
 
 	m_loggedUsers.erase(username);
+	Communicator::instance().eraseUsingUsername(username);
 	return true;
 }

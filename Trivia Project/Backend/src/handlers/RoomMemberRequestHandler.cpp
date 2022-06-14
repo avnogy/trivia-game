@@ -9,10 +9,10 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& requestInfo
 {
 	bool result = m_room.removeUser(m_user);
 
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(LeaveRoomResponse{result ? LeaveRoomResponse::SUCCESS : LeaveRoomResponse::FAILURE}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
-	};
+	);
 }
 
 /// <summary>
@@ -24,10 +24,10 @@ RequestResult RoomMemberRequestHandler::logout(const RequestInfo& requestInfo)
 {
 	leaveRoom(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
-	};
+	);
 }
 
 /// <summary>

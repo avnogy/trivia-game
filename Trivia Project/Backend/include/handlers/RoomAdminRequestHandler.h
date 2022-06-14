@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+
 #include "handlers/IRoomMemberRequestHandler.h"
 #include "infrastructure/RequestHandlerFactory.h"
 #include "infrastructure/Communicator.h"

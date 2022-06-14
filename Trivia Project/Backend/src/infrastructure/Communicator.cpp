@@ -52,6 +52,7 @@ void Communicator::handleNewClient(Socket* socket)
 				result = m_clients[socket]->handleRequest(request);  //handling client
 				socket->send(result.response);						 //sending client response
 				m_clients[socket] = result.newHandler;			     //updating client handler
+
 			}
 			else
 			{
@@ -61,9 +62,10 @@ void Communicator::handleNewClient(Socket* socket)
 	}
 	catch (...)
 	{
-		std::cerr << "an error occured" << std::endl;
+		std::cerr << "An error occured OR user logged out" << std::endl;
 	}
 
+	eraseUsingSocket(*socket);
 	m_clients.erase(socket);
 	delete socket;
 }
@@ -83,6 +85,31 @@ void Communicator::bindUsernameToSocket(const std::string& username, IRequestHan
 			break;
 		}
 	}
+}
+
+/// <summary>
+/// erasing user,socket pair usering username
+/// </summary>
+void Communicator::eraseUsingUsername(const std::string& username)
+{
+	m_usernameToSocket.erase(username);
+}
+
+/// <summary>
+/// erasing user,socket pair usering usernamsocket
+/// </summary>
+void Communicator::eraseUsingSocket(const Socket& socket)
+{
+	auto result = std::find_if(
+		m_usernameToSocket.begin(),
+		m_usernameToSocket.end(),
+		[&](const auto& pair) { return *pair.second == socket; }
+	);
+
+	if (result == m_usernameToSocket.end())
+		return;
+
+	eraseUsingUsername(result->first);
 }
 
 /// <summary>

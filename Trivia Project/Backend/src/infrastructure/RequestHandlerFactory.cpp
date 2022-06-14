@@ -47,7 +47,7 @@ RoomMemberRequestHandler* RequestHandlerFactory::createRoomMemberRequestHandler(
 /// <param name="game">game</param>
 /// <param name="user">user in game</param>
 /// <returns>new handler</returns>
-GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(Game* game, const LoggedUser& user)
+GameRequestHandler* RequestHandlerFactory::createGameRequestHandler(std::shared_ptr<Game> game, const LoggedUser& user)
 {
 	return new GameRequestHandler(game, user);
 }

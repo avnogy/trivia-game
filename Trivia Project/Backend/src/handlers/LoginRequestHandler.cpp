@@ -14,11 +14,12 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 	{
 	case true:
 		Communicator::instance().bindUsernameToSocket(request.username, (IRequestHandler*)this); //updating communicator with username
-
-		return RequestResult{
-		SERIALIZE(LoginResponse{LoginResponse::SUCCESS}),
-		RequestHandlerFactory::instance().createMenuRequestHandler({ request.username })
-		};
+		
+		ReturnNewRequestResult(
+			SERIALIZE(LoginResponse{LoginResponse::SUCCESS}),
+			RequestHandlerFactory::instance().createMenuRequestHandler({ request.username })
+		);
+		
 
 	case false:
 		return RequestResult{
@@ -41,10 +42,10 @@ RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo) const
 	switch (result)
 	{
 	case true:
-		return RequestResult{
+		ReturnNewRequestResult(
 			SERIALIZE(SignupResponse{SignupResponse::SUCCESS}),
 			RequestHandlerFactory::instance().createLoginRequestHandler()
-		};
+		);
 	case false:
 		return RequestResult{
 			SERIALIZE(SignupResponse{SignupResponse::FAILURE}),

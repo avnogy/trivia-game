@@ -4,6 +4,7 @@
 #include "infrastructure/database/IDatabase.h"
 #include "managers/LoggedUser.h"
 #include "infrastructure/database/SqliteDataBase.h"
+#include "infrastructure/Communicator.h"
 #include "requests/RequestResult.h"
 #include "infrastructure/database/DatabaseError.h"
 #include "utils/Singleton.h"

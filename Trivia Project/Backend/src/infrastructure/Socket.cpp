@@ -133,3 +133,13 @@ bool Socket::operator<(const Socket& otherSocket) const
 {
 	return m_socket < otherSocket.m_socket;
 }
+
+/// <summary>
+/// checks whether two sockets are the same or not
+/// </summary>
+/// <param name="otherSocket">other socket to compare to this one</param>
+/// <returns>whether equels or not</returns>
+bool Socket::operator==(const Socket& otherSocket) const
+{
+	return m_socket == otherSocket.m_socket;
+}

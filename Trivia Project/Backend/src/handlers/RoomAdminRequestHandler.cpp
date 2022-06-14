@@ -28,10 +28,10 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(CloseRoomResponse{CloseRoomResponse::SUCCESS}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
-	};
+	);
 }
 
 /// <summary>
@@ -41,7 +41,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 /// <returns>response and new handler</returns>
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo) const
 {
-	Game* game = GameManager::instance().createGame(m_room);
+	std::shared_ptr<Game> game( GameManager::instance().createGame(m_room) );
 
 	for (auto& user : m_room.getAllUsers())
 	{
@@ -64,10 +64,10 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(StartGameResponse{StartGameResponse::SUCCESS}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createGameRequestHandler(game, m_user)
-	};
+	);
 }
 
 /// <summary>
@@ -79,10 +79,10 @@ RequestResult RoomAdminRequestHandler::logout(const RequestInfo& requestInfo)
 {
 	closeRoom(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
-	};
+	);
 }
 
 /// <summary>
