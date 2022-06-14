@@ -32,12 +32,10 @@ namespace Frontend
         private int timeToAnswer;
         private Button[] buttons;
         private int selectedButtonIndex = 4;
-
+        private BackgroundWorker serverListener = new BackgroundWorker();
         private DispatcherTimer timer = new DispatcherTimer();
         private Stopwatch answerTime;
-        private BackgroundWorker serverListener = new BackgroundWorker();
         private Mutex receiveMtx = new Mutex();
-
 
         private void initializeTimer()
         {
