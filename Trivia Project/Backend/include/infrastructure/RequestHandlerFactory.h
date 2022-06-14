@@ -13,6 +13,8 @@
 #include "handlers/GameRequestHandler.h"
 #include "utils/Singleton.h"
 
+#include <memory>
+
 class LoginRequestHandler;
 class MenuRequestHandler;
 class RoomAdminRequestHandler;
@@ -31,5 +33,5 @@ public:
 	MenuRequestHandler* createMenuRequestHandler(const LoggedUser& user) const;
 	RoomAdminRequestHandler* createRoomAdminRequestHandler(Room& room, const LoggedUser& user) const;
 	RoomMemberRequestHandler* createRoomMemberRequestHandler(Room& room, const LoggedUser& user) const;
-	GameRequestHandler* createGameRequestHandler(Game* game, const LoggedUser& user);
+	GameRequestHandler* createGameRequestHandler(std::shared_ptr<Game> game, const LoggedUser& user);
 };

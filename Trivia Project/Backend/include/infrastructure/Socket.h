@@ -34,4 +34,5 @@ public:
 	void send(std::string message);
 
 	bool operator<(const Socket& otherSocket) const;
+	bool operator==(const Socket& otherSocket) const;
 };

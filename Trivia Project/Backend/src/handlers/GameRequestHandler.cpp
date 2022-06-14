@@ -94,10 +94,10 @@ RequestResult GameRequestHandler::logout(const RequestInfo& requestInfo)
 {
 	leaveGame(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE((LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) })),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
-	};
+	);
 }
 
 /// <summary>
@@ -105,7 +105,7 @@ RequestResult GameRequestHandler::logout(const RequestInfo& requestInfo)
 /// </summary>
 /// <param name="game">game</param>
 /// <param name="user">user</param>
-GameRequestHandler::GameRequestHandler(Game* game, const LoggedUser& user) :
+GameRequestHandler::GameRequestHandler(std::shared_ptr<Game> game, const LoggedUser& user) :
 	m_game(game), m_user(user)
 {
 }

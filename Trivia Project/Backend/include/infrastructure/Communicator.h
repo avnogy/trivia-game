@@ -31,7 +31,10 @@ private:
 
 public:
 	void startHandleRequest();
-	void bindUsernameToSocket(const std::string& username, IRequestHandler* requestHandler);
-	Socket* getSocket(const std::string& username);
 	void setRequestHandler(const std::string& username, IRequestHandler* requestHandler);
+
+	void bindUsernameToSocket(const std::string& username, IRequestHandler* requestHandler);
+	void eraseUsingUsername(const std::string& username);
+	void eraseUsingSocket(const Socket& socket);
+	Socket* getSocket(const std::string& username);
 };

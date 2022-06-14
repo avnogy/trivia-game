@@ -9,10 +9,10 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo) const
 {
 	bool result = LoginManager::instance().logout(m_user.getUsername());
 
-	return RequestResult{
+	ReturnNewRequestResult(
 		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
-	}; 
+	); 
 }
 
 /// <summary>
@@ -89,10 +89,10 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo) const
 	switch (result)
 	{
 	case true:
-		return {
+		ReturnNewRequestResult(
 			SERIALIZE(JoinRoomResponse{JoinRoomResponse::SUCCESS}),
 			RequestHandlerFactory::instance().createRoomMemberRequestHandler(RoomManager::instance().getRoom(request.roomId), m_user)
-		};
+		);
 
 	case false:
 		return {
@@ -116,10 +116,10 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 	switch (result)
 	{
 	case true:
-		return {
+		ReturnNewRequestResult(
 			SERIALIZE(CreateRoomResponse{CreateRoomResponse::SUCCESS}),
 			RequestHandlerFactory::instance().createRoomAdminRequestHandler(RoomManager::instance().getRoom(roomData.id), m_user)
-		}; 
+		); 
 
 	case false:
 		return {
