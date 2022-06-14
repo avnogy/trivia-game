@@ -62,7 +62,7 @@ namespace Frontend.Pages
             signupRequest.username = usernameTXB.Text;
             signupRequest.password = passwordTXB.Password.ToString();
             signupRequest.email    = emailTBX.Text;
-            String jsonRepr = JsonConvert.SerializeObject(signupRequest);
+            string jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
             //sending signup request
             Communicator.Send(Communicator.RequestType.SignupRequest, jsonRepr);

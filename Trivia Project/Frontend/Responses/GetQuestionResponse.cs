@@ -9,7 +9,7 @@ namespace Frontend.Responses
     internal struct GetQuestionResponse
     {
         public int status;
-        public String question;
-        public IList<String> possibleAnswers;
+        public string question;
+        public IList<string> possibleAnswers;
     }
 }

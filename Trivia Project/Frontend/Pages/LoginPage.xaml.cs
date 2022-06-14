@@ -44,7 +44,6 @@ namespace Frontend.Pages
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
             //creating a json string representation of signup request
-            LoginRequest loginRequest = new LoginRequest();
             if (!App.IsInputValidString(usernameTXB.Text))
             {
                 MessageBox.Show("username can't be empty and must contain only letters or numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -57,9 +56,10 @@ namespace Frontend.Pages
                 MessageBox.Show("password can't contain \" or \'.'", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            LoginRequest loginRequest = new LoginRequest();
             loginRequest.username = usernameTXB.Text;
             loginRequest.password = passwordTXB.Password.ToString();
-            String jsonRepr = JsonConvert.SerializeObject(loginRequest);
+            string jsonRepr = JsonConvert.SerializeObject(loginRequest);
 
             //sending signup request
             Communicator.Send(Communicator.RequestType.LoginRequest, jsonRepr);

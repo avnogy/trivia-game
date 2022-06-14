@@ -8,6 +8,6 @@ namespace Frontend.Responses
 {
     internal struct CorrectAnswerResponse
     {
-        public String correctAnswer;
+        public string correctAnswer;
     };
 }

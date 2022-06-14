@@ -165,7 +165,7 @@ namespace Frontend
             }
         }
 
-        private void markCorrectAnswer(String correctAnswer)
+        private void markCorrectAnswer(string correctAnswer)
         {
             //user didn't choose - all red
             if (this.selectedButtonIndex == 4)
@@ -229,12 +229,12 @@ namespace Frontend
 
         private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
-            String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
+            string selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;
             submitRequest.answer = selectedAnswer;
 
-            String jsonRepr = JsonConvert.SerializeObject(submitRequest);
+            string jsonRepr = JsonConvert.SerializeObject(submitRequest);
 
             receiveMtx.WaitOne();
             Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
