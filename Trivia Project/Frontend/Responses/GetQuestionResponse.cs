@@ -11,6 +11,5 @@ namespace Frontend.Responses
         public int status;
         public String question;
         public IList<String> possibleAnswers;
-        public String correctAnswer;
     }
 }
