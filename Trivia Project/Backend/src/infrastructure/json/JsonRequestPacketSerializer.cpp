@@ -212,7 +212,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const GetQuestionResp
 
 	question["question"] = response.question.getQuestion();
 	question["possibleAnswers"] = response.question.getPossibleAnswers();
-	question["correctAnswer"] = response.question.getCorrectAnswer();
 
 	return question.dump();
 }
