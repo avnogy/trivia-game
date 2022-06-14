@@ -67,7 +67,7 @@ namespace Frontend.Pages
                 //receive message from server
                 if (Communicator.IsDataAvailable())
                 {
-                    string recv = Communicator.Receive();
+                    String recv = Communicator.Receive();
 
                     //try to parse message
                     UpdateResponse updateResponse = JsonConvert.DeserializeObject<UpdateResponse>(recv);

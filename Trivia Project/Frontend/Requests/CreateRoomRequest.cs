@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.Requests
 {
-    internal struct CreateRoomRequest
+    internal class CreateRoomRequest
     {
         public string roomName;
         public int maxUsers;

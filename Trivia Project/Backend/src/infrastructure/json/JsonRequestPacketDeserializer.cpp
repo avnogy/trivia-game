@@ -91,7 +91,7 @@ CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(co
 /// <summary>
 /// deserialize a buffer (message from client)
 /// </summary>
-/// <param name="">
+/// <param name="buffer">
 /// 		The message is json content
 /// </param>
 /// <returns></returns>
@@ -104,12 +104,6 @@ SubmitAnswerRequest JsonRequestPacketDeserializer::deserializeSubmitAnswerReques
 	};
 }
 
-/// <summary>
-/// deserialises a buffer from client
-/// </summary>
-/// <param name="">
-/// The message is json content</param>
-/// <returns></returns>
 AddQuestionRequest JsonRequestPacketDeserializer::deserializeAddQuestionRequest(const std::string& buffer)
 {
 	json bufferContent = json::parse(buffer);

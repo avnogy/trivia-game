@@ -335,6 +335,8 @@ std::vector<std::string> SqliteDataBase::getLeaderboard() const
 		return 0;
 	};
 
+
+
 	if (!sqlexec(
 		"SELECT users.name, statistics.averageAnswerTime,statistics.numOfCorrectAnswers,statistics.numOfPlayerGames FROM statistics INNER JOIN users ON users.user_id = statistics.user_id LIMIT 5;",
 		callback,&players))

@@ -36,30 +36,22 @@ namespace Frontend.Pages
         private void createBTN_Click(object sender, RoutedEventArgs e)
         {
             //checking validity of fields
-            if (!App.IsInputValidString(nameTBX.Text))
-            {
-                MessageBox.Show("Room name can't be empty and must contain only letters or numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            if (nameTBX.Text == "") { MessageBox.Show("Room name can't be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
-            if (!App.IsInputValidInt(timeTBX.Text, 1 , 10))
-            {
-                MessageBox.Show("Time per question must be a valid number between 1 - 10", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            if (!int.TryParse(timeTBX.Text, out int timePerQuestion)) { MessageBox.Show("Time per question must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
-            if (!App.IsInputValidInt(amountTBX.Text, 1,10))
-            {
-                MessageBox.Show("Max mount of players must be a valid number between 1 - 10", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            if (timePerQuestion > 10 || timePerQuestion < 1) { MessageBox.Show("Time per question must be between 1 and 10 minutes", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (!int.TryParse(amountTBX.Text, out int amountOfPlayers)) { MessageBox.Show("Amount of players must be a valid number", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+
+            if (amountOfPlayers > 10 || amountOfPlayers < 1) { MessageBox.Show("Amount of players must be between 1 and 10", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
             //creating a json string representation of create room request
             CreateRoomRequest createRequest = new CreateRoomRequest();
             createRequest.roomName = nameTBX.Text;
-            createRequest.answerTimeout = int.Parse(timeTBX.Text);
-            createRequest.maxUsers = int.Parse(amountTBX.Text);
-            createRequest.questionCount = 10; 
+            createRequest.answerTimeout = timePerQuestion;
+            createRequest.maxUsers = amountOfPlayers;
+            createRequest.questionCount = 10; //could change later to give user choice
             string jsonRepr = JsonConvert.SerializeObject(createRequest);
 
             //sending create room request
@@ -70,7 +62,7 @@ namespace Frontend.Pages
             StatusResponse signupReponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
             if (signupReponse.status == 0)
             {
-                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomAdminPage(createRequest.roomName, createRequest.answerTimeout, createRequest.maxUsers);
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomAdminPage(nameTBX.Text, timePerQuestion, amountOfPlayers);
             }
             else
             {

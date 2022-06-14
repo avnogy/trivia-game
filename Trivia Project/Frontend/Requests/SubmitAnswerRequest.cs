@@ -8,6 +8,6 @@ namespace Frontend.Requests
 {
     internal struct SubmitAnswerRequest
     {
-        public string answer;
+        public String answer;
     }
 }

@@ -8,8 +8,8 @@ namespace Frontend.Requests
 {
     internal struct AddQuestionRequest
     {
-        public string question;
-        public IList<string> possibleAnswers;
-        public string correctAnswer;
+        public String question;
+        public IList<String> possibleAnswers;
+        public String correctAnswer;
     }
 }

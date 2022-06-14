@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Frontend.Requests
 {
-    internal struct LoginRequest
+    internal class LoginRequest
     {
         public string username;
         public string password;

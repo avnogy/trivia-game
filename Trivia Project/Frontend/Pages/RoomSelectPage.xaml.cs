@@ -51,7 +51,7 @@ namespace Frontend.Pages
                     {
                         GetPlayersInRoomRequest getPlayersInRoomRequest = new GetPlayersInRoomRequest();
                         getPlayersInRoomRequest.roomId = room.id;
-                        string jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
+                        String jsonRepr = JsonConvert.SerializeObject(getPlayersInRoomRequest);
 
                         Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, jsonRepr);
                         GetPlayersInRoomResponse roomResponse = JsonConvert.DeserializeObject<GetPlayersInRoomResponse>(Communicator.Receive());
@@ -68,7 +68,7 @@ namespace Frontend.Pages
                             {
                                 JoinRoomRequest joinRoomRequest = new JoinRoomRequest();
                                 joinRoomRequest.roomId = room.id;
-                                string jsonRepr = JsonConvert.SerializeObject(joinRoomRequest);
+                                String jsonRepr = JsonConvert.SerializeObject(joinRoomRequest);
                                 Communicator.Send(Communicator.RequestType.JoinRoomRequest, jsonRepr);
                                 StatusResponse statusResponse = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
                                 if (statusResponse.status == 0)

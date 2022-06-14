@@ -228,11 +228,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const LeaveGameRespon
 	return json.dump();
 }
 
-/// <summary>
-/// Serialize StatusResponse struct
-/// </summary>
-/// <param name="response"></param>
-/// <returns></returns>
 std::string JsonRequestPacketSerializer::serializeResponse(const UpdateResponse& response)
 {
 	nlohmann::json json;
@@ -241,11 +236,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const UpdateResponse&
 	return json.dump();
 }
 
-/// <summary>
-/// Serialize correct answer struct
-/// </summary>
-/// <param name="response"></param>
-/// <returns></returns>
 std::string JsonRequestPacketSerializer::serializeResponse(const CorrectAnswerResponse& response)
 {
 	nlohmann::json json;
@@ -253,11 +243,6 @@ std::string JsonRequestPacketSerializer::serializeResponse(const CorrectAnswerRe
 	return json.dump();
 }
 
-/// <summary>
-/// Serialize UpdateResponse struct
-/// </summary>
-/// <param name="response"></param>
-/// <returns></returns>
 std::string JsonRequestPacketSerializer::serializeResponse(const MessageTypeResponse& response)
 {
 	nlohmann::json json;

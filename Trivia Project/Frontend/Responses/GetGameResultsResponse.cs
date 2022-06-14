@@ -8,7 +8,7 @@ namespace Frontend.Responses
 {
 	public struct PlayerResults
 	{
-		public string username;
+		public String username;
 		public int correctAnswerCount;
 		public int wrongAnswerCount;
 		public int averageAnswerTime;

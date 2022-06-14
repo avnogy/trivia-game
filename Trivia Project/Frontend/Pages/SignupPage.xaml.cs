@@ -41,28 +41,10 @@ namespace Frontend.Pages
         {
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
-            if (!App.IsInputValidString(usernameTXB.Text))
-            {
-                MessageBox.Show("username can't be empty and must contain only letters or numbers.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (!emailTBX.Text.Contains('@') || emailTBX.Text.Contains('\"') ||
-                emailTBX.Text.Contains('\''))
-            {
-                MessageBox.Show("email adress must be valid.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (passwordTXB.Password.ToString() == ""||
-                passwordTXB.Password.ToString().Contains('\"') ||
-                passwordTXB.Password.ToString().Contains('\''))
-            {
-                MessageBox.Show("password can't contain \" or \'.'", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             signupRequest.username = usernameTXB.Text;
             signupRequest.password = passwordTXB.Password.ToString();
             signupRequest.email    = emailTBX.Text;
-            string jsonRepr = JsonConvert.SerializeObject(signupRequest);
+            String jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
             //sending signup request
             Communicator.Send(Communicator.RequestType.SignupRequest, jsonRepr);
@@ -76,6 +58,20 @@ namespace Frontend.Pages
             else
             {
                 MessageBox.Show("You've already signed up.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                /*Label errorLabel = new Label();
+                errorLabel.Name = "LabelError";
+                errorLabel.Content = "You've already signed up.";
+                errorLabel.Margin = new Thickness(30, 0, 30, 0);
+                errorLabel.VerticalAlignment = VerticalAlignment.Bottom;
+                errorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
+                errorLabel.Foreground = Brushes.Black;
+                errorLabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xCF, 0xCF));
+                errorLabel.FontFamily = new FontFamily("Bell MT");
+                errorLabel.FontSize = 12.5;
+
+                Grid.SetRow(errorLabel, 0);
+                Grid.SetColumnSpan(errorLabel, 3);
+                Grid.Children.Add(errorLabel); */
             }
         }
     }
