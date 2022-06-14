@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Frontend.Responses
 {
-	internal struct PlayerResults
+	public struct PlayerResults
 	{
-		String username;
-		int correctAnswerCount;
-		int wrongAnswerCount;
-		int averageAnswerTime;
+		public String username;
+		public int correctAnswerCount;
+		public int wrongAnswerCount;
+		public int averageAnswerTime;
 	};
 
-	internal struct GetGameResultsResponse
+	public struct GetGameResultsResponse
 	{
-		int status;
-		IList<PlayerResults> results;
+		public int status;
+		public IList<PlayerResults> results;
 	};
 }

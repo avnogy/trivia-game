@@ -7,7 +7,7 @@
 /// <returns>request result</returns>
 RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 {
-	LoginRequest request = JsonRequestPacketDeserializer::deserializeLoginRequest(requestInfo.buffer);
+	LoginRequest request = DESERIALIZE(LoginRequest, requestInfo.buffer);
 	bool result = LoginManager::instance().login(request.username, request.password);
 
 	switch (result)
@@ -16,13 +16,13 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 		Communicator::instance().bindUsernameToSocket(request.username, (IRequestHandler*)this); //updating communicator with username
 
 		return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::SUCCESS}),
+		SERIALIZE(LoginResponse{LoginResponse::SUCCESS}),
 		RequestHandlerFactory::instance().createMenuRequestHandler({ request.username })
 		};
 
 	case false:
 		return RequestResult{
-			JsonRequestPacketSerializer::serializeResponse(LoginResponse{LoginResponse::FAILURE}),
+			SERIALIZE(LoginResponse{LoginResponse::FAILURE}),
 			(IRequestHandler*)this
 		};
 	}
@@ -35,19 +35,19 @@ RequestResult LoginRequestHandler::login(const RequestInfo& requestInfo) const
 /// <returns>request result</returns>
 RequestResult LoginRequestHandler::signup(const RequestInfo& requestInfo) const
 {
-	SignupRequest request = JsonRequestPacketDeserializer::deserializeSignupRequest(requestInfo.buffer);
+	SignupRequest request = DESERIALIZE(SignupRequest, requestInfo.buffer);
 	bool result = LoginManager::instance().signup(request.username, request.password, request.email);
 
 	switch (result)
 	{
 	case true:
 		return RequestResult{
-			JsonRequestPacketSerializer::serializeResponse(SignupResponse{SignupResponse::SUCCESS}),
+			SERIALIZE(SignupResponse{SignupResponse::SUCCESS}),
 			RequestHandlerFactory::instance().createLoginRequestHandler()
 		};
 	case false:
 		return RequestResult{
-			JsonRequestPacketSerializer::serializeResponse(SignupResponse{SignupResponse::FAILURE}),
+			SERIALIZE(SignupResponse{SignupResponse::FAILURE}),
 			(IRequestHandler*)this
 		};
 	}

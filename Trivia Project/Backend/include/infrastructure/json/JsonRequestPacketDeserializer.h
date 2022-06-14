@@ -13,6 +13,8 @@
 
 using namespace nlohmann;
 
+#define DESERIALIZE(request, buffer) JsonRequestPacketDeserializer::deserialize##request(buffer)
+
 class JsonRequestPacketDeserializer
 {
 	MAKE_SINGLETON(JsonRequestPacketDeserializer);

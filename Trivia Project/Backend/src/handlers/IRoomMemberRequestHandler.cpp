@@ -11,7 +11,7 @@ RequestResult IRoomMemberRequestHandler::getPlayersInRoom(const RequestInfo& req
 	auto result = RoomManager::instance().getPlayersInRoom(m_room.getRoomData().id);
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(GetPlayersInRoomResponse{ result }),
+		SERIALIZE(GetPlayersInRoomResponse{ result }),
 		(IRequestHandler*)this
 	};
 }
@@ -27,9 +27,7 @@ RequestResult IRoomMemberRequestHandler::getRoomState(const RequestInfo& request
 	const auto& roomData = m_room.getRoomData();
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(
-			GetRoomStateResponse{ GetRoomStateResponse::SUCCESS, roomData.isActive, m_room.getAllUsers(), roomData.numOfQuestionsInGame, roomData.timePerQuestion }
-		),
+		SERIALIZE((GetRoomStateResponse{ GetRoomStateResponse::SUCCESS, roomData.isActive, m_room.getAllUsers(), roomData.numOfQuestionsInGame, roomData.timePerQuestion })),
 		(IRequestHandler*)this
 	};
 }

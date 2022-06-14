@@ -10,7 +10,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& requestInfo
 	bool result = m_room.removeUser(m_user);
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(LeaveRoomResponse{result ? LeaveRoomResponse::SUCCESS : LeaveRoomResponse::FAILURE}),
+		SERIALIZE(LeaveRoomResponse{result ? LeaveRoomResponse::SUCCESS : LeaveRoomResponse::FAILURE}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
 	};
 }
@@ -25,7 +25,7 @@ RequestResult RoomMemberRequestHandler::logout(const RequestInfo& requestInfo)
 	leaveRoom(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
+		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
 	};
 }
