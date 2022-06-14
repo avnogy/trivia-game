@@ -100,10 +100,13 @@ namespace Frontend
                     break;
                 }
 
-                if (!Communicator.IsDataAvailable())
-                    continue;
 
                 receiveMtx.WaitOne();
+                if (!Communicator.IsDataAvailable())
+                {
+                    receiveMtx.ReleaseMutex();
+                    continue;
+                }
                 MessageTypeResponse response = JsonConvert.DeserializeObject<MessageTypeResponse>(Communicator.Receive());
                 receiveMtx.ReleaseMutex();
 
@@ -232,8 +235,9 @@ namespace Frontend
             submitRequest.answer = selectedAnswer;
 
             String jsonRepr = JsonConvert.SerializeObject(submitRequest);
-            Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
+
             receiveMtx.WaitOne();
+            Communicator.Send(Communicator.RequestType.SubmitAnswerRequest, jsonRepr);
             SubmitAnswerResponse submitResponse = JsonConvert.DeserializeObject<SubmitAnswerResponse>(Communicator.Receive());
             receiveMtx.ReleaseMutex();
 

@@ -25,6 +25,8 @@
 #include "responses/CorrectAnswerResponse.h"
 #include "responses/MessageTypeResponse.h"
 
+#define SERIALIZE(response) JsonRequestPacketSerializer::serializeResponse(response)
+
 class JsonRequestPacketSerializer
 {
 	MAKE_SINGLETON(JsonRequestPacketSerializer);

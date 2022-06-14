@@ -20,7 +20,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createMenuRequestHandler(user);
 
 		//sending user a start game message
-		userSocket->send(JsonRequestPacketSerializer::serializeResponse(UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::LeaveRoom }));
+		userSocket->send(SERIALIZE((UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::LeaveRoom })));
 
 		//replacing user's handler
 		Communicator::instance().setRequestHandler(user, newRequestHandler);
@@ -29,7 +29,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(CloseRoomResponse{CloseRoomResponse::SUCCESS}),
+		SERIALIZE(CloseRoomResponse{CloseRoomResponse::SUCCESS}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
 	};
 }
@@ -56,7 +56,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createGameRequestHandler(game, user);
 
 		//sending user a start game message
-		userSocket->send(JsonRequestPacketSerializer::serializeResponse(UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::StartGame }));
+		userSocket->send(SERIALIZE((UpdateResponse{ UpdateResponse::SUCCESS, UpdateResponse::StartGame })));
 
 		//replacing user's handler
 		Communicator::instance().setRequestHandler(user, newRequestHandler);
@@ -65,7 +65,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(StartGameResponse{StartGameResponse::SUCCESS}),
+		SERIALIZE(StartGameResponse{StartGameResponse::SUCCESS}),
 		(IRequestHandler*)RequestHandlerFactory::instance().createGameRequestHandler(game, m_user)
 	};
 }
@@ -80,7 +80,7 @@ RequestResult RoomAdminRequestHandler::logout(const RequestInfo& requestInfo)
 	closeRoom(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
 	return RequestResult{
-		JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
+		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
 	};
 }

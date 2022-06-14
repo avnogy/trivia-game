@@ -7,9 +7,7 @@
 RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) const
 {
 	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetQuestionResponse{GetQuestionResponse::SUCCESS, m_game->getQuestion()}
-		),
+		SERIALIZE((GetQuestionResponse{ GetQuestionResponse::SUCCESS, m_game->getQuestion() })),
 		(IRequestHandler*)this
 	};
 }
@@ -21,14 +19,12 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 /// <returns>response and next handler</returns>
 RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo) 
 {
-	SubmitAnswerRequest request = JsonRequestPacketDeserializer::instance().deserializeSubmitAnswerRequest(requestInfo.buffer);
+	SubmitAnswerRequest request = DESERIALIZE(SubmitAnswerRequest, requestInfo.buffer);
 
 	if (m_game->isAlreadySubmited(m_user))
 	{
 		return RequestResult{
-			JsonRequestPacketSerializer::instance().serializeResponse(
-				SubmitAnswerResponse{SubmitAnswerResponse::FAILURE}
-			),
+			SERIALIZE(SubmitAnswerResponse{SubmitAnswerResponse::FAILURE}),
 			this
 		};
 	}
@@ -37,9 +33,7 @@ RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 		m_game->submitAnswer(m_user, request.answer);
 
 		return RequestResult{
-			JsonRequestPacketSerializer::instance().serializeResponse(
-				SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}
-			),
+			SERIALIZE(SubmitAnswerResponse{SubmitAnswerResponse::SUCCESS}),
 			this
 		};
 	}
@@ -69,9 +63,9 @@ std::vector<PlayerResults> sortResultsByWinner(std::vector<PlayerResults> v)
 RequestResult GameRequestHandler::getGameResults(const RequestInfo& requestInfo) const
 {
 	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(
-			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, sortResultsByWinner(m_game.getGameResults())}
-		),
+		SERIALIZE((
+			GetGameResultsResponse{GetGameResultsResponse::SUCCESS, sortResultsByWinner(m_game->getGameResults())}
+		)),
 		(IRequestHandler*)this
 	};
 }
@@ -85,7 +79,7 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 {
 	m_game->removePlayer(m_user);
 	return RequestResult{
-		JsonRequestPacketSerializer::instance().serializeResponse(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
+		SERIALIZE(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
 		this
 	};
 }
@@ -101,8 +95,9 @@ RequestResult GameRequestHandler::logout(const RequestInfo& requestInfo)
 	leaveGame(requestInfo);
 	bool result = LoginManager::instance().logout(m_user.getUsername());
 	return RequestResult{
-	JsonRequestPacketSerializer::serializeResponse(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
-	RequestHandlerFactory::instance().createLoginRequestHandler() };
+		SERIALIZE((LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) })),
+		RequestHandlerFactory::instance().createLoginRequestHandler()
+	};
 }
 
 /// <summary>
