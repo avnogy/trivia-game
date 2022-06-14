@@ -23,7 +23,7 @@ namespace Frontend.Pages
     /// </summary>
     public partial class GameScorePage : Page
     {
-        public GameScorePage(GetGameResultsResponse gameResults, string username)
+        public GameScorePage(GetGameResultsResponse gameResults)
         {
             InitializeComponent();
             foreach (PlayerResults player in gameResults.results)
@@ -34,7 +34,7 @@ namespace Frontend.Pages
                 label.FontFamily = new FontFamily("Ink Free");
                 label.FontWeight = FontWeights.Bold;
                 label.Foreground = new BrushConverter().ConvertFrom("#292929") as Brush;
-                if (player.username == username)
+                if (player.username == App.username)
                 {
                     label.Content += "(you)";
                     label.Foreground = new BrushConverter().ConvertFrom("#000000") as Brush;
@@ -51,18 +51,28 @@ namespace Frontend.Pages
                     1 : ((player.wrongAnswerCount)*3 + player.averageAnswerTime))));
                 scoresSP.Children.Add(label);
 
-                if (player.username == username)
+                if (player.username == App.username)
                 {
                     label.Content += "\nright answers: " + player.correctAnswerCount + "\n";
                     label.Content += "wrong answers: " + player.wrongAnswerCount + "\n";
-                    label.Content += "average time to answer: " + player.averageAnswerTime;
+                    label.Content += "average time to answer: " + Math.Round(player.averageAnswerTime,2);
                 }
             }
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
+            Communicator.Send(Communicator.RequestType.LeaveGameRequest, "");
+            StatusResponse response = JsonConvert.DeserializeObject<StatusResponse>(Communicator.Receive());
+            if (response.status == 0)
+            {
+                ((MainWindow)Application.Current.MainWindow).frame.Content = new MenuPage();
+            }
+            else
+            {
+                MessageBox.Show("Fatal:Could not leave the game, Quitting.", "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.Application.Current.Shutdown();
+            }
         }
     }
 }

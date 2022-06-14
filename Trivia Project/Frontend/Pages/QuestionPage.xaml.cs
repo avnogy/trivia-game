@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using Frontend.Pages;
 using System.Windows.Threading;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Frontend
@@ -28,33 +29,60 @@ namespace Frontend
     /// </summary>
     public partial class QuestionPage : Page
     {
+        private int timeToAnswer;
         private Button[] buttons;
         private int selectedButtonIndex = 4;
+
+        private DispatcherTimer timer = new DispatcherTimer();
+        private Stopwatch answerTime;
         private BackgroundWorker serverListener = new BackgroundWorker();
-        private DispatcherTimer answerTime = new DispatcherTimer();
         private Mutex receiveMtx = new Mutex();
+
 
         private void initializeTimer()
         {
-            answerTime.Interval = TimeSpan.FromSeconds(1);
-            answerTime.Tick += (sender, args) =>
+            answerTime = Stopwatch.StartNew();
+            timeLBL.Content = timeToString(timeToAnswer * 60); //converting minutes and updating label
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (sender, args) =>
             {
-                int minutesLeft = int.Parse(timeLBL.Content.ToString().Split(':')[0]);
-                int secondsLeft = int.Parse(timeLBL.Content.ToString().Split(':')[1]);
-                int totalSecondsLeft = minutesLeft * 60 + secondsLeft;
-
-                totalSecondsLeft -= 1; //Tick
-                timeLBL.Content = "0" + totalSecondsLeft / 60 + ":" +
-((totalSecondsLeft % 60 >= 10) ? totalSecondsLeft % 60 : "0" + totalSecondsLeft % 60);
+                int totalSecondsLeft = timeToSeconds(timeLBL.Content.ToString()) - 1; //convert + tick
+                timeLBL.Content = timeToString(totalSecondsLeft); //updating label
                 if (totalSecondsLeft <= 0)
                 {
                     submitBTN_Click(null, null);
                 }
 
             };
-            answerTime.Start();
+            timer.Start();
         }
-
+        /// <summary>
+        /// returns time in seconds
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private int timeToSeconds(string time)
+        {
+            try
+            {
+                int minutesLeft = int.Parse(time.Split(':')[0]);
+                int secondsLeft = int.Parse(time.Split(':')[1]);
+                return minutesLeft * 60 + secondsLeft;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+        /// <summary>
+        /// returns time in the shape of 00:00
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        private string timeToString(int seconds)
+        {
+            return "0" + seconds / 60 + ":" + ((seconds % 60 >= 10) ? seconds % 60 : "0" + seconds % 60);
+        }
         private void initializeServerListener()
         {
             serverListener.WorkerSupportsCancellation = true;
@@ -80,8 +108,9 @@ namespace Frontend
             this.buttons[4] = new Button { Content = "wrong answer for sure" };
         }
 
-        public QuestionPage()
+        public QuestionPage(int timeToAnswer)
         {
+            this.timeToAnswer = timeToAnswer;
             InitializeComponent();
             initializeTimer();
             initializeServerListener();
@@ -135,7 +164,7 @@ namespace Frontend
 
         private void close()
         {
-            answerTime.Stop();
+            timer.Stop();
             serverListener.CancelAsync();
         }
 
@@ -151,12 +180,12 @@ namespace Frontend
                     timer.Tick += (sender, args) =>
                     {
                         timer.Stop();
-                        ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage();
+                        ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
                     };
                     break;
 
                 case MessageTypeResponse.Type.GetGameResultsResponse:
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new LoginPage();
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new GameScorePage((GetGameResultsResponse)e.UserState);
                     break;
 
                 case (MessageTypeResponse.Type)3:
@@ -233,6 +262,7 @@ namespace Frontend
 
             SubmitAnswerRequest submitRequest;
             submitRequest.answer = selectedAnswer;
+            submitRequest.timeToAnswer = ((float)answerTime.Elapsed.TotalSeconds);
 
             String jsonRepr = JsonConvert.SerializeObject(submitRequest);
 

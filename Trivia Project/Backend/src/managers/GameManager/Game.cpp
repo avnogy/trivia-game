@@ -37,11 +37,10 @@ bool Game::isAlreadySubmited(const LoggedUser& user) const
 
 void Game::sendCorrectAnswers(Game* game)
 {
+	int count = game->getQuestions().size(); //number of questions in game
+	std::string correctAnswerResponse = "";
 	while (true)
 	{
-		bool isGameEnded = false;
-		std::string correctAnswerResponse = "";
-
 		//waiting until all players submited an answer
 		while (!game->isAllSubmited())
 		{
@@ -51,31 +50,40 @@ void Game::sendCorrectAnswers(Game* game)
 		//assembling message to send to players
 		correctAnswerResponse = JsonRequestPacketSerializer::instance().serializeResponse(
 			MessageTypeResponse{
-				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse: MessageTypeResponse::Type::CorrectAnswerResponse,
-				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() })
-			});
-
-		game->nextQuestion();
-		isGameEnded = game->getQuestions().size() <= 0;
-
-		for (const auto& user : game->m_players)
+				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse : MessageTypeResponse::Type::CorrectAnswerResponse,
+				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }) });
+		
+		//sending message to players
+		for (auto& user : game->m_players)
 		{
-			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
-
-			//sending question to all players
-			userSocket->send(correctAnswerResponse);
-
-			//if it is the last questions, send also the game results
-			if (isGameEnded)
-			{
-				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(
-					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }
-					));
-			}
+			Communicator::instance().getSocket(user.first.getUsername())->send(correctAnswerResponse);
 		}
 
-		if (isGameEnded)
+		//if game ended send end results, else continue game
+		if (game->getQuestions().size() <= 1)
+		{
+			for (auto& user : game->m_players)
+			{
+				//sending end results 
+				user.second.AverageAnswerTime /= count; //calculating avrage
+				Communicator::instance().getSocket(user.first.getUsername())->send(JsonRequestPacketSerializer::instance().serializeResponse(
+					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }
+				));
+			}
+			for (const auto& result : game->getGameResults())
+			{
+				//adding result to the database
+				if(!StatisticsManager::instance().addUserStatistic(result))
+				{
+					throw DatabaseError(__FUNCTION__" - Sql request failed.");
+				}
+			}
 			return;
+		}
+		else
+		{
+			game->nextQuestion();
+		}
 	}
 }
 
@@ -132,12 +140,13 @@ void Game::nextQuestion()
 /// <param name="user">user that submitted the answer</param>
 /// <param name="answer>the answer the user submitted</param>
 /// <returns>SubmitAnswerResponse</returns>
-void Game::submitAnswer(const LoggedUser& user, const std::string& answer)
+void Game::submitAnswer(const LoggedUser& user, const std::string& answer,const float timeToAnswer)
 {
 	m_submitCountMutex.lock();
 	m_submitCount.insert(user.getUsername());
 	m_submitCountMutex.unlock();
 
+	m_players[user].AverageAnswerTime += timeToAnswer;
 	if (m_currentQuestion.getCorrectAnswer() == answer)
 	{
 		m_players[user].correctAnswerCount++;

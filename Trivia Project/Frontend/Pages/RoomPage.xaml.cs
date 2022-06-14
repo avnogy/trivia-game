@@ -97,7 +97,7 @@ namespace Frontend.Pages
             switch ((UpdateResponse.Type)e.ProgressPercentage)
             {
                 case UpdateResponse.Type.StartGame:
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(); break;
+                    ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer); break;
 
                 case UpdateResponse.Type.LeaveRoom:
                     ((MainWindow)Application.Current.MainWindow).frame.Content = new RoomSelectPage(); break;

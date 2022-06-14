@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include "managers/GameManager/Question.h"
+#include "responses/GetGameResultsResponse.h"
 
 #define DATABASE_FILE_PATH "../../database.sqlite"
 
@@ -24,7 +25,10 @@ public:
 	virtual int getNumOfCorrectAnswers(const std::string& username) const = 0;
 	virtual int getNumOfTotalAnswers(const std::string& username) const = 0;
 	virtual int getNumOfPlayerGames(const std::string& username) const = 0;
+	virtual int getUserId(const std::string& username) const = 0;
 	virtual std::vector<std::string> getLeaderboard() const = 0;
+	virtual bool addUserStatistic(const PlayerResults& statistic) const = 0;
+
 
 	//questions
 	virtual std::queue<Question> getQuestions() const = 0;

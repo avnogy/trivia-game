@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Frontend.Requests;
+using Frontend.Responses;
 
 namespace Frontend.Responses
 {
-	public struct PlayerResults
+    public struct PlayerResults
 	{
-		public String username;
+		public string username;
 		public int correctAnswerCount;
 		public int wrongAnswerCount;
-		public int averageAnswerTime;
-	};
+		public float averageAnswerTime;
+
+	}
 
 	public struct GetGameResultsResponse
 	{
 		public int status;
 		public IList<PlayerResults> results;
 	};
+
 }
