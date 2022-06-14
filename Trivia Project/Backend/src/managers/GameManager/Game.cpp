@@ -39,36 +39,42 @@ void Game::sendCorrectAnswers(Game* game)
 {
 	int count = game->getQuestions().size(); //number of questions in game
 	std::string correctAnswerResponse = "";
+
 	while (true)
 	{
-		//waiting until all players submited an answer
+		//waiting until all players submit their answers
 		while (!game->isAllSubmited())
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 
 		//assembling message to send to players
-		correctAnswerResponse = JsonRequestPacketSerializer::instance().serializeResponse(
+		correctAnswerResponse = SERIALIZE((
 			MessageTypeResponse{
-				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse : MessageTypeResponse::Type::CorrectAnswerResponse,
-				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }) });
+				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse : MessageTypeResponse::Type::CorrectAnswerResponse, //if last question, send GetGameResultsResponse
+				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }) }
+		));
 		
 		//sending message to players
 		for (auto& user : game->m_players)
 		{
-			Communicator::instance().getSocket(user.first.getUsername())->send(correctAnswerResponse);
+			Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
+			userSocket->send(correctAnswerResponse);
 		}
 
-		//if game ended send end results, else continue game
+		//if game ends, send end results.
+		//else continue game
 		if (game->getQuestions().size() <= 1)
 		{
 			for (auto& user : game->m_players)
 			{
+				Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
+				user.second.AverageAnswerTime /= count; //calculating average answering time
+
 				//sending end results 
-				user.second.AverageAnswerTime /= count; //calculating avrage
-				Communicator::instance().getSocket(user.first.getUsername())->send(JsonRequestPacketSerializer::instance().serializeResponse(
+				userSocket->send(SERIALIZE((
 					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, game->getGameResults() }
-				));
+				)));
 			}
 			for (const auto& result : game->getGameResults())
 			{

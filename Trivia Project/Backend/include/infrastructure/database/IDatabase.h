@@ -5,7 +5,7 @@
 #include "managers/GameManager/Question.h"
 #include "responses/GetGameResultsResponse.h"
 
-#define DATABASE_FILE_PATH "../../database.sqlite"
+#define DATABASE_FILE_PATH "D:\\Coding\\magshimim\\Advanced-Programming\\asd\\Trivia Project\\bin\\database.sqlite"
 
 class IDatabase
 {

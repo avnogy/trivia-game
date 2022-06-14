@@ -21,7 +21,7 @@ namespace Frontend.Responses
 	public struct GetGameResultsResponse
 	{
 		public int status;
-		public IList<PlayerResults> results;
+		public List<PlayerResults> results;
 	};
 
 }
