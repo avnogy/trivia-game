@@ -1,0 +1,138 @@
+﻿<Page x:Class="Frontend.Pages.SignupPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Frontend.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="650"
+      Title="SignupPage">
+
+    <Grid x:Name="Grid" Background="#FFEAEAEA">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.8*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+
+        <Label
+            x:Name="titleLBL" 
+            Content="sign up"
+            Grid.Column="1" 
+            Grid.Row="0" 
+            HorizontalAlignment="Center"
+            FontSize="36"  
+            FontFamily="Ink Free" 
+            VerticalAlignment="Center"
+            FontWeight="Bold"/>
+
+        <Label 
+            x:Name="usernameLBL"
+            Grid.Column="1"
+            Grid.Row="2" 
+            HorizontalAlignment="Left"
+            FontSize="22" 
+            Content="username"
+            VerticalAlignment="Bottom"
+            FontFamily="Ink Free" 
+            FontWeight="Bold"/>
+        <Label 
+            x:Name="emailLBL" 
+            Grid.Column="1"
+            Grid.Row="4" 
+            HorizontalAlignment="Left"
+            FontSize="22"
+            Content="email"
+            VerticalAlignment="Bottom" 
+            FontFamily="Ink Free"
+            FontWeight="Bold"/>
+        <Label 
+            x:Name="passwordLBL" 
+            Grid.Column="1"
+            Grid.Row="6" 
+            HorizontalAlignment="Left" 
+            FontSize="22"
+            Content="password" 
+            VerticalAlignment="Bottom" 
+            FontFamily="Ink Free" 
+            FontWeight="Bold"/>
+
+        <TextBox 
+            x:Name="usernameTXB" 
+            Grid.Column="1" 
+            Grid.Row="3" 
+            FontSize="20" 
+            Background="#FFABD3EF" 
+            FontFamily="Ink Free"
+            FontWeight="Bold"/>
+        <TextBox 
+            x:Name="emailTBX"
+            Grid.Column="1" 
+            Grid.Row="5" 
+            FontSize="20" 
+            Background="#FFABD3EF" 
+            FontFamily="Ink Free" 
+            FontWeight="Bold"/>
+        <PasswordBox
+            x:Name="passwordTXB"
+            Grid.Column="1" 
+            Grid.Row="7"
+            FontSize="20"
+            Background="#FFABD3EF" 
+            FontWeight="Normal"/>
+
+        <StackPanel 
+            Grid.Column="1" 
+            Grid.Row="8" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top">
+            <TextBlock  
+                Text="Already have an accout?"             
+                Margin="2" 
+                HorizontalAlignment="Center" 
+                FontSize="14" 
+                FontFamily="Ink Free"
+                FontWeight="Bold"/>
+            <TextBlock  
+                x:Name="loginBTN" 
+                Margin="2" 
+                Text=" login"
+                MouseLeftButtonUp="buttonLogin_Click"
+                Foreground="#FFFF7272"
+                FontSize="14" 
+                FontFamily="Ink Free"
+                FontWeight="Bold" />
+        </StackPanel>
+
+        <Button 
+            x:Name="signupBTN"
+            Click="buttonSubmit_Click" 
+            IsDefault="True" 
+            Grid.Column="1" 
+            Grid.Row="9" 
+            Content="sign up" 
+            HorizontalAlignment="Center" 
+            FontSize="20" 
+            Width="120"
+            Background="#FFABD3EF" 
+            FontFamily="Ink Free" 
+            FontWeight="Bold"/>
+
+    </Grid>
+</Page>
