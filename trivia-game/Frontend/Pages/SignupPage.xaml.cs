@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Frontend.Requests;
+using Frontend.Responses;
+using Newtonsoft.Json;
+using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
-using Frontend.Requests;
-using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -39,11 +30,29 @@ namespace Frontend.Pages
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
+            //validating credentials
+            if (!Regex.IsMatch(usernameTXB.Text, "^[a-zA-Z0-9]{4,20}$"))
+            {
+                MessageBox.Show("Invalid username. Usernames must only contain letters or numbers and at least 4 characters long.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(emailTBX.Text, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
+            {
+                MessageBox.Show("Invalid Email address, Please check the address you entered.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(passwordTXB.Password.ToString(), "^(?=.{8,}$)(?=.*[0-9]).*$"))
+            {
+                MessageBox.Show("Invalid password. Passwords must be at least 8 characters long and contain at least one number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             //creating a json string representation of signup request
             SignupRequest signupRequest = new SignupRequest();
             signupRequest.username = usernameTXB.Text;
             signupRequest.password = passwordTXB.Password.ToString();
             signupRequest.email    = emailTBX.Text;
+
             String jsonRepr = JsonConvert.SerializeObject(signupRequest);
 
             //sending signup request
@@ -58,20 +67,6 @@ namespace Frontend.Pages
             else
             {
                 MessageBox.Show("You've already signed up.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                /*Label errorLabel = new Label();
-                errorLabel.Name = "LabelError";
-                errorLabel.Content = "You've already signed up.";
-                errorLabel.Margin = new Thickness(30, 0, 30, 0);
-                errorLabel.VerticalAlignment = VerticalAlignment.Bottom;
-                errorLabel.HorizontalContentAlignment = HorizontalAlignment.Center;
-                errorLabel.Foreground = Brushes.Black;
-                errorLabel.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xCF, 0xCF));
-                errorLabel.FontFamily = new FontFamily("Bell MT");
-                errorLabel.FontSize = 12.5;
-
-                Grid.SetRow(errorLabel, 0);
-                Grid.SetColumnSpan(errorLabel, 3);
-                Grid.Children.Add(errorLabel); */
             }
         }
     }
