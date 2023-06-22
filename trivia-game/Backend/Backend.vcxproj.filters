@@ -1,99 +1,285 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\handlers\GameRequestHandler.cpp" />
-    <ClCompile Include="src\managers\GameManager\GameManager.cpp" />
-    <ClCompile Include="src\managers\GameManager\Game.cpp" />
-    <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\MenuRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp" />
-    <ClCompile Include="src\handlers\RoomMemberRequestHandler.cpp" />
-    <ClCompile Include="src\infrastructure\Communicator.cpp" />
-    <ClCompile Include="src\infrastructure\database\DatabaseError.cpp" />
-    <ClCompile Include="src\infrastructure\database\IDatabase.cpp" />
-    <ClCompile Include="src\managers\GameManager\Question.cpp" />
-    <ClCompile Include="src\infrastructure\database\sqlite3.c" />
-    <ClCompile Include="src\infrastructure\database\SqliteDataBase.cpp" />
-    <ClCompile Include="src\infrastructure\json\JsonRequestPacketDeserializer.cpp" />
-    <ClCompile Include="src\infrastructure\json\JsonRequestPacketSerializer.cpp" />
-    <ClCompile Include="src\infrastructure\RequestHandlerFactory.cpp" />
-    <ClCompile Include="src\infrastructure\Server.cpp" />
-    <ClCompile Include="src\infrastructure\Socket.cpp" />
-    <ClCompile Include="src\infrastructure\SocketError.cpp" />
-    <ClCompile Include="src\infrastructure\WSAInitializer.cpp" />
-    <ClCompile Include="src\handlers\LoginRequestHandler.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\managers\LoggedUser.cpp" />
-    <ClCompile Include="src\managers\LoginManager\LoginManager.cpp" />
-    <ClCompile Include="src\managers\RoomManager\Room.cpp" />
-    <ClCompile Include="src\managers\RoomManager\RoomManager.cpp" />
-    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp" />
-    <ClCompile Include="include\requests\AddQuestionRequest.h" />
+    <ClCompile Include="include\requests\AddQuestionRequest.h">
+      <Filter>headers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\database\DatabaseError.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\GameManager\Game.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\GameManager\GameManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\GameRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\database\IDatabase.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\IRoomMemberRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\json\JsonRequestPacketDeserializer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\json\JsonRequestPacketSerializer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\LoggedUser.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\LoginManager\LoginManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\LoginRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\MenuRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\GameManager\Question.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\RequestHandlerFactory.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\RoomManager\Room.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\RoomAdminRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\RoomManager\RoomManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\handlers\RoomMemberRequestHandler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\Server.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\Socket.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\SocketError.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\database\sqlite3.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\database\SqliteDataBase.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\StatisticsManager\StatisticsManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\WSAInitializer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\infrastructure\Communicator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\handlers\GameRequestHandler.h" />
-    <ClInclude Include="include\managers\GameManager\GameManager.h" />
-    <ClInclude Include="include\managers\GameManager\Game.h" />
-    <ClInclude Include="include\managers\GameManager\GameData.h" />
-    <ClInclude Include="include\handlers\IRoomMemberRequestHandler.h" />
-    <ClInclude Include="include\handlers\RoomAdminRequestHandler.h" />
-    <ClInclude Include="include\handlers\RoomMemberRequestHandler.h" />
-    <ClInclude Include="include\infrastructure\Communicator.h" />
-    <ClInclude Include="include\infrastructure\database\DatabaseError.h" />
-    <ClInclude Include="include\infrastructure\database\IDatabase.h" />
-    <ClInclude Include="include\managers\GameManager\Question.h" />
-    <ClInclude Include="include\infrastructure\database\sqlite3.h" />
-    <ClInclude Include="include\infrastructure\database\SqliteDataBase.h" />
-    <ClInclude Include="include\infrastructure\json\json.hpp" />
-    <ClInclude Include="include\infrastructure\json\JsonRequestPacketDeserializer.h" />
-    <ClInclude Include="include\infrastructure\json\JsonRequestPacketSerializer.h" />
-    <ClInclude Include="include\infrastructure\RequestHandlerFactory.h" />
-    <ClInclude Include="include\infrastructure\Server.h" />
-    <ClInclude Include="include\infrastructure\Socket.h" />
-    <ClInclude Include="include\infrastructure\SocketError.h" />
-    <ClInclude Include="include\infrastructure\WSAInitializer.h" />
-    <ClInclude Include="include\managers\LoggedUser.h" />
-    <ClInclude Include="include\managers\LoginManager\LoginManager.h" />
-    <ClInclude Include="include\managers\RoomManager\Room.h" />
-    <ClInclude Include="include\managers\RoomManager\RoomData.h" />
-    <ClInclude Include="include\managers\RoomManager\RoomManager.h" />
-    <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h" />
-    <ClInclude Include="include\requests\CreateRoomRequest.h" />
-    <ClInclude Include="include\requests\GetPlayersInRoomRequest.h" />
-    <ClInclude Include="include\requests\JoinRoomRequest.h" />
-    <ClInclude Include="include\requests\LoginRequest.h" />
-    <ClInclude Include="include\requests\SubmitAnswerRequest.h" />
-    <ClInclude Include="include\responses\CloseRoomResponse.h" />
-    <ClInclude Include="include\responses\CreateRoomResponse.h" />
-    <ClInclude Include="include\responses\GetGameResultsResponse.h" />
-    <ClInclude Include="include\responses\GetHighScoreResponse.h" />
-    <ClInclude Include="include\responses\GetPlayersInRoomResponse.h" />
-    <ClInclude Include="include\responses\GetQuestionResponse.h" />
-    <ClInclude Include="include\responses\GetRoomsResponse.h" />
-    <ClInclude Include="include\responses\GetRoomStateResponse.h" />
-    <ClInclude Include="include\responses\UpdateResponse.h" />
-    <ClInclude Include="include\responses\LeaveGameResponse.h" />
-    <ClInclude Include="include\responses\LogoutResponse.h" />
-    <ClInclude Include="include\responses\GetStatisticsResponse.h" />
-    <ClInclude Include="include\responses\SubmitAnswerResponse.h" />
-    <ClInclude Include="include\server\Communicator.h" />
-    <ClInclude Include="include\responses\ErrorResponse.h" />
-    <ClInclude Include="include\handlers\IRequestHandler.h" />
-    <ClInclude Include="include\handlers\LoginRequestHandler.h" />
-    <ClInclude Include="include\responses\LoginResponse.h" />
-    <ClInclude Include="include\requests\RequestInfo.h" />
-    <ClInclude Include="include\requests\RequestResult.h" />
-    <ClInclude Include="include\requests\SignupRequest.h" />
-    <ClInclude Include="include\responses\SignupResponse.h" />
-    <ClInclude Include="include\handlers\MenuRequestHandler.h" />
-    <ClInclude Include="include\utils\Singleton.h" />
-    <ClInclude Include="include\responses\JoinRoomResponse.h" />
-    <ClInclude Include="include\responses\LeaveRoomResponse.h" />
-    <ClInclude Include="include\responses\StartGameResponse.h" />
-    <ClInclude Include="include\responses\CorrectAnswerResponse.h" />
-    <ClInclude Include="include\responses\MessageTypeResponse.h" />
+    <ClInclude Include="include\responses\CloseRoomResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\Communicator.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\server\Communicator.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\CorrectAnswerResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\CreateRoomRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\CreateRoomResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\database\DatabaseError.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\ErrorResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\GameManager\Game.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\GameManager\GameData.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\GameManager\GameManager.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\GameRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetHighScoreResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetGameResultsResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\GetPlayersInRoomRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetPlayersInRoomResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetRoomsResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetQuestionResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetRoomStateResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\GetStatisticsResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\database\IDatabase.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\IRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\IRoomMemberRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\JoinRoomRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\JoinRoomResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\json\json.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\json\JsonRequestPacketDeserializer.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\json\JsonRequestPacketSerializer.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\LeaveGameResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\LeaveRoomResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\LoggedUser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\LoginManager\LoginManager.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\LoginRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\LoginResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\LoginRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\LogoutResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\MenuRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\MessageTypeResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\GameManager\Question.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\RequestHandlerFactory.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\RequestInfo.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\RequestResult.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\RoomManager\Room.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\RoomAdminRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\RoomManager\RoomData.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\RoomManager\RoomManager.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\handlers\RoomMemberRequestHandler.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\Server.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\SignupRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\SignupResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\Singleton.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\Socket.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\SocketError.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\database\sqlite3.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\database\SqliteDataBase.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\StartGameResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\StatisticsManager\StatisticsManager.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\requests\SubmitAnswerRequest.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\SubmitAnswerResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\responses\UpdateResponse.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\infrastructure\WSAInitializer.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{a8fa8fe6-1505-4d90-9271-5b54b9c16974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{e426a360-218e-4ab2-a408-80b724cf76ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
