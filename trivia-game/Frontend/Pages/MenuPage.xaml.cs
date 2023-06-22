@@ -12,7 +12,7 @@ namespace Frontend.Pages
         {
             InitializeComponent();
             usernameLBL.Content += "\n" + App.username;
-            creditsLBL.Text = "Credits: \n Avner Mindelis \nAmir Haim Mizrahi";
+            creditsLBL.Text = "Credits: \nAvner Mindelis \nAmir Haim Mizrahi";
         }
 
         private void buttonExit_Click(object sender, RoutedEventArgs e)
