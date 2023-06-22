@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Frontend.Requests;
+using Frontend.Responses;
+using Newtonsoft.Json;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
-using Frontend.Requests;
-using Frontend.Responses;
 using System.Windows.Threading;
 
 namespace Frontend.Pages
@@ -24,12 +14,13 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomSelectPage : Page
     {
-        const int refreshTime = 2; //seconds
-        DispatcherTimer timer;
+        private const int refreshTime = 2; //seconds
+        private DispatcherTimer timer;
+
         public RoomSelectPage()
         {
             InitializeComponent();
-            PopulateRoom(null,null);
+            PopulateRoom(null, null);
 
             //timer refreshes rooms
             timer = new DispatcherTimer();
@@ -37,6 +28,7 @@ namespace Frontend.Pages
             timer.Tick += new EventHandler(PopulateRoom);
             timer.Start();
         }
+
         private void PopulateRoom(object? sender, EventArgs? e)
         {
             Communicator.Send(Communicator.RequestType.GetRoomsRequest, "");
@@ -97,6 +89,7 @@ namespace Frontend.Pages
                 roomsSP.Children.Add(r);
             }
         }
+
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
             timer.Stop();

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Newtonsoft.Json;
-using Frontend.Requests;
-using Frontend.Responses;
+﻿using System.Windows;
 
 namespace Frontend
 {
@@ -17,15 +8,15 @@ namespace Frontend
     public partial class App : Application
     {
         public static string? username;
+
         private App()
         {
             Communicator.Init("127.0.0.1", 4206);
         }
+
         private void ExitApp(object sender, ExitEventArgs e)
         {
             Communicator.Send(Communicator.RequestType.LogoutRequest, "");
         }
-        
-
     }
 }

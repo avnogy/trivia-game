@@ -1,26 +1,15 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Frontend.Pages;
 using Frontend.Requests;
 using Frontend.Responses;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
-using Frontend.Pages;
-using System.Windows.Threading;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Frontend
 {
@@ -50,10 +39,10 @@ namespace Frontend
                 {
                     submitBTN_Click(null, null);
                 }
-
             };
             timer.Start();
         }
+
         /// <summary>
         /// returns time in seconds
         /// </summary>
@@ -72,6 +61,7 @@ namespace Frontend
                 return -1;
             }
         }
+
         /// <summary>
         /// returns time in the shape of 00:00
         /// </summary>
@@ -81,6 +71,7 @@ namespace Frontend
         {
             return "0" + seconds / 60 + ":" + ((seconds % 60 >= 10) ? seconds % 60 : "0" + seconds % 60);
         }
+
         private void initializeServerListener()
         {
             serverListener.WorkerSupportsCancellation = true;
@@ -117,11 +108,12 @@ namespace Frontend
             GetQuestionResponse response = JsonConvert.DeserializeObject<GetQuestionResponse>(Communicator.Receive());
             initializeComponents(response);
         }
+
         private void listenToServer(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                if(serverListener.CancellationPending)
+                if (serverListener.CancellationPending)
                 {
                     e.Cancel = true;
                     break;
@@ -144,7 +136,6 @@ namespace Frontend
                     serverListener.ReportProgress((int)MessageTypeResponse.Type.CorrectAnswerResponse, correctAnswerResponse);
                     close(); return;
                 }
-
                 else if (response.type == MessageTypeResponse.Type.GetGameResultsResponse)
                 {
                     serverListener.ReportProgress(3, correctAnswerResponse);
@@ -215,7 +206,7 @@ namespace Frontend
                 {
                     if (button.Content.ToString() == correctAnswer)
                     {
-                       button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
+                        button.Background = new BrushConverter().ConvertFrom("#a2e2bb") as SolidColorBrush;
                     }
                 }
             }
@@ -255,7 +246,6 @@ namespace Frontend
 
         private void submitBTN_Click(object? sender, RoutedEventArgs? e)
         {
-
             String selectedAnswer = this.buttons[this.selectedButtonIndex].Content.ToString();
 
             SubmitAnswerRequest submitRequest;

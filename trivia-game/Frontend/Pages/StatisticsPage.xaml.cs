@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Frontend.Responses;
+using Newtonsoft.Json;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
-using Frontend.Requests;
-using Frontend.Responses;
 
 namespace Frontend.Pages
 {
@@ -34,7 +22,7 @@ namespace Frontend.Pages
             statisticsLBL.Content += "correct answers: " + statisticsReponse.statistics[1] + "\n\n";
             statisticsLBL.Content += "total answers: " + statisticsReponse.statistics[2] + "\n\n";
             statisticsLBL.Content += "played games: " + statisticsReponse.statistics[3] + "\n\n";
-            statisticsLBL.Content += "right answers ratio: " + Math.Round(float.Parse(statisticsReponse.statistics[1])/ float.Parse(statisticsReponse.statistics[2]),2);
+            statisticsLBL.Content += "right answers ratio: " + Math.Round(float.Parse(statisticsReponse.statistics[1])/ float.Parse(statisticsReponse.statistics[2]), 2);
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)

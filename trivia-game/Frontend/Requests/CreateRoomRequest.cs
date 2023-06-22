@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frontend.Requests
+﻿namespace Frontend.Requests
 {
     internal class CreateRoomRequest
     {
@@ -12,6 +6,5 @@ namespace Frontend.Requests
         public int maxUsers;
         public int questionCount;
         public int answerTimeout;
-
     }
 }

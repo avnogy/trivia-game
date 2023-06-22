@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Frontend.Responses;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Newtonsoft.Json;
-using Frontend.Requests;
-using Frontend.Responses;
 using System.Windows.Threading;
-using System.Threading;
-using System.ComponentModel;
 
 namespace Frontend.Pages
 {
@@ -26,10 +13,10 @@ namespace Frontend.Pages
     /// </summary>
     public partial class RoomPage : Page
     {
-        int timeToAnswer;
-        const int refreshTime = 2; //seconds
-        DispatcherTimer timer;
-        BackgroundWorker serverListener = new BackgroundWorker();
+        private int timeToAnswer;
+        private const int refreshTime = 2; //seconds
+        private DispatcherTimer timer;
+        private BackgroundWorker serverListener = new BackgroundWorker();
 
         public RoomPage(RoomData room)
         {
@@ -51,7 +38,6 @@ namespace Frontend.Pages
                 (object? sender, EventArgs? e) => { Communicator.Send(Communicator.RequestType.GetPlayersInRoomRequest, ""); }
                 );
             timer.Start();
-
         }
 
         private void listenToServer(object sender, DoWorkEventArgs e)
