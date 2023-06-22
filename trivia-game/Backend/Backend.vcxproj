@@ -72,21 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/Backend/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/.intermediate/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin/Backend/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/.intermediate/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
-    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/Backend/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/.intermediate/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin/dist/$(Configuration)/</OutDir>
-    <IntDir>$(SolutionDir)bin/intermediate/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/Backend/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)bin/.intermediate/$(Configuration)/</IntDir>
     <IncludePath>$(ProjectDir)include/;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>

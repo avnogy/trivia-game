@@ -5,7 +5,9 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-
+    <BaseOutputPath>$(SolutionDir)bin/Frontend/</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)bin/.intermediate/Frontend/</BaseIntermediateOutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
