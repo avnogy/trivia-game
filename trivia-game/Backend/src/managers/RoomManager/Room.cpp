@@ -44,7 +44,7 @@ std::vector<std::string> Room::getAllUsers() const
 	return allUsers;
 }
 
-Room::Room(const RoomData& data, const LoggedUser& user): m_metadata(data)
+Room::Room(const RoomData& data, const LoggedUser& user) : m_metadata(data)
 {
 	m_loggedUsers.insert(user);
 }

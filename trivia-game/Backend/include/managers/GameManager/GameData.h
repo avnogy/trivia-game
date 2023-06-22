@@ -7,4 +7,3 @@ struct GameData
 	unsigned int wrongAnswerCount;
 	float AverageAnswerTime;
 };
-

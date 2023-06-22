@@ -29,7 +29,6 @@ public:
 	virtual std::vector<std::string> getLeaderboard() const = 0;
 	virtual bool addUserStatistic(const PlayerResults& statistic) const = 0;
 
-
 	//questions
 	virtual std::queue<Question> getQuestions() const = 0;
 	virtual bool addQuestion(const Question& question) const = 0;

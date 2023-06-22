@@ -117,7 +117,7 @@ void Socket::send(std::string message)
 		messageSize = '0' + messageSize;
 
 	message = messageSize + message;
-	
+
 	if (::send(m_socket, message.c_str(), message.size(), 0) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - send");
 

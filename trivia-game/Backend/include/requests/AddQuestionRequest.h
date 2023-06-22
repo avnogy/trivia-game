@@ -4,7 +4,7 @@
 
 struct AddQuestionRequest
 {
-    std::string question;
-    std::vector<std::string> possibleAnswers;
-    std::string correctAnswer;
+	std::string question;
+	std::vector<std::string> possibleAnswers;
+	std::string correctAnswer;
 };

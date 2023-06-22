@@ -59,6 +59,4 @@ public:
 	static std::string serializeResponse(const UpdateResponse& response);
 	static std::string serializeResponse(const CorrectAnswerResponse& response);
 	static std::string serializeResponse(const MessageTypeResponse& response);
-
 };
-

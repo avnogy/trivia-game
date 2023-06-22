@@ -52,7 +52,6 @@ void Communicator::handleNewClient(Socket* socket)
 				result = m_clients[socket]->handleRequest(request);  //handling client
 				socket->send(result.response);						 //sending client response
 				m_clients[socket] = result.newHandler;			     //updating client handler
-
 			}
 			else
 			{

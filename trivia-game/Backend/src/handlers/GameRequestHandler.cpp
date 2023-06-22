@@ -17,7 +17,7 @@ RequestResult GameRequestHandler::getQuestion(const RequestInfo& requestInfo) co
 /// </summary>
 /// <param name="requestInfo">information about request</param>
 /// <returns>response and next handler</returns>
-RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo) 
+RequestResult GameRequestHandler::submitAnswer(const RequestInfo& requestInfo)
 {
 	SubmitAnswerRequest request = DESERIALIZE(SubmitAnswerRequest, requestInfo.buffer);
 
@@ -48,11 +48,10 @@ RequestResult GameRequestHandler::leaveGame(const RequestInfo& requestInfo)
 {
 	m_game->removePlayer(m_user);
 	ReturnNewRequestResult(
-		SERIALIZE(LeaveGameResponse{LeaveGameResponse::SUCCESS}),
+		SERIALIZE(LeaveGameResponse{ LeaveGameResponse::SUCCESS }),
 		RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
 	);
 }
-
 
 /// <summary>
 /// logs out the user in the middle of a game
@@ -88,9 +87,9 @@ bool GameRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::LeaveGameRequest: 
-	case IDS::GetQuestionRequest: 
-	case IDS::SubmitAnswerRequest: 	
+	case IDS::LeaveGameRequest:
+	case IDS::GetQuestionRequest:
+	case IDS::SubmitAnswerRequest:
 	case IDS::LogoutRequest:
 		return true;
 	default:

@@ -54,7 +54,7 @@ void Game::sendCorrectAnswers(Game* game)
 				game->getQuestions().size() <= 1 ? MessageTypeResponse::Type::GetGameResultsResponse : MessageTypeResponse::Type::CorrectAnswerResponse, //if last question, send GetGameResultsResponse
 				JsonRequestPacketSerializer::instance().serializeResponse(CorrectAnswerResponse{ game->m_currentQuestion.getCorrectAnswer() }) }
 		));
-		
+
 		//sending message to players
 		for (auto& user : game->m_players)
 		{
@@ -70,16 +70,16 @@ void Game::sendCorrectAnswers(Game* game)
 			{
 				Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
 				user.second.AverageAnswerTime /= count; //calculating average answering time
-				
-				//sending end results 
+
+				//sending end results
 				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(
-					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, sortResultsByWinner(game->getGameResults())}
+					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, sortResultsByWinner(game->getGameResults()) }
 				));
 			}
 			for (const auto& result : game->getGameResults())
 			{
 				//adding result to the database
-				if(!StatisticsManager::instance().addUserStatistic(result))
+				if (!StatisticsManager::instance().addUserStatistic(result))
 				{
 					throw DatabaseError(__FUNCTION__" - Sql request failed.");
 				}
@@ -158,14 +158,13 @@ void Game::nextQuestion()
 	m_currentQuestion = m_questions.front();
 }
 
-
 /// <summary>
 /// checking if the answer is correct, and getting the correct answer
 /// </summary>
 /// <param name="user">user that submitted the answer</param>
 /// <param name="answer>the answer the user submitted</param>
 /// <returns>SubmitAnswerResponse</returns>
-void Game::submitAnswer(const LoggedUser& user, const std::string& answer,const float timeToAnswer)
+void Game::submitAnswer(const LoggedUser& user, const std::string& answer, const float timeToAnswer)
 {
 	m_submitCountMutex.lock();
 	m_submitCount.insert(user.getUsername());

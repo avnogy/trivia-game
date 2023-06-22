@@ -1,6 +1,5 @@
 #include "managers/GameManager/GameManager.h"
 
-
 /// <summary>
 /// Creating a new game
 /// </summary>

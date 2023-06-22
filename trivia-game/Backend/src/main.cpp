@@ -12,7 +12,6 @@ int main()
 		WSAInitializer wsaInit;
 
 		Server::instance().run();
-
 	}
 	catch (std::exception& e)
 	{

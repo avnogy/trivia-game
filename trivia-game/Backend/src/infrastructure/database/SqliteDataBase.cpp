@@ -240,7 +240,6 @@ int SqliteDataBase::getUserId(const std::string& username) const
 	return numOfCorrectAnswers;
 }
 
-
 /// <summary>
 /// getting from the database the num of total answers of a player
 /// </summary>
@@ -330,13 +329,12 @@ std::queue<Question> SqliteDataBase::getQuestions() const
 	};
 
 	if (!sqlexec(
-		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;", callback, &questions) 
+		"SELECT question, correctAnswer, possibleAnswer1, possibleAnswer2, possibleAnswer3 FROM questions;", callback, &questions)
 		|| questions.size() <= 0)
 	{
 		throw SQLITE_DATABASE_ERROR;
 	}
 	return questions;
-
 }
 
 /// <summary>
@@ -344,17 +342,16 @@ std::queue<Question> SqliteDataBase::getQuestions() const
 /// </summary>
 /// <param name="question"></param>
 /// <returns>status of operation</returns>
-bool SqliteDataBase::addQuestion(const Question& question) const 
+bool SqliteDataBase::addQuestion(const Question& question) const
 {
 	return sqlexec("INSERT INTO questions (question,correctanswer,possibleanswer1,possibleanswer2,possibleanswer3) VALUES(\"" +
-				    question.getQuestion() +
+		question.getQuestion() +
 		"\" , \"" + question.getCorrectAnswer() +
 		"\" , \"" + question.getPossibleAnswers()[1] +
 		"\" , \"" + question.getPossibleAnswers()[2] +
 		"\" , \"" + question.getPossibleAnswers()[3] +
 		"\" );", nullptr, nullptr);
 }
-
 
 /// <summary>
 /// retrives leaderboard from the database
@@ -370,7 +367,7 @@ std::vector<std::string> SqliteDataBase::getLeaderboard() const
 			return 0;
 
 		std::vector<std::string>& players = *(std::vector<std::string>*)data;
-		
+
 		//entering the amount of fields returned to the vector
 		int count = 0;
 		while (argv[count] != NULL && count <= (5 * 4)) //5 players where each one has 4 fields
@@ -380,11 +377,9 @@ std::vector<std::string> SqliteDataBase::getLeaderboard() const
 		return 0;
 	};
 
-
-
 	if (!sqlexec(
 		"SELECT users.name, statistics.averageAnswerTime,statistics.numOfCorrectAnswers,statistics.numOfPlayerGames FROM statistics INNER JOIN users ON users.user_id = statistics.user_id LIMIT 5;",
-		callback,&players))
+		callback, &players))
 	{
 		throw SQLITE_DATABASE_ERROR;
 	}
@@ -397,7 +392,7 @@ bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
 	int userId = getUserId(statistic.username);
 	float averageTime = getPlayerAverageAnswerTime(statistic.username);
 	int totalAnswers = getNumOfTotalAnswers(statistic.username);
-	int correctAnswers = getNumOfCorrectAnswers(statistic.username);	
+	int correctAnswers = getNumOfCorrectAnswers(statistic.username);
 	int playedGames = getNumOfPlayerGames(statistic.username);
 
 	return sqlexec(
@@ -405,12 +400,12 @@ bool SqliteDataBase::addUserStatistic(const PlayerResults& statistic) const
 		"(statistics_id, user_id, averageAnswerTime, numOfCorrectAnswers, numOfTotalAnswers, numOfPlayerGames) "
 		"VALUES "
 		"((SELECT statistics_id FROM statistics WHERE user_id = " + std::to_string(userId) + ")," +
-			std::to_string(userId) + "," +
-			std::to_string((totalAnswers * averageTime + (statistic.averageAnswerTime * (statistic.correctAnswerCount + statistic.wrongAnswerCount))) / (totalAnswers + (statistic.correctAnswerCount + statistic.wrongAnswerCount))) + "," +
-			std::to_string(correctAnswers + statistic.correctAnswerCount) + "," +
-			std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + "," +
-			std::to_string(playedGames + 1)+
-			");",
+		std::to_string(userId) + "," +
+		std::to_string((totalAnswers * averageTime + (statistic.averageAnswerTime * (statistic.correctAnswerCount + statistic.wrongAnswerCount))) / (totalAnswers + (statistic.correctAnswerCount + statistic.wrongAnswerCount))) + "," +
+		std::to_string(correctAnswers + statistic.correctAnswerCount) + "," +
+		std::to_string(totalAnswers + statistic.correctAnswerCount + statistic.wrongAnswerCount) + "," +
+		std::to_string(playedGames + 1) +
+		");",
 		nullptr,
 		nullptr);
 }

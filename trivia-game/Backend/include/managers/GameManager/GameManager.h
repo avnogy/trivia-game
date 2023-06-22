@@ -18,4 +18,3 @@ private:
 public:
 	Game* createGame(const Room& room);
 };
-

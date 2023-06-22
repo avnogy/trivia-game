@@ -10,7 +10,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(const RequestInfo& requestInfo
 	bool result = m_room.removeUser(m_user);
 
 	ReturnNewRequestResult(
-		SERIALIZE(LeaveRoomResponse{result ? LeaveRoomResponse::SUCCESS : LeaveRoomResponse::FAILURE}),
+		SERIALIZE(LeaveRoomResponse{ result ? LeaveRoomResponse::SUCCESS : LeaveRoomResponse::FAILURE }),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
 	);
 }
@@ -66,7 +66,6 @@ RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& request
 
 	case IDS::LogoutRequest:
 		return logout(requestInfo);
-
 	}
 }
 

@@ -12,7 +12,7 @@ RequestResult MenuRequestHandler::logout(const RequestInfo& requestInfo) const
 	ReturnNewRequestResult(
 		SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 		RequestHandlerFactory::instance().createLoginRequestHandler()
-	); 
+	);
 }
 
 /// <summary>
@@ -90,7 +90,7 @@ RequestResult MenuRequestHandler::joinRoom(const RequestInfo& requestInfo) const
 	{
 	case true:
 		ReturnNewRequestResult(
-			SERIALIZE(JoinRoomResponse{JoinRoomResponse::SUCCESS}),
+			SERIALIZE(JoinRoomResponse{ JoinRoomResponse::SUCCESS }),
 			RequestHandlerFactory::instance().createRoomMemberRequestHandler(RoomManager::instance().getRoom(request.roomId), m_user)
 		);
 
@@ -117,9 +117,9 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 	{
 	case true:
 		ReturnNewRequestResult(
-			SERIALIZE(CreateRoomResponse{CreateRoomResponse::SUCCESS}),
+			SERIALIZE(CreateRoomResponse{ CreateRoomResponse::SUCCESS }),
 			RequestHandlerFactory::instance().createRoomAdminRequestHandler(RoomManager::instance().getRoom(roomData.id), m_user)
-		); 
+		);
 
 	case false:
 		return {
@@ -139,14 +139,13 @@ RequestResult MenuRequestHandler::addQuestion(const RequestInfo& requestInfo) co
 	AddQuestionRequest request = DESERIALIZE(AddQuestionRequest, requestInfo.buffer);
 	//putting correct answer at [0]
 	request.possibleAnswers.insert(request.possibleAnswers.begin(), request.correctAnswer);
-	Question question{request.question,request.possibleAnswers};
+	Question question{ request.question,request.possibleAnswers };
 	bool result = IDatabase::instance()->addQuestion(question);
 
 	return RequestResult{
 	SERIALIZE(LogoutResponse{ (unsigned int)(result == true ? LogoutResponse::SUCCESS : LogoutResponse::FAILURE) }),
 	(IRequestHandler*)this
 	};
-
 }
 
 /// <summary>
@@ -167,13 +166,13 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& requestInfo) const
 {
 	switch (requestInfo.id)
 	{
-	case IDS::CreateRoomRequest: 
-	case IDS::GetRoomsRequest: 
-	case IDS::GetPlayersInRoomRequest: 
-	case IDS::JoinRoomRequest: 
-	case IDS::GetStatisticsRequest: 
+	case IDS::CreateRoomRequest:
+	case IDS::GetRoomsRequest:
+	case IDS::GetPlayersInRoomRequest:
+	case IDS::JoinRoomRequest:
+	case IDS::GetStatisticsRequest:
 	case IDS::LogoutRequest:
-	case IDS::GetLeaderboardRequest: 
+	case IDS::GetLeaderboardRequest:
 	case IDS::AddQuestionRequest:
 		return true;
 	default:
@@ -210,7 +209,7 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& requestInfo)
 
 	case IDS::LogoutRequest:
 		return logout(requestInfo);
-	
+
 	case IDS::AddQuestionRequest:
 		return addQuestion(requestInfo);
 	}

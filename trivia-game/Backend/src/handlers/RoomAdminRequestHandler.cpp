@@ -29,7 +29,7 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
 	ReturnNewRequestResult(
-		SERIALIZE(CloseRoomResponse{CloseRoomResponse::SUCCESS}),
+		SERIALIZE(CloseRoomResponse{ CloseRoomResponse::SUCCESS }),
 		(IRequestHandler*)RequestHandlerFactory::instance().createMenuRequestHandler(m_user)
 	);
 }
@@ -41,17 +41,17 @@ RequestResult RoomAdminRequestHandler::closeRoom(const RequestInfo& requestInfo)
 /// <returns>response and new handler</returns>
 RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo) const
 {
-	std::shared_ptr<Game> game( GameManager::instance().createGame(m_room) );
+	std::shared_ptr<Game> game(GameManager::instance().createGame(m_room));
 
 	for (auto& user : m_room.getAllUsers())
 	{
 		//if user is this user, continue
 		if (user == m_user.getUsername())
 			continue;
-		
+
 		//accesing the users socket
 		Socket* userSocket = Communicator::instance().getSocket(user);
-		
+
 		//creating a new handler to user
 		IRequestHandler* newRequestHandler = RequestHandlerFactory::instance().createGameRequestHandler(game, user);
 
@@ -65,7 +65,7 @@ RequestResult RoomAdminRequestHandler::startGame(const RequestInfo& requestInfo)
 	RoomManager::instance().deleteRoom(m_room.getRoomData().id);
 
 	ReturnNewRequestResult(
-		SERIALIZE(StartGameResponse{StartGameResponse::SUCCESS}),
+		SERIALIZE(StartGameResponse{ StartGameResponse::SUCCESS }),
 		(IRequestHandler*)RequestHandlerFactory::instance().createGameRequestHandler(game, m_user)
 	);
 }

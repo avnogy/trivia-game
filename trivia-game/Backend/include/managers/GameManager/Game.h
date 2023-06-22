@@ -34,13 +34,12 @@ public:
 	bool isAlreadySubmited(const LoggedUser& user) const;
 
 	std::queue<Question> getQuestions() const;
-	const Question&		 getQuestion() const;
+	const Question& getQuestion() const;
 	void				 nextQuestion();
 	std::vector<PlayerResults> getGameResults() const;
 
-	void submitAnswer(const LoggedUser& user, const std::string& answer,const float timeToAnswer) ;
+	void submitAnswer(const LoggedUser& user, const std::string& answer, const float timeToAnswer);
 	void removePlayer(const LoggedUser& user);
 
 	static void sendCorrectAnswers(Game* game);
 };
-
