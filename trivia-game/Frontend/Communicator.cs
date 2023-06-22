@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows;
 
 namespace Frontend
 {
@@ -40,11 +41,18 @@ namespace Frontend
         /// <param name="port">server port</param>
         public static void Init(String ip, int port)
         {
-            socket = new TcpClient();
-            endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-            socket.Connect(endPoint);
-
-            stream = socket.GetStream();
+            try
+            {
+                socket = new TcpClient();
+                endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+                socket.Connect(endPoint);
+                stream = socket.GetStream();
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("No connection could be made because the target machine actively refused it.\nMake sure the server is running.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(1);
+            }
         }
 
         /// <summary>

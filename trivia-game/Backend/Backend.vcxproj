@@ -233,7 +233,6 @@
     <ClInclude Include="include\responses\LogoutResponse.h" />
     <ClInclude Include="include\responses\GetStatisticsResponse.h" />
     <ClInclude Include="include\responses\SubmitAnswerResponse.h" />
-    <ClInclude Include="include\server\Communicator.h" />
     <ClInclude Include="include\responses\ErrorResponse.h" />
     <ClInclude Include="include\handlers\IRequestHandler.h" />
     <ClInclude Include="include\handlers\LoginRequestHandler.h" />
