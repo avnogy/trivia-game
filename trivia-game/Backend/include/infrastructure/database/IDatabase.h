@@ -6,6 +6,7 @@
 #include "responses/GetGameResultsResponse.h"
 
 #define DATABASE_FILE_PATH "..\\..\\database.sqlite"
+#define DEBUG_DATABASE_FILE_PATH "..\\bin\\database.sqlite"
 
 class IDatabase
 {
