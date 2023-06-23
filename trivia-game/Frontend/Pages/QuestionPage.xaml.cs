@@ -143,7 +143,7 @@ namespace Frontend
                 }
                 else if (response.type == MessageTypeResponse.Type.GetGameResultsResponse)
                 {
-                    serverListener.ReportProgress(3, correctAnswerResponse);
+                    serverListener.ReportProgress((int)MessageTypeResponse.Type.LastCorrectAnswerResponse, correctAnswerResponse);
 
                     receiveMtx.WaitOne();
                     GetGameResultsResponse gameResultsResponse = JsonConvert.DeserializeObject<GetGameResultsResponse>(Communicator.Receive());
@@ -165,24 +165,31 @@ namespace Frontend
         {
             switch ((MessageTypeResponse.Type)e.ProgressPercentage)
             {
+
                 case MessageTypeResponse.Type.CorrectAnswerResponse:
                     markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
 
-                    var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2.5) };
-                    timer.Start();
-                    timer.Tick += (sender, args) =>
+                    var questionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2.5) };
+                    questionTimer.Start();
+                    questionTimer.Tick += (sender, args) =>
                     {
-                        timer.Stop();
+                        questionTimer.Stop();
                         ((MainWindow)Application.Current.MainWindow).frame.Content = new QuestionPage(timeToAnswer);
                     };
                     break;
-
-                case MessageTypeResponse.Type.GetGameResultsResponse:
-                    ((MainWindow)Application.Current.MainWindow).frame.Content = new GameScorePage((GetGameResultsResponse)e.UserState);
+                
+                case MessageTypeResponse.Type.LastCorrectAnswerResponse:
+                    markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
                     break;
 
-                case (MessageTypeResponse.Type)3:
-                    markCorrectAnswer(((CorrectAnswerResponse)e.UserState).correctAnswer);
+                case MessageTypeResponse.Type.GetGameResultsResponse:
+                    var resultTimer= new DispatcherTimer { Interval = TimeSpan.FromSeconds(2.5) };
+                    resultTimer.Start();
+                    resultTimer.Tick += (sender, args) =>
+                    {
+                        resultTimer.Stop();
+                        ((MainWindow)Application.Current.MainWindow).frame.Content = new GameScorePage((GetGameResultsResponse)e.UserState);
+                    };
                     break;
             }
         }

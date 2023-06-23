@@ -7,7 +7,8 @@ namespace Frontend.Responses
         public enum Type
         {
             CorrectAnswerResponse,
-            GetGameResultsResponse
+            GetGameResultsResponse,
+            LastCorrectAnswerResponse
         }
 
         public Type type;
