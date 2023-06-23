@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,11 +83,15 @@ namespace Frontend
 
         private void initializeComponents(GetQuestionResponse response)
         {
+            Random random = new();
+            response.possibleAnswers = response.possibleAnswers.OrderBy(x => random.Next()).ToArray();
+
             questionLBL.Content = response.question;
             choiceTopLeftBTN.Content = response.possibleAnswers[0];
             choiceTopRightBTN.Content = response.possibleAnswers[1];
             choiceBottomLeftBTN.Content = response.possibleAnswers[2];
             choiceBottomRightBTN.Content = response.possibleAnswers[3];
+            
 
             //initiating buttins
             this.buttons = new Button[5];
