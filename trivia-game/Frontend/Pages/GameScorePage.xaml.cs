@@ -16,36 +16,43 @@ namespace Frontend.Pages
         public GameScorePage(GetGameResultsResponse gameResults)
         {
             InitializeComponent();
-            foreach (PlayerResults player in gameResults.results)
+            double[] scores = new double[gameResults.results.Count];
+            foreach (var item in gameResults.results.Select((player, i) => new { i, player }))
+            {
+                scores[item.i] = Math.Round(1000 * ((float)item.player.correctAnswerCount /
+                    (float)((item.player.wrongAnswerCount + item.player.averageAnswerTime) == 0 ?
+                    1 : ((item.player.wrongAnswerCount) * 3 + item.player.averageAnswerTime))));
+            }
+            foreach (var item in gameResults.results.Select((player, i) => new { i, player }))
             {
                 Label label = new Label();
-                label.Content = "username: "+ player.username;
+                label.Content = "username: "+ item.player.username;
                 label.FontSize = 24;
                 label.FontFamily = new FontFamily("Ink Free");
                 label.FontWeight = FontWeights.Bold;
                 label.Foreground = new BrushConverter().ConvertFrom("#292929") as Brush;
-                if (player.username == App.username)
+                if (item.player.username == App.username)
                 {
                     label.Content += "(you)";
                     label.Foreground = new BrushConverter().ConvertFrom("#000000") as Brush;
                 }
-                if (player.username == gameResults.results.FirstOrDefault().username)
+
+                
+
+                label.Content += "\nscore: " +scores[item.i];
+                scoresSP.Children.Add(label);
+
+                if (scores[item.i] == scores.Max())
                 {
                     //player is the winner
                     label.Foreground = new BrushConverter().ConvertFrom("#C58500") as Brush;
                     label.Content += "(winner)";
                 }
-
-                label.Content += "\nscore: " +Math.Round(1000 * ((float)player.correctAnswerCount/
-                    (float)((player.wrongAnswerCount + player.averageAnswerTime) == 0 ?
-                    1 : ((player.wrongAnswerCount)*3 + player.averageAnswerTime))));
-                scoresSP.Children.Add(label);
-
-                if (player.username == App.username)
+                if (item.player.username == App.username)
                 {
-                    label.Content += "\nright answers: " + player.correctAnswerCount + "\n";
-                    label.Content += "wrong answers: " + player.wrongAnswerCount + "\n";
-                    label.Content += "average time to answer: " + Math.Round(player.averageAnswerTime, 2);
+                    label.Content += "\nright answers: " + item.player.correctAnswerCount + "\n";
+                    label.Content += "wrong answers: " + item.player.wrongAnswerCount + "\n";
+                    label.Content += "average time to answer: " + Math.Round(item.player.averageAnswerTime, 2);
                 }
             }
         }
