@@ -148,11 +148,7 @@ void Communicator::startHandleRequest()
 		m_clients.insert({ newClient, RequestHandlerFactory::instance().createLoginRequestHandler() });
 
 		//handling new connection in a separate thread
-#ifndef _DEBUG
 		std::thread t_handleNewClient(&Communicator::handleNewClient, this, newClient);
 		t_handleNewClient.detach();
-#else
-		handleNewClient(newClient);
-#endif
 	}
 }
