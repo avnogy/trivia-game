@@ -68,10 +68,13 @@ void Game::sendCorrectAnswers(Game* game)
 		{
 			for (auto& user : game->m_players)
 			{
-				Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
-				user.second.AverageAnswerTime /= count; //calculating average answering time
-
+				//calculating and updating average answer time for each player
+				user.second.AverageAnswerTime /= count; 
+			}
+			for (auto& user : game->m_players)
+			{
 				//sending end results
+				Socket* userSocket = Communicator::instance().getSocket(user.first.getUsername());
 				userSocket->send(JsonRequestPacketSerializer::instance().serializeResponse(
 					GetGameResultsResponse{ GetGameResultsResponse::SUCCESS, sortResultsByWinner(game->getGameResults()) }
 				));
@@ -103,10 +106,10 @@ std::vector<PlayerResults> Game::sortResultsByWinner(std::vector<PlayerResults> 
 	//compares two users by avrage time and correctness of answers
 	auto compare = [](PlayerResults a, PlayerResults b)
 	{
-		return (1000 * a.correctAnswerCount /
-			((a.wrongAnswerCount * a.averageAnswerTime)) == 0 ? 1 : ((a.wrongAnswerCount * 3 + a.averageAnswerTime))) <
-			(1000 * b.correctAnswerCount /
-				(b.wrongAnswerCount * b.averageAnswerTime) == 0 ? 1 : (b.wrongAnswerCount * 3 + b.averageAnswerTime));
+		return (a.correctAnswerCount /
+			(a.wrongAnswerCount + a.averageAnswerTime) == 0 ? 1 : (a.wrongAnswerCount * 3 + a.averageAnswerTime)) <
+			(b.correctAnswerCount /
+				(b.wrongAnswerCount + b.averageAnswerTime) == 0 ? 1 : (b.wrongAnswerCount * 3 + b.averageAnswerTime));
 	};
 	std::sort(v.begin(), v.end(), compare);
 	return v;
