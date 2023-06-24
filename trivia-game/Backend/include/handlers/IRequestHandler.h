@@ -1,12 +1,10 @@
 #pragma once
 #include "requests/RequestInfo.h"
 #include "requests/RequestResult.h"
-
-#include <iostream>
 #include "infrastructure/json/JsonRequestPacketDeserializer.h"
 #include "infrastructure/json/JsonRequestPacketSerializer.h"
 
-class RequestResult;
+struct RequestResult;
 
 class IRequestHandler
 {

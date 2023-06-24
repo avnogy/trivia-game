@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+#include "utils/utils.h"
 #include <exception>
 
 class DatabaseError : public std::exception

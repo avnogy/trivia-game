@@ -1,7 +1,6 @@
 #pragma once
+#include "utils/utils.h"
 #include "infrastructure/json/json.hpp"
-#include <vector>
-#include <string>
 #include "requests/LoginRequest.h"
 #include "requests/SignupRequest.h"
 #include "requests/GetPlayersInRoomRequest.h"
@@ -9,7 +8,6 @@
 #include "requests/JoinRoomRequest.h"
 #include "requests/SubmitAnswerRequest.h"
 #include "requests/AddQuestionRequest.h"
-#include "utils/Singleton.h"
 
 using namespace nlohmann;
 

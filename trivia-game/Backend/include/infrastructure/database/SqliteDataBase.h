@@ -2,10 +2,7 @@
 #include "infrastructure/database/DatabaseError.h"
 #include "infrastructure/database/IDatabase.h"
 #include "sqlite3.h"
-#include <string>
-#include <iostream>
 #include <io.h>
-#include <cassert>
 
 #define ACCESS_CODE 6
 

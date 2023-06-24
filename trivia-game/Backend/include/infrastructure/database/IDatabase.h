@@ -1,12 +1,8 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <queue>
+#include "utils/utils.h"
+
 #include "managers/GameManager/Question.h"
 #include "responses/GetGameResultsResponse.h"
-
-#define DATABASE_FILE_PATH "..\\..\\database.sqlite"
-#define DEBUG_DATABASE_FILE_PATH "..\\bin\\database.sqlite"
 
 class IDatabase
 {

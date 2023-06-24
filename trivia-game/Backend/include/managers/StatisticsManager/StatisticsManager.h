@@ -1,10 +1,6 @@
 #pragma once
-#include <vector>
-#include <string>
-#include <map>
 #include "infrastructure/database/IDatabase.h"
 #include "responses/GetGameResultsResponse.h"
-#include "utils/Singleton.h"
 
 class StatisticsManager
 {

@@ -1,4 +1,5 @@
 #pragma once
+#include "utils/utils.h"
 
 #include "managers/LoginManager/LoginManager.h"
 #include "managers/RoomManager/RoomManager.h"
@@ -11,9 +12,7 @@
 #include "handlers/RoomAdminRequestHandler.h"
 #include "handlers/RoomMemberRequestHandler.h"
 #include "handlers/GameRequestHandler.h"
-#include "utils/Singleton.h"
 
-#include <memory>
 
 class LoginRequestHandler;
 class MenuRequestHandler;

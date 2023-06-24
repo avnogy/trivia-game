@@ -1,7 +1,8 @@
 #pragma once
+#include "utils/utils.h"
 #include "infrastructure/json/json.hpp"
 #include "managers/GameManager/Question.h"
-#include <vector>
+
 #include "responses/LoginResponse.h"
 #include "responses/SignupResponse.h"
 #include "responses/ErrorResponse.h"
@@ -12,7 +13,6 @@
 #include "responses/CreateRoomResponse.h"
 #include "responses/GetStatisticsResponse.h"
 #include "responses/GetHighScoreResponse.h"
-#include "utils/Singleton.h"
 #include "responses/CloseRoomResponse.h"
 #include "responses/StartGameResponse.h"
 #include "responses/GetRoomStateResponse.h"

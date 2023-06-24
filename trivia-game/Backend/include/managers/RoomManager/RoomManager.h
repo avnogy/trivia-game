@@ -1,7 +1,6 @@
 #pragma once
 #include "managers/RoomManager/Room.h"
-#include "utils/Singleton.h"
-#include <map>
+
 #define WAITING_TO_START_GAME 42
 #define GAME_ACTIVE 43
 

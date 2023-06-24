@@ -1,8 +1,5 @@
 #pragma once
-#include <queue>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
+#include "utils/utils.h"
 #include "infrastructure/Communicator.h"
 #include "infrastructure/json/JsonRequestPacketSerializer.h"
 #include "managers/GameManager/Question.h"
@@ -12,9 +9,6 @@
 #include "managers/GameManager/Question.h"
 #include "responses/GetGameResultsResponse.h"
 #include "handlers/GameRequestHandler.h"
-
-#include <thread>
-#include <mutex>
 
 class Game
 {

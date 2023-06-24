@@ -129,6 +129,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)/include/</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -184,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\GameRequestHandler.h" />
+    <ClInclude Include="include\infrastructure\database\UpdateQuestions.h" />
     <ClInclude Include="include\managers\GameManager\GameManager.h" />
     <ClInclude Include="include\managers\GameManager\Game.h" />
     <ClInclude Include="include\managers\GameManager\GameData.h" />
@@ -243,6 +245,7 @@
     <ClInclude Include="include\responses\SignupResponse.h" />
     <ClInclude Include="include\handlers\MenuRequestHandler.h" />
     <ClInclude Include="include\utils\Singleton.h" />
+    <ClInclude Include="include\utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

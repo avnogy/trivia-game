@@ -1,8 +1,7 @@
 #pragma comment (lib, "ws2_32.lib")
-
 #include "infrastructure/WSAInitializer.h"
 #include "infrastructure/Server.h"
-#include <iostream>
+#include "utils/utils.h"
 
 int main()
 {

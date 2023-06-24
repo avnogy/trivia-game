@@ -1,9 +1,9 @@
 #include "infrastructure/database/IDatabase.h"
 #include "infrastructure/database/SqliteDataBase.h"
-#include <Windows.h>
-#include <debugapi.h>
+#include "utils/utils.h"
 
-IDatabase* IDatabase::m_instance = new SqliteDataBase(IsDebuggerPresent() ? DEBUG_DATABASE_FILE_PATH : DATABASE_FILE_PATH);
+//IDatabase* IDatabase::m_instance = new SqliteDataBase(std::format("{}bin\\database.sqlite",BASE_PATH));
+IDatabase* IDatabase::m_instance = new SqliteDataBase(BASE_PATH+"bin\\database.sqlite");
 
 IDatabase* IDatabase::instance()
 {

@@ -91,6 +91,8 @@
     <ClInclude Include="include\infrastructure\Socket.h" />
     <ClInclude Include="include\infrastructure\SocketError.h" />
     <ClInclude Include="include\infrastructure\WSAInitializer.h" />
+    <ClInclude Include="include\utils\utils.h" />
+    <ClInclude Include="include\infrastructure\database\UpdateQuestions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
