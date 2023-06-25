@@ -13,6 +13,7 @@ Game* GameManager::createGame(const Room& room)
 	}
 	else
 	{
+		//TO:DO throw exception here
 		std::cout << "error while adding questions." << std::endl;
 	}
 
