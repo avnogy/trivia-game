@@ -13,7 +13,6 @@
 #include "handlers/RoomMemberRequestHandler.h"
 #include "handlers/GameRequestHandler.h"
 
-
 class LoginRequestHandler;
 class MenuRequestHandler;
 class RoomAdminRequestHandler;

@@ -69,7 +69,7 @@ void Game::sendCorrectAnswers(Game* game)
 			for (auto& user : game->m_players)
 			{
 				//calculating and updating average answer time for each player
-				user.second.AverageAnswerTime /= count; 
+				user.second.AverageAnswerTime /= count;
 			}
 			for (auto& user : game->m_players)
 			{

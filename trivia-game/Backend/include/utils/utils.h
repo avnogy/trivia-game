@@ -21,4 +21,3 @@
 #define DEBUG_BASE_PATH "..\\"
 
 const std::string BASE_PATH = IsDebuggerPresent() ? DEBUG_BASE_PATH : NONDEBUG_BASE_PATH;
-
