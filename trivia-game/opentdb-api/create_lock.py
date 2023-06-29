@@ -1,5 +1,4 @@
-import sqlite3
-import sys
+import sqlite3, os , sys
 
 OPENTDB_URL = r'https://opentdb.com/api.php?amount=3&type=multiple&encode=base64'
 DATABASE_PATH = sys.argv[1] if len(sys.argv) > 1 else r"..\\"
@@ -22,5 +21,6 @@ def clean():
     conn.close()
 
 if __name__ == '__main__':
-    clean()
-    create_marker()
+    if not os.path.exists(DATABASE_PATH+".lock"):
+        clean()
+        create_marker()
