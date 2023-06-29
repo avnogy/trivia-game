@@ -1,4 +1,4 @@
-import requests, json, sqlite3, base64
+import requests, json, sqlite3, base64,os
 import sys
 
 OPENTDB_URL = r'https://opentdb.com/api.php?amount=3&type=multiple&encode=base64'
@@ -68,7 +68,10 @@ def main():
     for question in questions:
        print_question(question)
         
-
-
+ 
 if __name__ == '__main__':
-    main()
+    #if the lockfile exists it means the user is making his own questions and we shouldnt delete them
+    if os.path.exists(DATABASE_PATH+".lock"):
+        os.remove(DATABASE_PATH+".lock")
+    else:
+        main()

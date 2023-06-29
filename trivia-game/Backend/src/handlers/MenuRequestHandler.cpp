@@ -136,6 +136,7 @@ RequestResult MenuRequestHandler::createRoom(const RequestInfo& requestInfo) con
 /// <returns></returns>
 RequestResult MenuRequestHandler::addQuestion(const RequestInfo& requestInfo) const
 {
+	createLockFile(); //creating a file that says that the questions are custom and should not be overridden unting the next game
 	AddQuestionRequest request = DESERIALIZE(AddQuestionRequest, requestInfo.buffer);
 	//putting correct answer at [0]
 	request.possibleAnswers.insert(request.possibleAnswers.begin(), request.correctAnswer);

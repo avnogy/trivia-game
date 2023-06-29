@@ -1,5 +1,4 @@
 #include "managers/GameManager/GameManager.h"
-#include "infrastructure/database/UpdateQuestions.h"
 /// <summary>
 /// Creating a new game
 /// </summary>
@@ -7,16 +6,7 @@
 /// <returns></returns>
 Game* GameManager::createGame(const Room& room)
 {
-	if (updateQuestions())
-	{
-		std::cout << "populated questions." << std::endl;
-	}
-	else
-	{
-		//TO:DO throw exception here
-		std::cout << "error while adding questions." << std::endl;
-	}
-
+	updateQuestions();
 	Game* game = new Game(IDatabase::instance()->getQuestions(), room.getAllUsers());
 	m_games.push_back(game);
 	return game;

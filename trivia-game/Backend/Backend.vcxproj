@@ -185,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handlers\GameRequestHandler.h" />
-    <ClInclude Include="include\infrastructure\database\UpdateQuestions.h" />
     <ClInclude Include="include\managers\GameManager\GameManager.h" />
     <ClInclude Include="include\managers\GameManager\Game.h" />
     <ClInclude Include="include\managers\GameManager\GameData.h" />
