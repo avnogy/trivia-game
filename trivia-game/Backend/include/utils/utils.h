@@ -1,6 +1,7 @@
 #pragma once
 #pragma comment (lib, "ws2_32.lib")
 
+#define VC_EXTRALEAN
 #include <WinSock2.h>
 #include <Windows.h>
 #include <debugapi.h>
